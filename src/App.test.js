@@ -3,6 +3,6 @@ import App from './App';
 
 test('renders Knapsack Capacity Element', () => {
   render(<App />);
-  const capacity = screen.getByText(/Knapsack Capacity is/i);
+  const capacity = screen.getByText(/Knapsack Capacity:/i);
   expect(capacity).toBeInTheDocument();
 });

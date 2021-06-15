@@ -1,10 +1,25 @@
-import React from "react"
+import React from "react";
+import PropTypes from 'prop-types';
+import capacityDefaults from "../models/CapacityDefaults";
 
-function Capacity() {
-  const capacity = 7
-  return(
-    <p>Knapsack Capacity is {capacity}</p>
-  )
-}
+function Capacity({ capacity, onCapacityChange }) {
+  return (
+    <div>
+      <label hmlfor="capacity">Knapsack Capacity: </label>
+      <input type="number"
+        id="capacity" 
+        name="capacity" 
+        min={capacityDefaults.min} 
+        max={capacityDefaults.max} 
+        value={capacity}
+        onChange={onCapacityChange} />
+    </div>
+  );
+};
+
+Capacity.propTypes = {
+  capacity: PropTypes.number.isRequired,
+  onCapacityChange: PropTypes.func.isRequired,
+};
 
 export default Capacity;

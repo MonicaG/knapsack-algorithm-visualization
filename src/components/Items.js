@@ -1,12 +1,7 @@
-import React from "react"
+import React from "react";
+import PropTypes from 'prop-types';
 
-function Items() {
-  const allItems = [
-    { name: 'TV', value: 600, weight: 5 },
-    { name: 'ring', value: 250, weight: 1 },
-    { name: 'cell phone', value: 400, weight: 2 },
-  ]
-
+function Items({items}) {
   return (
     <div>
       <table>
@@ -16,7 +11,7 @@ function Items() {
             <th>Value</th>
             <th>Weight</th>
           </tr>
-          {allItems.map(item => (
+          {items.map(item => (
             <tr key={item.name}>
               <td>{item.name}</td>
               <td>{item.value}</td>
@@ -26,7 +21,15 @@ function Items() {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
+
+Items.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    value: PropTypes.number,
+    weight: PropTypes.number,
+  })),
+};
 
 export default Items;
