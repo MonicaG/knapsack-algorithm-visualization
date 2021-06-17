@@ -1,4 +1,4 @@
-import { render, screen, within} from '@testing-library/react';
+import { render, screen} from '@testing-library/react';
 import SolutionTable from './SolutionTable';
 
 test('items are present', () => {
@@ -26,7 +26,7 @@ test('table size', () => {
     { name: 'item2', value: 20, weight: 1 },
     { name: 'item3', value: 25, weight: 2 },
   ];
-  const {debug} = render(<SolutionTable capacity={capacity} items={items} />);
+  render(<SolutionTable capacity={capacity} items={items} />);
   screen.getByRole("table");
   const rows = screen.getAllByRole("row");
   //5 rows (3 data rows, the header row, and the zero row)

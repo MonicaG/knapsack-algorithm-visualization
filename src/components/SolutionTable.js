@@ -1,31 +1,28 @@
 import PropTypes from 'prop-types';
 import SolutionTableRow from './SolutionTableRow';
+import knapsack from '../models/KnapsackAlgorithm';
 
 function SolutionTable({ capacity, items }) {
-  let row = Array(capacity + 1).fill(0)
+  const capacityRow = Array.from({length: capacity+1}, (e, i)=> i);
+  const solutionTable = knapsack(items, capacity);
   return (
     <div className="SolutionTable">
       <table border="1">
         <tbody>
           <SolutionTableRow
             cellKey="capacityRowCell"
-            row={row}
-            useIndex={true}
+            row={capacityRow}
           />
-          <SolutionTableRow
-            cellKey="emptyRowCell"
-            row={row}
-            useIndex={false}
-          />
-          {items.map(item => (
-            <SolutionTableRow
-              key={item.name}
-              cellKey={item.name + "Cell"}
+
+          {solutionTable.map((row, index) => {
+            const itemName = index === 0 ? " " : items[index-1].name;
+            return <SolutionTableRow
+              key={itemName}
+              cellKey={itemName + "Cell"}
               row={row}
-              firstCellValue={item.name}
-              useIndex={false}
+              firstCellValue={itemName}
             />
-          ))}
+          })}
         </tbody>
       </table>
     </div>
