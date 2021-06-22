@@ -4,6 +4,7 @@ import Items from './components/Items';
 import Capacity from './components/Capacity'
 import capacityDefaults from './models/CapacityDefaults';
 import SolutionTable from './components/SolutionTable';
+import knapsack from './models/KnapsackAlgorithm';
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
     { name: 'ring', value: 250, weight: 1 },
     { name: 'cell phone', value: 400, weight: 2 },
   ];
-
+  const knapsackTable = knapsack(allItems, capacity);
+  
   function handleCapacityChange(event) {
     var numValue = parseInt(event.target.value, 10);
     if (isNaN(numValue)) {
@@ -33,6 +35,7 @@ function App() {
       <SolutionTable
         capacity={capacity}
         items={allItems}
+        knapsackTable={knapsackTable}
       />
     </div>
   );

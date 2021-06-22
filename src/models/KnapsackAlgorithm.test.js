@@ -9,7 +9,6 @@ test('table initialization', () => {
     { name: 'cell phone', value: 20, weight: 2 },
   ];
   const result = knapsack(items, capacity);
-  console.log(result);
   expect(result[1][1]).toBe(0);
   expect(result[1][2]).toBe(0);
   expect(result[1][3]).toBe(0);
