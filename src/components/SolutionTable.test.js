@@ -3,13 +3,14 @@ import SolutionTable from './SolutionTable';
 import knapsack from './../models/KnapsackAlgorithm'
 
 describe('the knapsack solution table', () => {
+  const items = [
+    { name: 'item1', value: 10, weight: 3 },
+    { name: 'item2', value: 20, weight: 1 },
+    { name: 'item3', value: 25, weight: 2 },
+  ];
+
   test('displays the items to use in the algorithm', () => {
     const capacity = 5;
-    const items = [
-      { name: 'item1', value: 10, weight: 3 },
-      { name: 'item2', value: 20, weight: 1 },
-      { name: 'item3', value: 25, weight: 2 },
-    ];
     const knapsackTable = knapsack(items, capacity);
 
     render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
@@ -25,13 +26,7 @@ describe('the knapsack solution table', () => {
 
   test('is created with the correct dimensions', () => {
     const capacity = 6;
-    const items = [
-      { name: 'item1', value: 10, weight: 3 },
-      { name: 'item2', value: 20, weight: 1 },
-      { name: 'item3', value: 25, weight: 2 },
-    ];
     const knapsackTable = knapsack(items, capacity);
-
 
     render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
     screen.getByRole("table");
@@ -48,12 +43,8 @@ describe('the knapsack solution table', () => {
 
   test('is initialized with zeros', () => {
     const capacity = 4;
-    const items = [
-      { name: 'item1', value: 10, weight: 3 },
-      { name: 'item2', value: 20, weight: 1 },
-      { name: 'item3', value: 25, weight: 2 },
-    ];
     const knapsackTable = knapsack(items, capacity);
+
     const { getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
 
     const allRows = getAllByRole("row");
@@ -78,14 +69,15 @@ describe('the knapsack solution table', () => {
 });
 
 describe('clicking the button', () => {
+  const capacity = 5;
+  const items = [
+    { name: 'item1', value: 11, weight: 3 },
+    { name: 'item2', value: 7, weight: 1 },
+    { name: 'item3', value: 9, weight: 2 },
+  ];
+  const knapsackTable = knapsack(items, capacity);
+
   test('4 times results in first solution row being updated up to capacity 4', () => {
-    const capacity = 5;
-    const items = [
-      { name: 'item1', value: 10, weight: 3 },
-      { name: 'item2', value: 20, weight: 1 },
-      { name: 'item3', value: 25, weight: 2 },
-    ];
-    const knapsackTable = knapsack(items, capacity);
 
     const { getByRole, getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
 
@@ -117,8 +109,8 @@ describe('clicking the button', () => {
     expect(within(solutionRow1Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[2]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[3]).getByText('0')).toBeTruthy();
-    expect(within(solutionRow1Cells[4]).getByText('1')).toBeTruthy();
-    expect(within(solutionRow1Cells[5]).getByText('1')).toBeTruthy();
+    expect(within(solutionRow1Cells[4]).getByText('11')).toBeTruthy();
+    expect(within(solutionRow1Cells[5]).getByText('11')).toBeTruthy();
     expect(within(solutionRow1Cells[6]).getByText('0')).toBeTruthy();
 
     //all other row cells should be zero
@@ -129,16 +121,8 @@ describe('clicking the button', () => {
       }
     }
   });
-  
-  test('7 times results in second solution row being updated up to capacity 2', () => {
-    const capacity = 5;
-    const items = [
-      { name: 'item1', value: 10, weight: 3 },
-      { name: 'item2', value: 20, weight: 1 },
-      { name: 'item3', value: 25, weight: 2 },
-    ];
-    const knapsackTable = knapsack(items, capacity);
 
+  test('7 times results in second solution row being updated up to capacity 2', () => {
     const { getByRole, getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
     for (let n = 0; n < 7; n++) {
       fireEvent.click(getByRole('button'))
@@ -168,16 +152,16 @@ describe('clicking the button', () => {
     expect(within(solutionRow1Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[2]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[3]).getByText('0')).toBeTruthy();
-    expect(within(solutionRow1Cells[4]).getByText('1')).toBeTruthy();
-    expect(within(solutionRow1Cells[5]).getByText('1')).toBeTruthy();
-    expect(within(solutionRow1Cells[6]).getByText('1')).toBeTruthy();
+    expect(within(solutionRow1Cells[4]).getByText('11')).toBeTruthy();
+    expect(within(solutionRow1Cells[5]).getByText('11')).toBeTruthy();
+    expect(within(solutionRow1Cells[6]).getByText('11')).toBeTruthy();
 
     const solutionRow2 = allRows[3];
     const solutionRow2Cells = within(solutionRow2).getAllByRole("cell");
     expect(within(solutionRow2Cells[0]).getByText('item2')).toBeTruthy();
     expect(within(solutionRow2Cells[1]).getByText('0')).toBeTruthy();
-    expect(within(solutionRow2Cells[2]).getByText('1')).toBeTruthy();
-    expect(within(solutionRow2Cells[3]).getByText('1')).toBeTruthy();
+    expect(within(solutionRow2Cells[2]).getByText('7')).toBeTruthy();
+    expect(within(solutionRow2Cells[3]).getByText('7')).toBeTruthy();
     expect(within(solutionRow2Cells[4]).getByText('0')).toBeTruthy();
     expect(within(solutionRow2Cells[5]).getByText('0')).toBeTruthy();
     expect(within(solutionRow2Cells[6]).getByText('0')).toBeTruthy();
@@ -189,5 +173,61 @@ describe('clicking the button', () => {
         expect(within(cells[j]).getByText('0')).toBeTruthy();
       }
     }
+  });
+
+  test('15 times results in table being filled in', () => {
+    const { getByRole, getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
+    for (let n = 0; n < 15; n++) {
+      fireEvent.click(getByRole('button'))
+    }
+
+    const allRows = getAllByRole("row");
+    const capacityRow = allRows[0];
+    const capacityRowCells = within(capacityRow).getAllByRole("cell");
+    expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
+    expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();
+    expect(within(capacityRowCells[2]).getByText('1')).toBeTruthy();
+    expect(within(capacityRowCells[3]).getByText('2')).toBeTruthy();
+    expect(within(capacityRowCells[4]).getByText('3')).toBeTruthy();
+    expect(within(capacityRowCells[5]).getByText('4')).toBeTruthy();
+    expect(within(capacityRowCells[6]).getByText('5')).toBeTruthy();
+
+    const zeroRow = allRows[1];
+    const zeroRowCells = within(zeroRow).getAllByRole("cell");
+    expect(within(zeroRowCells[0]).getByText('')).toBeTruthy();
+    for (let i = 1; i < zeroRowCells.length; i++) {
+      expect(within(zeroRowCells[i]).getByText('0')).toBeTruthy();
+    }
+
+    const solutionRow1 = allRows[2];
+    const solutionRow1Cells = within(solutionRow1).getAllByRole("cell");
+    expect(within(solutionRow1Cells[0]).getByText('item1')).toBeTruthy();
+    expect(within(solutionRow1Cells[1]).getByText('0')).toBeTruthy();
+    expect(within(solutionRow1Cells[2]).getByText('0')).toBeTruthy();
+    expect(within(solutionRow1Cells[3]).getByText('0')).toBeTruthy();
+    expect(within(solutionRow1Cells[4]).getByText('11')).toBeTruthy();
+    expect(within(solutionRow1Cells[5]).getByText('11')).toBeTruthy();
+    expect(within(solutionRow1Cells[6]).getByText('11')).toBeTruthy();
+
+    const solutionRow2 = allRows[3];
+    const solutionRow2Cells = within(solutionRow2).getAllByRole("cell");
+    expect(within(solutionRow2Cells[0]).getByText('item2')).toBeTruthy();
+    expect(within(solutionRow2Cells[1]).getByText('0')).toBeTruthy();
+    expect(within(solutionRow2Cells[2]).getByText('7')).toBeTruthy();
+    expect(within(solutionRow2Cells[3]).getByText('7')).toBeTruthy();
+    expect(within(solutionRow2Cells[4]).getByText('11')).toBeTruthy();
+    expect(within(solutionRow2Cells[5]).getByText('18')).toBeTruthy();
+    expect(within(solutionRow2Cells[6]).getByText('18')).toBeTruthy();
+
+    const solutionRow3 = allRows[4];
+    const solutionRow3Cells = within(solutionRow3).getAllByRole("cell");
+    expect(within(solutionRow3Cells[0]).getByText('item3')).toBeTruthy();
+    expect(within(solutionRow3Cells[1]).getByText('0')).toBeTruthy();
+    expect(within(solutionRow3Cells[2]).getByText('7')).toBeTruthy();
+    expect(within(solutionRow3Cells[3]).getByText('9')).toBeTruthy();
+    expect(within(solutionRow3Cells[4]).getByText('16')).toBeTruthy();
+    expect(within(solutionRow3Cells[5]).getByText('18')).toBeTruthy();
+    expect(within(solutionRow3Cells[6]).getByText('20')).toBeTruthy();
+   
   });
 });
