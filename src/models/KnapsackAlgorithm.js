@@ -1,3 +1,4 @@
+import ItemToUse from "./ItemToUse";
 
 function knapsack(items, capacity) {
   const table = [];
@@ -17,4 +18,17 @@ function knapsack(items, capacity) {
   return table;
 }
 
-export default knapsack;
+function getItemsThatFit(table, items, capacity) {
+  var solution = [];
+  var currentCapacity = capacity;
+  for(let i=items.length; i > 0; i--) {
+    const previousItemIndex = i - 1 ;
+    if(table[i][currentCapacity] !== table[previousItemIndex][currentCapacity]) {
+      solution.push(new ItemToUse(items[previousItemIndex], previousItemIndex, currentCapacity));
+      currentCapacity -= items[previousItemIndex].weight;
+    }
+  }
+  return solution;
+}
+
+export {knapsack, getItemsThatFit};

@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 
-function SolutionTableRow({ cellKey, row, firstCellValue }) {
+function SolutionTableRow({ cellKey, row, firstCellValue, selectedColumnIndex, currentCell }) {
   return (
     <tr>
       <td>{firstCellValue}</td>
-      {row.map((cell, index) => (
-        <td key={cellKey + index}>{cell}</td>
-      ))}
+      {row.map((cell, index) => { 
+         const chosenCSS = index === selectedColumnIndex ? "ChosenItem" : ""; 
+         const currentCSS = index === currentCell ? "CurrentCell" : "";
+         return <td key={cellKey + index} className={`${chosenCSS} ${currentCSS}`}>{cell}</td>
+      })}
     </tr>
   );
 };

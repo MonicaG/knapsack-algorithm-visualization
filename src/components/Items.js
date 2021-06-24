@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 function Items({items}) {
   return (
     <div>
-      <table>
+      <table border="1">
         <tbody>
           <tr key="table-heading">
             <th>Item</th>

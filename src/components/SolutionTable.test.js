@@ -1,34 +1,40 @@
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import SolutionTable from './SolutionTable';
-import knapsack from './../models/KnapsackAlgorithm'
+import { knapsack, getItemsThatFit } from './../models/KnapsackAlgorithm';
+import Item from './../models/Item';
 
 describe('the knapsack solution table', () => {
   const items = [
-    { name: 'item1', value: 10, weight: 3 },
-    { name: 'item2', value: 20, weight: 1 },
-    { name: 'item3', value: 25, weight: 2 },
+    new Item('item1', 10, 3),
+    new Item('item2', 20, 1),
+    new Item('item3', 25, 2),
   ];
 
   test('displays the items to use in the algorithm', () => {
     const capacity = 5;
     const knapsackTable = knapsack(items, capacity);
+    const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
 
-    render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
-    const item1 = screen.getByText(/item1/i);
-    expect(item1).toBeInTheDocument();
+    render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} solutionItems={solutionItems} />);
 
-    const item2 = screen.getByText(/item2/i);
-    expect(item2).toBeInTheDocument();
+    const rows = screen.getAllByRole("row");
 
-    const item3 = screen.getByText(/item3/i);
-    expect(item3).toBeInTheDocument();
+    const item1Cells = within(rows[2]).getAllByRole("cell");
+    expect(within(item1Cells[0]).getByText(/item1/i)).toBeInTheDocument();
+
+    const item2Cells = within(rows[3]).getAllByRole("cell");
+    expect(within(item2Cells[0]).getByText(/item2/i)).toBeInTheDocument();
+
+    const item3Cells = within(rows[4]).getAllByRole("cell");
+    expect(within(item3Cells[0]).getByText(/item3/i)).toBeInTheDocument();
   });
 
   test('is created with the correct dimensions', () => {
     const capacity = 6;
     const knapsackTable = knapsack(items, capacity);
+    const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
 
-    render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
+    render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} solutionItems={solutionItems} />);
     screen.getByRole("table");
     const rows = screen.getAllByRole("row");
     //5 rows (3 data rows, the header row, and the zero row)
@@ -44,8 +50,9 @@ describe('the knapsack solution table', () => {
   test('is initialized with zeros', () => {
     const capacity = 4;
     const knapsackTable = knapsack(items, capacity);
+    const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
 
-    const { getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
+    const { getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} solutionItems={solutionItems} />);
 
     const allRows = getAllByRole("row");
     const capacityRow = allRows[0];
@@ -71,17 +78,23 @@ describe('the knapsack solution table', () => {
 describe('clicking the button', () => {
   const capacity = 5;
   const items = [
-    { name: 'item1', value: 11, weight: 3 },
-    { name: 'item2', value: 7, weight: 1 },
-    { name: 'item3', value: 9, weight: 2 },
+    new Item('item1', 11, 3),
+    new Item('item2', 7, 1),
+    new Item('item3', 9, 2),
   ];
   const knapsackTable = knapsack(items, capacity);
+  const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
 
-  test('4 times results in first solution row being updated up to capacity 4', () => {
+  test('3 times results in first solution row being updated to capacity 4 (inclusive)', () => {
 
-    const { getByRole, getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
+    const { getByRole, getAllByRole } = render(
+      <SolutionTable
+        capacity={capacity}
+        items={items}
+        knapsackTable={knapsackTable}
+        solutionItems={solutionItems} />);
 
-    for (let n = 0; n < 4; n++) {
+    for (let n = 0; n < 3; n++) {
       fireEvent.click(getByRole('button'))
     }
 
@@ -122,9 +135,15 @@ describe('clicking the button', () => {
     }
   });
 
-  test('7 times results in second solution row being updated up to capacity 2', () => {
-    const { getByRole, getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
-    for (let n = 0; n < 7; n++) {
+  test('6 times results in second solution row being updated up to capacity 2 (inclusive)', () => {
+    const { getByRole, getAllByRole } = render(
+      <SolutionTable
+        capacity={capacity}
+        items={items}
+        knapsackTable={knapsackTable}
+        solutionItems={solutionItems} />);
+
+    for (let n = 0; n < 6; n++) {
       fireEvent.click(getByRole('button'))
     }
 
@@ -175,8 +194,14 @@ describe('clicking the button', () => {
     }
   });
 
-  test('15 times results in table being filled in', () => {
-    const { getByRole, getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} />);
+  test('14 times results in table being filled in', () => {
+    const { getByRole, getAllByRole } = render(
+      <SolutionTable
+        capacity={capacity}
+        items={items}
+        knapsackTable={knapsackTable}
+        solutionItems={solutionItems} />);
+
     for (let n = 0; n < 15; n++) {
       fireEvent.click(getByRole('button'))
     }
@@ -228,6 +253,5 @@ describe('clicking the button', () => {
     expect(within(solutionRow3Cells[4]).getByText('16')).toBeTruthy();
     expect(within(solutionRow3Cells[5]).getByText('18')).toBeTruthy();
     expect(within(solutionRow3Cells[6]).getByText('20')).toBeTruthy();
-   
   });
 });

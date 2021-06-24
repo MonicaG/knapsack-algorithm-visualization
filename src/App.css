@@ -7,4 +7,23 @@
   margin-top: 2em;
 }
 
+.ChosenItem {
+  background-color: aqua;
+}
 
+.CurrentCell {
+  background-color: lightcoral;
+}
+
+td {
+  width: 2em;
+  padding: 0.25em;
+}
+
+.Muted {
+  color: grey;
+}
+
+.Bold {
+  color: darkblue;
+}
