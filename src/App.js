@@ -5,40 +5,39 @@ import Capacity from './components/Capacity'
 import capacityDefaults from './models/CapacityDefaults';
 import SolutionTable from './components/SolutionTable';
 import Item from './models/Item';
-import {knapsack, getItemsThatFit} from './models/KnapsackAlgorithm';
+import { knapsack, getItemsThatFit } from './models/KnapsackAlgorithm';
 
 function App() {
 
-  const [capacity, setCapacity] = React.useState(capacityDefaults.defaultValue);
-  const allItems = [
-    new Item('ring', 250, 1 ),
-    new Item('TV', 600, 5 ),
-    new Item('cell phone', 400, 2 )
+  const initItems = [
+    new Item('ring', 250, 1),
+    new Item('TV', 600, 5),
+    new Item('cell phone', 400, 2)
   ];
 
+  console.log("redraw")
+  const [capacity, setCapacity] = React.useState(capacityDefaults.defaultValue);
+  const [items, setItems] = React.useState(initItems);
   
-  const knapsackTable = knapsack(allItems, capacity);
-  const solutionItems = getItemsThatFit(knapsackTable, allItems, capacity);
-  
+  const knapsackTable = knapsack(items, capacity);
+  const solutionItems = getItemsThatFit(knapsackTable, items, capacity);
+
+
   function handleCapacityChange(event) {
-    var numValue = parseInt(event.target.value, 10);
-    if (isNaN(numValue)) {
-      numValue = capacityDefaults.defaultValue
-    } else if (capacityDefaults.isNotInRange(numValue)) {
-      numValue = capacityDefaults.defaultValue
-    }
-    setCapacity(numValue)
+    setCapacity(capacityDefaults.parseCapacity(event))
   }
+
   return (
     <div className="App">
-      <Items items={allItems} />
+      <Items items={items}
+      setItems={setItems} />
       <Capacity
         capacity={capacity}
         onCapacityChange={handleCapacityChange}
       />
       <SolutionTable
         capacity={capacity}
-        items={allItems}
+        items={items}
         knapsackTable={knapsackTable}
         solutionItems={solutionItems}
       />
