@@ -5,7 +5,7 @@ import Capacity from './components/Capacity'
 import capacityDefaults from './models/CapacityDefaults';
 import SolutionTable from './components/SolutionTable';
 import Item from './models/Item';
-import { knapsack, getItemsThatFit } from './models/KnapsackAlgorithm';
+import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 
 function App() {
 
@@ -15,13 +15,15 @@ function App() {
     new Item('cell phone', 400, 2)
   ];
 
-  console.log("redraw")
   const [capacity, setCapacity] = React.useState(capacityDefaults.defaultValue);
   const [items, setItems] = React.useState(initItems);
+  const [showEntryForm, setShowEntryForm] = React.useState(true);
+  const [knapsackAlgorithm, setKnapsackAlgorithm] = React.useState();
   
-  const knapsackTable = knapsack(items, capacity);
-  const solutionItems = getItemsThatFit(knapsackTable, items, capacity);
-
+  function calculate() {
+    setKnapsackAlgorithm(new KnapsackAlgorithm(items, capacity));
+    setShowEntryForm(false);
+  }
 
   function handleCapacityChange(event) {
     setCapacity(capacityDefaults.parseCapacity(event))
@@ -29,18 +31,27 @@ function App() {
 
   return (
     <div className="App">
-      <Items items={items}
-      setItems={setItems} />
-      <Capacity
-        capacity={capacity}
-        onCapacityChange={handleCapacityChange}
-      />
-      <SolutionTable
-        capacity={capacity}
-        items={items}
-        knapsackTable={knapsackTable}
-        solutionItems={solutionItems}
-      />
+      {showEntryForm ?
+        <div>
+          <Items items={items}
+            setItems={setItems} />
+          <Capacity
+            capacity={capacity}
+            onCapacityChange={handleCapacityChange}
+          />
+          <input type="button" value="Calculate" onClick={calculate} />
+        </div>
+        :
+        <div>
+          <SolutionTable
+            capacity={capacity}
+            items={items}
+            knapsackTable={knapsackAlgorithm.solutionTable}
+            solutionItems={knapsackAlgorithm.solutionItems}
+          />
+          <input type="button" value="Reset" onClick={() => { setShowEntryForm(true) }} />
+        </div>
+      }
     </div>
   );
 }

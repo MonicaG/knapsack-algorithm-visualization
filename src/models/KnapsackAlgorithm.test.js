@@ -1,4 +1,4 @@
-import {knapsack, getItemsThatFit} from './KnapsackAlgorithm';
+import KnapSackAlgorithm from './KnapsackAlgorithm';
 import Item from './../models/Item';
 
 describe('knapsack algorithm solution table', () => {
@@ -8,8 +8,9 @@ describe('knapsack algorithm solution table', () => {
     const item2 =  new Item('ring', 15, 1);
     const item3 =  new Item('cell phone', 20, 2);
     const items = [ item1, item2, item3 ];
-      
-    const solutionTable = knapsack(items, capacity);
+     
+    const algorithm = new KnapSackAlgorithm(items, capacity);
+    const solutionTable = algorithm.solutionTable;
     expect(solutionTable[1][1]).toBe(0);
     expect(solutionTable[1][2]).toBe(0);
     expect(solutionTable[1][3]).toBe(0);
@@ -31,7 +32,7 @@ describe('knapsack algorithm solution table', () => {
     expect(solutionTable[3][5]).toBe(35);
     expect(solutionTable[3][6]).toBe(35);
 
-    const result = getItemsThatFit(solutionTable, items, capacity);
+    const result = algorithm.solutionItems;
     const chosenItems = result.map(item => (item.item))
     expect(chosenItems).toContainEqual(item3, item2);
 
@@ -46,7 +47,8 @@ describe('knapsack algorithm solution table', () => {
     const item5 = new Item ('item 5', 12, 3);
     const items = [item1, item2, item3, item4, item5];
 
-    const solutionTable = knapsack(items, capacity);
+    const algorithm = new KnapSackAlgorithm(items, capacity);
+    const solutionTable = algorithm.solutionTable;
     expect(solutionTable[1][1]).toBe(0);
     expect(solutionTable[1][2]).toBe(0);
     expect(solutionTable[1][3]).toBe(0);
@@ -74,7 +76,7 @@ describe('knapsack algorithm solution table', () => {
     expect(solutionTable[5][3]).toBe(35);
     expect(solutionTable[5][4]).toBe(35);
 
-    const result = getItemsThatFit(solutionTable, items, capacity);
+    const result = algorithm.solutionItems;
     const chosenItems = result.map(item => (item.item))
     expect(chosenItems).toContainEqual(item2, item4);
 

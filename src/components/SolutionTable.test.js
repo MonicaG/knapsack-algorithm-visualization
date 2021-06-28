@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import SolutionTable from './SolutionTable';
-import { knapsack, getItemsThatFit } from './../models/KnapsackAlgorithm';
+import KnapSackAlgorithm from './../models/KnapsackAlgorithm';
 import Item from './../models/Item';
 
 describe('the knapsack solution table', () => {
@@ -12,10 +12,9 @@ describe('the knapsack solution table', () => {
 
   test('displays the items to use in the algorithm', () => {
     const capacity = 5;
-    const knapsackTable = knapsack(items, capacity);
-    const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
+    const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} solutionItems={solutionItems} />);
+    render(<SolutionTable capacity={capacity} items={items} knapsackTable={algorithm.solutionTable} solutionItems={algorithm.solutionItems} />);
 
     const rows = screen.getAllByRole("row");
 
@@ -31,10 +30,9 @@ describe('the knapsack solution table', () => {
 
   test('is created with the correct dimensions', () => {
     const capacity = 6;
-    const knapsackTable = knapsack(items, capacity);
-    const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
+    const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} solutionItems={solutionItems} />);
+    render(<SolutionTable capacity={capacity} items={items} knapsackTable={algorithm.solutionTable} solutionItems={algorithm.solutionItems} />);
     screen.getByRole("table");
     const rows = screen.getAllByRole("row");
     //5 rows (3 data rows, the header row, and the zero row)
@@ -49,10 +47,9 @@ describe('the knapsack solution table', () => {
 
   test('is initialized with zeros', () => {
     const capacity = 4;
-    const knapsackTable = knapsack(items, capacity);
-    const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
+    const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    const { getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={knapsackTable} solutionItems={solutionItems} />);
+    const { getAllByRole } = render(<SolutionTable capacity={capacity} items={items} knapsackTable={algorithm.solutionTable} solutionItems={algorithm.solutionItems} />);
 
     const allRows = getAllByRole("row");
     const capacityRow = allRows[0];
@@ -82,8 +79,7 @@ describe('clicking the button', () => {
     new Item('item2', 7, 1),
     new Item('item3', 9, 2),
   ];
-  const knapsackTable = knapsack(items, capacity);
-  const solutionItems = getItemsThatFit(knapsackTable, items, capacity)
+  const algorithm = new KnapSackAlgorithm(items, capacity);
 
   test('3 times results in first solution row being updated to capacity 4 (inclusive)', () => {
 
@@ -91,8 +87,8 @@ describe('clicking the button', () => {
       <SolutionTable
         capacity={capacity}
         items={items}
-        knapsackTable={knapsackTable}
-        solutionItems={solutionItems} />);
+        knapsackTable={algorithm.solutionTable}
+        solutionItems={algorithm.solutionItems} />);
 
     for (let n = 0; n < 3; n++) {
       fireEvent.click(getByRole('button'))
@@ -140,8 +136,8 @@ describe('clicking the button', () => {
       <SolutionTable
         capacity={capacity}
         items={items}
-        knapsackTable={knapsackTable}
-        solutionItems={solutionItems} />);
+        knapsackTable={algorithm.solutionTable}
+        solutionItems={algorithm.solutionItems} />);
 
     for (let n = 0; n < 6; n++) {
       fireEvent.click(getByRole('button'))
@@ -199,8 +195,8 @@ describe('clicking the button', () => {
       <SolutionTable
         capacity={capacity}
         items={items}
-        knapsackTable={knapsackTable}
-        solutionItems={solutionItems} />);
+        knapsackTable={algorithm.solutionTable}
+        solutionItems={algorithm.solutionItems} />);
 
     for (let n = 0; n < 15; n++) {
       fireEvent.click(getByRole('button'))

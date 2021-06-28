@@ -10,8 +10,6 @@ function Items({ items, setItems }) {
   const [itemValue, setItemValue] = React.useState(5);
   const maxNumberOfItems = 10;
 
-  console.log("items redraw");
-
   function handleNameChange(event) {
     setItemName(event.target.value.toLowerCase());
   }
