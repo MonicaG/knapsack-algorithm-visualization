@@ -44,10 +44,7 @@ function App() {
         :
         <div>
           <SolutionTable
-            capacity={capacity}
-            items={items}
-            knapsackTable={knapsackAlgorithm.solutionTable}
-            solutionItems={knapsackAlgorithm.solutionItems}
+            knapsackAlgorithm={knapsackAlgorithm}
           />
           <input type="button" value="Reset" onClick={() => { setShowEntryForm(true) }} />
         </div>

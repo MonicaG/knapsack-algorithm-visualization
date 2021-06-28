@@ -16,7 +16,6 @@ class KnapSackAlgorithm {
   }
 
   #init() {
-    debugger
     if(!this.#solutionTable) {
       this.#solutionTable = this.#knapsack();
     }
@@ -27,7 +26,6 @@ class KnapSackAlgorithm {
   }
 
   #knapsack() {
-    debugger
     const table = [];
     for (let i = 0; i <= this.items.length; i++) {
       table.push(Array(this.capacity + 1).fill(0));
@@ -46,7 +44,6 @@ class KnapSackAlgorithm {
   }
 
   #findItemsThatFit() {
-    debugger
     var solution = [];
     var currentCapacity = this.capacity;
     for (let i = this.items.length; i > 0; i--) {

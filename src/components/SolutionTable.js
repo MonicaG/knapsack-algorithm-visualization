@@ -5,22 +5,22 @@ import PseudoCode from './PseudoCode';
 import React from 'react';
 
 
-function SolutionTable({ capacity, items, knapsackTable, solutionItems }) {
+function SolutionTable({ knapsackAlgorithm }) {
   const [currentItemIndex, setCurrentItemIndex] = React.useState(1);
   const [currentCapacity, setCurrentCapacity] = React.useState(1);
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [solutionItemIndex, setSolutionItemIndex] = React.useState(0);
   const [showSolutionItems, setShowSolutionItems] = React.useState(false);
   const [currentCellIndex, setCurrentCellIndex] = React.useState(1);
-  const capacityRow = Array.from({ length: capacity + 1 }, (e, i) => i);
+  const capacityRow = Array.from({ length: knapsackAlgorithm.capacity + 1 }, (e, i) => i);
 
   function btnClick() {
     if (!showSolutionItems) {
-      if (currentCapacity === capacity) {
+      if (currentCapacity === knapsackAlgorithm.capacity) {
         setCurrentCapacity(1);
         setCurrentItemIndex(currentItemIndex + 1);
         setCurrentCellIndex(1);
-        if (currentItemIndex === items.length) {
+        if (currentItemIndex === knapsackAlgorithm.items.length) {
           setShowSolutionItems(true);
         }
       } else {
@@ -40,10 +40,10 @@ function SolutionTable({ capacity, items, knapsackTable, solutionItems }) {
             row={capacityRow}
           />
 
-          {knapsackTable.map((row, index) => {
+          {knapsackAlgorithm.solutionTable.map((row, index) => {
             const indexOffset = index - 1;
-            const itemName = index === 0 ? " " : items[indexOffset].name;
-            const filtered = solutionItems.filter( item => ( item.row === (indexOffset))).map( item => (item.column));
+            const itemName = index === 0 ? " " : knapsackAlgorithm.items[indexOffset].name;
+            const filtered = knapsackAlgorithm.solutionItems.filter( item => ( item.row === (indexOffset))).map( item => (item.column));
             const selectedColumnIndex = showSolutionItems && filtered.length === 1 ? filtered[0] : null;
             const highlightCellIndex = index === currentItemIndex ? currentCellIndex : null;
             const formattedRow = row.map((element, rowIndex) => {
@@ -65,10 +65,10 @@ function SolutionTable({ capacity, items, knapsackTable, solutionItems }) {
         <p>current capacity is: {currentCapacity}</p>
         <p>current item Index is: {currentItemIndex}</p>
         {showSolutionItems
-          ? <SolutionItems solutionItems={solutionItems} />
+          ? <SolutionItems solutionItems={knapsackAlgorithm.solutionItems} />
           : null}
           <PseudoCode
-            item={items[currentItemIndex - 1]}
+            item={knapsackAlgorithm.items[currentItemIndex - 1]}
             capacity={currentCapacity}
           />
       </div>
@@ -77,12 +77,12 @@ function SolutionTable({ capacity, items, knapsackTable, solutionItems }) {
 };
 
 SolutionTable.propTypes = {
-  capacity: PropTypes.number.isRequired,
-  items: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.number,
-    weight: PropTypes.number,
-  }).isRequired),
-};
+  knapsackAlgorithm: PropTypes.shape({   
+     items: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+      weight: PropTypes.number.isRequired})).isRequired,
+      capacity: PropTypes.number.isRequired,
+}).isRequired};
 
 export default SolutionTable;
