@@ -10,9 +10,9 @@ import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 function App() {
 
   const initItems = [
-    new Item('ring', 250, 1),
-    new Item('TV', 600, 5),
-    new Item('cell phone', 400, 2)
+    new Item('item 1', 11, 1),
+    new Item('item 2', 7, 5),
+    new Item('item 3', 9, 2)
   ];
 
   const [capacity, setCapacity] = React.useState(capacityDefaults.defaultValue);
@@ -33,12 +33,12 @@ function App() {
     <div className="App">
       {showEntryForm ?
         <div>
-          <Items items={items}
-            setItems={setItems} />
           <Capacity
             capacity={capacity}
             onCapacityChange={handleCapacityChange}
           />
+          <Items items={items}
+            setItems={setItems} />
           <input type="button" value="Calculate" onClick={calculate} />
         </div>
         :

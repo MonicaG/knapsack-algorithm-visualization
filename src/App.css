@@ -15,15 +15,25 @@
   background-color: lightcoral;
 }
 
-td {
-  width: 2em;
-  padding: 0.25em;
-}
-
 .Muted {
   color: grey;
 }
 
 .Bold {
   color: darkblue;
+}
+
+DIV.table {
+    display:table;
+}
+
+FORM.tr, DIV.tr {
+    display:table-row;
+    margin: 2em;
+}
+
+SPAN.td {
+    display:table-cell;
+    white-space: nowrap;
+    margin: 2em;
 }

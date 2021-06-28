@@ -11,7 +11,7 @@ function PseudoCode({ item, capacity }) {
         <li>w = Item weight</li>
         <li>v = Item value</li>
       </ul> */}
-
+{/* @todo - use <code></code> tag instead? */}
         <blockquote>
           <div className={fitsCSS}>
             {`if w <= c {`} <br />

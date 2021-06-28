@@ -42,7 +42,7 @@ function SolutionTable({ knapsackAlgorithm }) {
 
           {knapsackAlgorithm.solutionTable.map((row, index) => {
             const indexOffset = index - 1;
-            const itemName = index === 0 ? " " : knapsackAlgorithm.items[indexOffset].name;
+            const item = index === 0 ? null : knapsackAlgorithm.items[indexOffset]
             const filtered = knapsackAlgorithm.solutionItems.filter( item => ( item.row === (indexOffset))).map( item => (item.column));
             const selectedColumnIndex = showSolutionItems && filtered.length === 1 ? filtered[0] : null;
             const highlightCellIndex = index === currentItemIndex ? currentCellIndex : null;
@@ -50,10 +50,10 @@ function SolutionTable({ knapsackAlgorithm }) {
               return index < currentItemIndex || (index === currentItemIndex && rowIndex <= currentCapacity) ? element : 0;
             });
             return <SolutionTableRow
-              key={itemName}
-              cellKey={itemName + "Cell"}
+              key={item ? item.name : " "}
+              cellKey={item ? item.name + "Cell" : "Cell"}
               row={formattedRow}
-              firstCellValue={itemName}
+              item={item}
               selectedColumnIndex={selectedColumnIndex}
               currentCell={highlightCellIndex}
             />

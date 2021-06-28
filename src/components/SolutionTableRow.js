@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 
-function SolutionTableRow({ cellKey, row, firstCellValue, selectedColumnIndex, currentCell }) {
+function SolutionTableRow({ cellKey, row, item, selectedColumnIndex, currentCell }) {
   return (
     <tr>
-      <td>{firstCellValue}</td>
+    {item ? 
+      <td>
+        {item.name} <br/>
+        (V: {item.value} W: {item.weight})
+      </td>
+    :
+    <td> </td>
+    }
+      <td>
+      {item ? item.name : " "}
+      </td>
       {row.map((cell, index) => { 
          const chosenCSS = index === selectedColumnIndex ? "ChosenItem" : ""; 
          const currentCSS = index === currentCell ? "CurrentCell" : "";
@@ -17,6 +27,6 @@ function SolutionTableRow({ cellKey, row, firstCellValue, selectedColumnIndex, c
 SolutionTableRow.propTypes = {
   cellKey: PropTypes.string.isRequired,
   row: PropTypes.arrayOf(PropTypes.number).isRequired,
-  firstCellValue: PropTypes.string,
+  item: PropTypes.object
 };
 export default SolutionTableRow;
