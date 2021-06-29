@@ -110,7 +110,7 @@ describe('clicking the button', () => {
 
     const solutionRow1 = allRows[2];
     const solutionRow1Cells = within(solutionRow1).getAllByRole("cell");
-    expect(within(solutionRow1Cells[0]).getByText('item1')).toBeTruthy();
+    expect(within(solutionRow1Cells[0]).getByText(/item1/i)).toBeTruthy();
     expect(within(solutionRow1Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[2]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[3]).getByText('0')).toBeTruthy();
@@ -153,7 +153,7 @@ describe('clicking the button', () => {
 
     const solutionRow1 = allRows[2];
     const solutionRow1Cells = within(solutionRow1).getAllByRole("cell");
-    expect(within(solutionRow1Cells[0]).getByText('item1')).toBeTruthy();
+    expect(within(solutionRow1Cells[0]).getByText(/item1/i)).toBeTruthy();
     expect(within(solutionRow1Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[2]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[3]).getByText('0')).toBeTruthy();
@@ -163,7 +163,7 @@ describe('clicking the button', () => {
 
     const solutionRow2 = allRows[3];
     const solutionRow2Cells = within(solutionRow2).getAllByRole("cell");
-    expect(within(solutionRow2Cells[0]).getByText('item2')).toBeTruthy();
+    expect(within(solutionRow2Cells[0]).getByText(/item2/i)).toBeTruthy();
     expect(within(solutionRow2Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow2Cells[2]).getByText('7')).toBeTruthy();
     expect(within(solutionRow2Cells[3]).getByText('7')).toBeTruthy();
@@ -207,7 +207,7 @@ describe('clicking the button', () => {
 
     const solutionRow1 = allRows[2];
     const solutionRow1Cells = within(solutionRow1).getAllByRole("cell");
-    expect(within(solutionRow1Cells[0]).getByText('item1')).toBeTruthy();
+    expect(within(solutionRow1Cells[0]).getByText(/item1/i)).toBeTruthy();
     expect(within(solutionRow1Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[2]).getByText('0')).toBeTruthy();
     expect(within(solutionRow1Cells[3]).getByText('0')).toBeTruthy();
@@ -217,7 +217,7 @@ describe('clicking the button', () => {
 
     const solutionRow2 = allRows[3];
     const solutionRow2Cells = within(solutionRow2).getAllByRole("cell");
-    expect(within(solutionRow2Cells[0]).getByText('item2')).toBeTruthy();
+    expect(within(solutionRow2Cells[0]).getByText(/item2/i)).toBeTruthy();
     expect(within(solutionRow2Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow2Cells[2]).getByText('7')).toBeTruthy();
     expect(within(solutionRow2Cells[3]).getByText('7')).toBeTruthy();
@@ -227,7 +227,7 @@ describe('clicking the button', () => {
 
     const solutionRow3 = allRows[4];
     const solutionRow3Cells = within(solutionRow3).getAllByRole("cell");
-    expect(within(solutionRow3Cells[0]).getByText('item3')).toBeTruthy();
+    expect(within(solutionRow3Cells[0]).getByText(/item3/i)).toBeTruthy();
     expect(within(solutionRow3Cells[1]).getByText('0')).toBeTruthy();
     expect(within(solutionRow3Cells[2]).getByText('7')).toBeTruthy();
     expect(within(solutionRow3Cells[3]).getByText('9')).toBeTruthy();

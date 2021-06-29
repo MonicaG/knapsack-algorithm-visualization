@@ -1,5 +1,5 @@
 import KnapSackAlgorithm from './KnapsackAlgorithm';
-import Item from './../models/Item';
+import Item from './Item';
 
 describe('knapsack algorithm solution table', () => {
   test('has 3 items and a capacity of 6', () => {
