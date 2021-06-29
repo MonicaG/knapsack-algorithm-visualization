@@ -1,3 +1,15 @@
+TO DO:
+
+* Add validation for `item.value`. Currently it uses the capacityDefaults class. Should probably be a text field to allow for decimal numbers.
+* Use `<code>` tag for pseudo-code
+* Add testing at App level for adding new item. I don't think I can do that at the Item level, as I pass in the state handler
+* Add unit test in Item level for duplicate item and empty item name.
+* Add all the styling
+* Add text
+
+
+BOILERPLATE FROM CREATE REACT APP BELOW
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
