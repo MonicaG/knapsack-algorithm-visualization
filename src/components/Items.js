@@ -50,7 +50,6 @@ function Items({ items, setItems }) {
   }
 
   function handleAddButton(event) {
-    console.log("add")
     setShowAddRow(true);
   }
 
@@ -58,7 +57,6 @@ function Items({ items, setItems }) {
 
     const filtered = items.filter(i => i !== item)
     setItems(filtered);
-    console.log("deleted")
   }
 
   return (
@@ -85,7 +83,7 @@ function Items({ items, setItems }) {
               <input id="itemName"
                 name="itemName"
                 type="text"
-                placeholder="item name"
+                placeholder="Enter item name"
                 value={itemName}
                 onChange={handleNameChange} />
             </span>

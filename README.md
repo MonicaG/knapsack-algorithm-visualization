@@ -1,5 +1,10 @@
 TO DO:
 
+* Add Instructions component to both items and solution table. Investigate string localization to pass in the instructions key.
+* On solution table can I start without the first cell being calculated? Maybe pass in first run flag?
+* Investigate using React Hook Forms as it does validation, rather than me doing my own. See [https://claritydev.net/blog/managing-forms-with-react-hook-form/](https://claritydev.net/blog/managing-forms-with-react-hook-form/)
+* Really look into Hook Forms as my validation code is all over the place.
+* Look into css layout. Pretty sure the `<span> <td>` stuff I did is really old stuff. Maybe CSS grid?
 * Add validation for `item.value`. Currently it uses the capacityDefaults class. Should probably be a text field to allow for decimal numbers.
 * Use `<code>` tag for pseudo-code
 * Update pseudo-code to display values for current row/cell rather than generic variables
