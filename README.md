@@ -12,6 +12,7 @@ TO DO:
 * Add unit test in Item level for duplicate item and empty item name.
 * Add all the styling
 * Add text
+* On Solution Table add "back" and "skip to end" buttons
 
 
 BOILERPLATE FROM CREATE REACT APP BELOW
