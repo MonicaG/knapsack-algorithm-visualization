@@ -2,52 +2,68 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Item from '../models/Item';
 import capacityDefaults from './../models/CapacityDefaults';
+import NumberInput from './NumberInput';
+import { useForm, Controller } from "react-hook-form";
 
 function Items({ items, setItems }) {
 
-  const [itemName, setItemName] = React.useState('');
-  const [itemWeight, setItemWeight] = React.useState(capacityDefaults.defaultValue);
-  const [itemValue, setItemValue] = React.useState(5);
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors }
+  } = useForm();
+  
+  
+  function onSubmit(data) {
+    console.log(data);
+    setItems([...items, new Item(data.itemName, data.itemValue, data.itemWeight)]);
+    resetAddForm();
+  }; // your form submit function which will invoke after successful validation
+
+
+
   const [showAddRow, setShowAddRow] = React.useState(false);
-  const [errorMsg, setErrorMsg] = React.useState();
   const maxNumberOfItems = 10;
 
-  function handleNameChange(event) {
-      setItemName(event.target.value.toLowerCase());
-  }
+  // function handleNameChange(event) {
+  //     setItemName(event.target.value.toLowerCase());
+  // }
 
-  function handleItemWeightChange(event) {
-    setItemWeight(capacityDefaults.parseCapacity(event));
-  }
+  // function handleItemWeightChange(event) {
+  //   setItemWeight(capacityDefaults.parseCapacity(event));
+  // }
 
-  function handleItemValueChange(event) {
-    setItemValue(capacityDefaults.parseCapacity(event));
-  }
+  // function handleItemValueChange(event) {
+  //   setItemValue(capacityDefaults.parseCapacity(event));
+  // }
 
-  function checkForDuplicateName() {
-    if(items.filter(item => item.name === itemName).length > 0) {
-      throw new Error("Name must be unique"); 
-    }
-  }
+  // function checkForDuplicateName() {
+  //   if(items.filter(item => item.name === itemName).length > 0) {
+  //     throw new Error("Name must be unique"); 
+  //   }
+  // }
 
   function resetAddForm() {
     setShowAddRow(false);
-      setItemName('');
-      setItemValue(5);
-      setItemWeight(capacityDefaults.defaultValue);
-      setErrorMsg('');
+    reset({})
+    //     setItemName('');
+    //     setItemValue(5);
+    //     setItemWeight(capacityDefaults.defaultValue);
+    //     setErrorMsg('');
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    try {
-      checkForDuplicateName();
-      setItems([...items, new Item(itemName, itemValue, itemWeight)]);
-      resetAddForm()
-    }catch(error) {
-      setErrorMsg(error.message);
-    }
-  }
+  // function myHandleSubmit(event) {
+  //   event.preventDefault();
+  //   try {
+  //     checkForDuplicateName();
+  //     setItems([...items, new Item(itemName, itemValue, itemWeight)]);
+  //     resetAddForm()
+  //   }catch(error) {
+  //     setErrorMsg(error.message);
+  //   }
+  // }
 
   function handleAddButton(event) {
     setShowAddRow(true);
@@ -78,47 +94,54 @@ function Items({ items, setItems }) {
           </div>
         ))}
         {showAddRow ?
-          <form onSubmit={handleSubmit} className="tr" role="row" >
+          <form onSubmit={handleSubmit(onSubmit)} className="tr" role="row" >
             <span className="td" role="cell">
-              <input id="itemName"
-                name="itemName"
-                type="text"
+              <input
+                // onChange={handleNameChange}
                 placeholder="Enter item name"
-                value={itemName}
-                onChange={handleNameChange} />
+                defaultValue=""
+                {...register("itemName", { required: true })} />
             </span>
             <span className="td" role="cell">
-              <input type="number"
-                id="itemWeight"
-                name="itemWeight"
-                min={capacityDefaults.min}
-                max={capacityDefaults.max}
-                value={itemWeight}
-                onChange={handleItemWeightChange} />
-            </span>
-            <span className="td" role="cell">
-              <input type="number"
-                id="itemValue"
+              <Controller
+                control={control}
                 name="itemValue"
-                min={capacityDefaults.min}
-                max={capacityDefaults.max}
-                value={itemValue}
-                onChange={handleItemValueChange} />
+                defaultValue={5}
+                rules={{ max: capacityDefaults.max, min: capacityDefaults.min, required: true }}
+                render={({
+                  field: { onChange, value, name}
+                }) => (
+                  <NumberInput
+                    onChange={onChange}
+                    value={value}
+                    name={name}
+                  />
+                )}
+              />
             </span>
             <span className="td" role="cell">
-              <button type="button" onClick={handleSubmit} disabled={items.length >= maxNumberOfItems.length}>
-                add item
-              </button>
+              <Controller
+                control={control}
+                name="itemWeight"
+                defaultValue={capacityDefaults.defaultValue}
+                rules={{ max: capacityDefaults.max, min: capacityDefaults.min, required: true }}
+                render={({
+                  field: { onChange, value, name, ref }
+                }) => (
+                  <NumberInput
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+              />
             </span>
             <span className="td" role="cell">
-              <button type="button" onClick={resetAddForm}>
-                cancel
-              </button>
+              <button type="submit">Add Item</button>
             </span>
-            {errorMsg ?
-            <span className="td" role="cell">{errorMsg}</span>
-            : null
-            }
+            <span className="td" role="cell">
+              <button type="reset" onClick={resetAddForm}>Cancel</button>
+
+            </span>
           </form>
           : null
         }
