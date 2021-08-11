@@ -1,46 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Item from '../models/Item';
-import capacityDefaults from './../models/CapacityDefaults';
-import itemValueDefaults from '../models/ItemValueDefaults';
-import { useForm } from "react-hook-form";
-import { ErrorMessage } from '@hookform/error-message';
+import AddItem from './AddItem';
 
 function Items({ items, setItems }) {
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setFocus,
-    formState: { errors }
-  } = useForm({
-    criteriaMode: "all"
-  });
-
-  function onSubmit(data) {
-    console.log(data);
-    setItems([...items, new Item(data.itemName, data.itemValue, data.itemWeight)]);
-    resetAddForm();
-  }; 
-
+  
   const [showAddRow, setShowAddRow] = React.useState(false);
   const maxNumberOfItems = 10;
-
-  React.useEffect(() => {
-    if (showAddRow) {
-      setFocus("itemName");
-    }
-  }, [setFocus, showAddRow]);
-
-  function isItemNameUnique(itemName) {
-    return items.filter(item => item.name === itemName).length === 0;
-  }
-
-  function resetAddForm() {
-    setShowAddRow(false);
-    reset({})
-  }
 
 
   function handleAddButton(event) {
@@ -55,19 +20,6 @@ function Items({ items, setItems }) {
   function shouldDisplayButton() {
      return items.length >= maxNumberOfItems
 
-  }
-
-  function displayErrorMsg(fieldName) {
-    return (<ErrorMessage
-      errors={errors}
-      name={fieldName}
-      render={({ messages }) =>
-        messages &&
-        Object.entries(messages).map(([type, message]) => (
-          <p key={type}>{message}</p>
-        ))
-      }
-    />);
   }
 
   return (
@@ -89,76 +41,11 @@ function Items({ items, setItems }) {
           </div>
         ))}
         {showAddRow ?
-          <form onSubmit={handleSubmit(onSubmit)} className="tr" role="row" >
-            <span className="td" role="cell">
-              <input
-                placeholder="Enter item name"
-                {...register("itemName", {
-                  required: {
-                    value: true,
-                    message: "Please enter an item name"
-                  },
-                  validate: {
-                    isUnique: v => isItemNameUnique(v) || "Please enter a unique item name."
-                  }
-                })}
-              />
-              {displayErrorMsg("itemName")}
-            </span>
-            <span className="td" role="cell">
-              <input type="number"
-                defaultValue={itemValueDefaults.defaultValue}
-                min={itemValueDefaults.min}
-                max={itemValueDefaults.max}
-                step={itemValueDefaults.step}
-                {...register("itemValue", {
-                  valueAsNumber: true,
-                  max: {
-                    value: itemValueDefaults.max,
-                    message: "Please enter a smaller number"
-                  },
-                  min: {
-                    value: itemValueDefaults.min,
-                    message: "Please enter a larger nuber",
-                  },
-                  required: {
-                    value: true,
-                    message: "Please enter a value"
-                  }
-                })}
-              />
-             {displayErrorMsg("itemValue")}
-            </span>
-            <span className="td" role="cell">
-              <input type="number"
-                defaultValue={capacityDefaults.defaultValue}
-                min={capacityDefaults.min}
-                max={capacityDefaults.max}
-                {...register("itemWeight", {
-                  valueAsNumber: true,
-                  max: {
-                    value: capacityDefaults.max,
-                    message: "Please enter a smaller number"
-                  },
-                  min: {
-                    value: capacityDefaults.min,
-                    message: "Please enter a larger nuber",
-                  },
-                  required: {
-                    value: true,
-                    message: "Please enter a value"
-                  }
-                })}
-              />
-              {displayErrorMsg("itemWeight")}
-            </span>
-            <span className="td" role="cell">
-              <button type="submit">Add Item</button>
-            </span>
-            <span className="td" role="cell">
-              <button type="reset" onClick={resetAddForm}>Cancel</button>
-            </span>
-          </form>
+          <AddItem
+            items = {items}
+            setItems = {setItems}
+            setShowAddRow = {setShowAddRow}
+          />
           : null
         }
         {shouldDisplayButton() ?
