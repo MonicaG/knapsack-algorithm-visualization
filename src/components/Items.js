@@ -2,77 +2,72 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Item from '../models/Item';
 import capacityDefaults from './../models/CapacityDefaults';
-import NumberInput from './NumberInput';
-import { useForm, Controller } from "react-hook-form";
+import itemValueDefaults from '../models/ItemValueDefaults';
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
 
 function Items({ items, setItems }) {
 
   const {
     register,
     handleSubmit,
-    control,
     reset,
+    setFocus,
     formState: { errors }
-  } = useForm();
-  
-  
+  } = useForm({
+    criteriaMode: "all"
+  });
+
   function onSubmit(data) {
     console.log(data);
     setItems([...items, new Item(data.itemName, data.itemValue, data.itemWeight)]);
     resetAddForm();
-  }; // your form submit function which will invoke after successful validation
-
-
+  }; 
 
   const [showAddRow, setShowAddRow] = React.useState(false);
   const maxNumberOfItems = 10;
 
-  // function handleNameChange(event) {
-  //     setItemName(event.target.value.toLowerCase());
-  // }
+  React.useEffect(() => {
+    if (showAddRow) {
+      setFocus("itemName");
+    }
+  }, [setFocus, showAddRow]);
 
-  // function handleItemWeightChange(event) {
-  //   setItemWeight(capacityDefaults.parseCapacity(event));
-  // }
-
-  // function handleItemValueChange(event) {
-  //   setItemValue(capacityDefaults.parseCapacity(event));
-  // }
-
-  // function checkForDuplicateName() {
-  //   if(items.filter(item => item.name === itemName).length > 0) {
-  //     throw new Error("Name must be unique"); 
-  //   }
-  // }
+  function isItemNameUnique(itemName) {
+    return items.filter(item => item.name === itemName).length === 0;
+  }
 
   function resetAddForm() {
     setShowAddRow(false);
     reset({})
-    //     setItemName('');
-    //     setItemValue(5);
-    //     setItemWeight(capacityDefaults.defaultValue);
-    //     setErrorMsg('');
   }
 
-  // function myHandleSubmit(event) {
-  //   event.preventDefault();
-  //   try {
-  //     checkForDuplicateName();
-  //     setItems([...items, new Item(itemName, itemValue, itemWeight)]);
-  //     resetAddForm()
-  //   }catch(error) {
-  //     setErrorMsg(error.message);
-  //   }
-  // }
 
   function handleAddButton(event) {
     setShowAddRow(true);
   }
 
   function handleDelete(item) {
-
     const filtered = items.filter(i => i !== item)
     setItems(filtered);
+  }
+
+  function shouldDisplayButton() {
+     return items.length >= maxNumberOfItems
+
+  }
+
+  function displayErrorMsg(fieldName) {
+    return (<ErrorMessage
+      errors={errors}
+      name={fieldName}
+      render={({ messages }) =>
+        messages &&
+        Object.entries(messages).map(([type, message]) => (
+          <p key={type}>{message}</p>
+        ))
+      }
+    />);
   }
 
   return (
@@ -97,55 +92,79 @@ function Items({ items, setItems }) {
           <form onSubmit={handleSubmit(onSubmit)} className="tr" role="row" >
             <span className="td" role="cell">
               <input
-                // onChange={handleNameChange}
                 placeholder="Enter item name"
-                defaultValue=""
-                {...register("itemName", { required: true })} />
-            </span>
-            <span className="td" role="cell">
-              <Controller
-                control={control}
-                name="itemValue"
-                defaultValue={5}
-                rules={{ max: capacityDefaults.max, min: capacityDefaults.min, required: true }}
-                render={({
-                  field: { onChange, value, name}
-                }) => (
-                  <NumberInput
-                    onChange={onChange}
-                    value={value}
-                    name={name}
-                  />
-                )}
+                {...register("itemName", {
+                  required: {
+                    value: true,
+                    message: "Please enter an item name"
+                  },
+                  validate: {
+                    isUnique: v => isItemNameUnique(v) || "Please enter a unique item name."
+                  }
+                })}
               />
+              {displayErrorMsg("itemName")}
             </span>
             <span className="td" role="cell">
-              <Controller
-                control={control}
-                name="itemWeight"
+              <input type="number"
+                defaultValue={itemValueDefaults.defaultValue}
+                min={itemValueDefaults.min}
+                max={itemValueDefaults.max}
+                step={itemValueDefaults.step}
+                {...register("itemValue", {
+                  valueAsNumber: true,
+                  max: {
+                    value: itemValueDefaults.max,
+                    message: "Please enter a smaller number"
+                  },
+                  min: {
+                    value: itemValueDefaults.min,
+                    message: "Please enter a larger nuber",
+                  },
+                  required: {
+                    value: true,
+                    message: "Please enter a value"
+                  }
+                })}
+              />
+             {displayErrorMsg("itemValue")}
+            </span>
+            <span className="td" role="cell">
+              <input type="number"
                 defaultValue={capacityDefaults.defaultValue}
-                rules={{ max: capacityDefaults.max, min: capacityDefaults.min, required: true }}
-                render={({
-                  field: { onChange, value, name, ref }
-                }) => (
-                  <NumberInput
-                    onChange={onChange}
-                    value={value}
-                  />
-                )}
+                min={capacityDefaults.min}
+                max={capacityDefaults.max}
+                {...register("itemWeight", {
+                  valueAsNumber: true,
+                  max: {
+                    value: capacityDefaults.max,
+                    message: "Please enter a smaller number"
+                  },
+                  min: {
+                    value: capacityDefaults.min,
+                    message: "Please enter a larger nuber",
+                  },
+                  required: {
+                    value: true,
+                    message: "Please enter a value"
+                  }
+                })}
               />
+              {displayErrorMsg("itemWeight")}
             </span>
             <span className="td" role="cell">
               <button type="submit">Add Item</button>
             </span>
             <span className="td" role="cell">
               <button type="reset" onClick={resetAddForm}>Cancel</button>
-
             </span>
           </form>
           : null
         }
-        <button type="button" onClick={handleAddButton}>+</button>
+        {shouldDisplayButton() ?
+          <button type="button" disabled>+</button> :
+          <button type="button" onClick={handleAddButton}>+</button>
+        }
       </div>
     </div>
   );

@@ -70,7 +70,7 @@ describe('clicking buttons', () => {
   test('if clicking the "cancel" button removes the form', () => {
     const { getByText, queryByRole, queryAllByRole, getAllByRole} = render(<Items items={initItems} setItems={setItems}  />);
     fireEvent.click(getByText('+'));
-    fireEvent.click(getByText('cancel'));
+    fireEvent.click(getByText('Cancel'));
     expect(queryByRole('textbox')).not.toBeInTheDocument();
     expect(queryAllByRole('spinbutton').length).toBe(0);
     expect(getAllByRole("button").length).toBe(4)
