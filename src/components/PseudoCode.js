@@ -1,7 +1,45 @@
-function PseudoCode({ item, capacity }) {
+function PseudoCode({ item, capacity, index, solutionTable }) {
+
+  function getCSS(active) {
+    return active ? "Bold" : "Muted"
+  }
+
+  function ifBlock(active) {
+    const css = getCSS(active);
+    return (
+      <div className={css}>
+        {`if w <= c { // ${item.weight} <= ${capacity} (${item.weight <= capacity ? "True" : "False"})
+  T[i][c] = Max(T[i-1][c], (value + T[i - 1][c - w])) `}
+        {active ?
+          `
+  // T[${index}][${capacity}] = Max(T[${index - 1}][${capacity}], (${item.value} + T[${index - 1}][${capacity - item.weight}])) 
+  // T[${index}][${capacity}] = Max(${solutionTable[index - 1][capacity]}, ${item.value + solutionTable[index - 1][capacity - item.weight]})
+  // T[${index}][${capacity}] = ${solutionTable[index][capacity]}`
+          : null
+        }
+      </div>
+    )
+  }
+
+  function elseBlock(active) {
+    const css = getCSS(active);
+    return (
+      <div className={css}>
+        {`}else {
+  T[i][c] = T[i-1][c]  `}
+        {active ?
+          `
+  // T[${index}][${capacity}] = T[${index - 1}][${capacity}]
+  // T[${index}][${capacity}] = ${solutionTable[index][capacity]}`
+          : null
+        }
+        {` 
+}`}
+      </div>
+    )
+  }
   if (item) {
-    const fitsCSS = item.weight <= capacity ? "Bold" : "Muted"
-    const toBigCSS = item.weight > capacity ? "Bold" : "Muted";
+    const itemFitsInKnapsack = item.weight <= capacity
     return (
       <div className="PseudoCode">
         {/* <ul>
@@ -11,24 +49,14 @@ function PseudoCode({ item, capacity }) {
         <li>w = Item weight</li>
         <li>v = Item value</li>
       </ul> */}
-{/* @todo - use <code></code> tag instead? */}
-        <blockquote>
-          <div className={fitsCSS}>
-            {`if w <= c {`} <br />
-            &nbsp;&nbsp;{` T[i][c] = Max(T[i-1][c], (value + table[i - 1][c - w]))`} <br />
-          </div>
-          <div className={toBigCSS}>
-            {`}else {`} <br />
-            &nbsp;&nbsp;{` T[i][c] = T[i-1][c]`} <br />
-          </div>
-          {`}`}
-
-        </blockquote>
-
+        <pre>
+          {ifBlock(itemFitsInKnapsack)}
+          {elseBlock(!itemFitsInKnapsack)}
+        </pre>
       </div>
     )
   } else {
-    return null;
+    return null
   }
 }
 export default PseudoCode;

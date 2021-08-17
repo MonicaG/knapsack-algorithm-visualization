@@ -70,6 +70,8 @@ function SolutionTable({ knapsackAlgorithm }) {
           <PseudoCode
             item={knapsackAlgorithm.items[currentItemIndex - 1]}
             capacity={currentCapacity}
+            index={currentItemIndex}
+            solutionTable={knapsackAlgorithm.solutionTable}
           />
       </div>
     </div>
