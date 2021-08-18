@@ -38,25 +38,21 @@ function PseudoCode({ item, capacity, index, solutionTable }) {
       </div>
     )
   }
-  if (item) {
-    const itemFitsInKnapsack = item.weight <= capacity
-    return (
-      <div className="PseudoCode">
-        {/* <ul>
+  const itemFitsInKnapsack = item.weight <= capacity
+  return (
+    <div className="PseudoCode">
+      {/* <ul>
         <li>T = Knapsack Solution Table</li>
         <li>c = Capacity</li>
         <li>i = row number</li>
         <li>w = Item weight</li>
         <li>v = Item value</li>
       </ul> */}
-        <pre>
-          {ifBlock(itemFitsInKnapsack)}
-          {elseBlock(!itemFitsInKnapsack)}
-        </pre>
-      </div>
-    )
-  } else {
-    return null
-  }
+      <pre>
+        {ifBlock(itemFitsInKnapsack)}
+        {elseBlock(!itemFitsInKnapsack)}
+      </pre>
+    </div>
+  )
 }
 export default PseudoCode;
