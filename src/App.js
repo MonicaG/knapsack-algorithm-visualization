@@ -10,9 +10,9 @@ import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 function App() {
 
   const initItems = [
-    new Item('item 1', 11, 1),
-    new Item('item 2', 7, 5),
-    new Item('item 3', 9, 2)
+    new Item('item 1', 4, 2),
+    new Item('item 2', 3, 1),
+    new Item('item 3', 5, 3)
   ];
 
   const [capacity, setCapacity] = React.useState(capacityDefaults.defaultValue);

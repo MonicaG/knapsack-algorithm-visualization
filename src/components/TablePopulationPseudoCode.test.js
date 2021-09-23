@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
-import PseudoCode from './PseudoCode';
-import KnapSackAlgorithm from './../models/KnapsackAlgorithm';
-import Item from './../models/Item';
+import TablePopulationPseudoCode from './TablePopulationPseudoCode';
+import KnapSackAlgorithm from '../models/KnapsackAlgorithm';
+import Item from '../models/Item';
 
 describe('the PseudoCode block', () => {
   const item1 = new Item('item1', 10, 3);
@@ -14,7 +14,7 @@ describe('the PseudoCode block', () => {
 
   test('the PseudoCode for an item that fits in the knapsack is displayed', () => {
     const capacity = 3
-    render(<PseudoCode
+    render(<TablePopulationPseudoCode
       item={item1}
       capacity={capacity}
       index={1}
@@ -32,7 +32,7 @@ describe('the PseudoCode block', () => {
   })
 
   test('the PseudoCode for an item that does not fit in the knapsack is displayed', () => {
-
-
+    //@todo - implement this test!!!
+    expect(screen.getByText('!!!implement this test!!!')).toBeInTheDocument();
   });
 });

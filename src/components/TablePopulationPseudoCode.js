@@ -1,4 +1,4 @@
-function PseudoCode({ item, capacity, index, solutionTable }) {
+function TablePopulationPseudoCode({ item, capacity, index, solutionTable }) {
 
   function getCSS(active) {
     return active ? "Bold" : "Muted"
@@ -55,4 +55,4 @@ function PseudoCode({ item, capacity, index, solutionTable }) {
     </div>
   )
 }
-export default PseudoCode;
+export default TablePopulationPseudoCode;
