@@ -21,18 +21,29 @@ describe('the PseudoCode block', () => {
       solutionTable={solutionTable} />);
 
         
-    expect(screen.getByText('if w <= c { // 3 <= 3 (True)', {exact: false})).toBeInTheDocument();
-    expect(screen.getByText('T[i][c] = Max(T[i-1][c], (value + T[i - 1][c - w]))', {exact: false})).toBeInTheDocument();
-    expect(screen.getByText('// T[1][3] = Max(T[0][3], (10 + T[0][0]))', {exact: false})).toBeInTheDocument();
-    expect(screen.getByText('// T[1][3] = Max(0, 10)', {exact: false})).toBeInTheDocument();
-    expect(screen.getByText('// T[1][3] = 10', {exact: false})).toBeInTheDocument();
-
-    const expectedElseStatement = /\s*}else {\s*T\[i\]\[c\] = T\[i-1\]\[c\]\s*}/
-    expect(screen.getByText(expectedElseStatement)).toBeInTheDocument();
+    expect(screen.getByText(/if w <= c { \/\/ 3 <= 3 \(True\)/)).toBeInTheDocument();
+    expect(screen.getByText(/T\[i\]\[c\] = Max\(T\[i-1\]\[c\], \(value \+ T\[i - 1\]\[c - w\]\)\)/)).toBeInTheDocument();
+    expect(screen.getByText(/\/\/ T\[1\]\[3\] = Max\(T\[0\]\[3\], \(10 \+ T\[0\]\[0\]\)\)/)).toBeInTheDocument();
+    expect(screen.getByText(/\/\/ T\[1\]\[3\] = Max\(0, 10\)/)).toBeInTheDocument();
+    expect(screen.getByText(/\/\/ T\[1\]\[3\] = 10/)).toBeInTheDocument();
+    expect(screen.getByText(/\s*}else {/)).toBeInTheDocument();
+    expect(screen.getByText(/\s*T\[i\]\[c\] = T\[i-1\]\[c\]\s*}/)).toBeInTheDocument();
   })
 
   test('the PseudoCode for an item that does not fit in the knapsack is displayed', () => {
-    //@todo - implement this test!!!
-    expect(screen.getByText('!!!implement this test!!!')).toBeInTheDocument();
+    const capacity = 2
+    render(<TablePopulationPseudoCode
+      item={item1}
+      capacity={capacity}
+      index={1}
+      solutionTable={solutionTable} />);
+
+    expect(screen.getByText(/if w <= c { \/\/ 3 <= 2/)).toBeInTheDocument();
+    expect(screen.getByText(/T\[i\]\[c\] = Max\(T\[i-1\]\[c\], \(value \+ T\[i - 1\]\[c - w\]\)\)/)).toBeInTheDocument();
+    expect(screen.getByText(/}else {/)).toBeInTheDocument();
+    expect(screen.getByText(/T\[i\]\[c\] = T\[i-1\]\[c\]/)).toBeInTheDocument();
+    expect(screen.getByText(/\/\/ T\[1\]\[2\] = T\[0\]\[2\]/)).toBeInTheDocument();
+    expect(screen.getByText(/\/\/ T\[1\]\[2\] = 0\s*}/)).toBeInTheDocument();
+  
   });
 });
