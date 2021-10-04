@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function SolutionTableRow({ cellKey, row, item, currentCell }) {
+function SolutionTableRow({ cellKey, row, item, currentCell, phase }) {
   return (
     <tr>
       {item ?
@@ -12,7 +12,11 @@ function SolutionTableRow({ cellKey, row, item, currentCell }) {
         <td> </td>
       }
       {row.map((cell, index) => {
-        const currentCSS = index === currentCell ? "CurrentCell" : "";
+        let css = 'CurrentCell'
+        if(phase) {
+          css = 'ChosenItem'
+        }
+        const currentCSS = index === currentCell ? css : "";
         return <td key={cellKey + index} className={`${currentCSS}`}>{cell}</td>
       })}
     </tr>

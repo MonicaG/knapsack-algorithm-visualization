@@ -8,7 +8,7 @@ function TablePopulationPseudoCode({ item, capacity, index, solutionTable }) {
     const css = getCSS(active);
     return (
       <div className={css}>
-        {`if w <= c { // ${item.weight} <= ${capacity} (${item.weight <= capacity ? "True" : "False"})
+        {`if w <= c then // ${item.weight} <= ${capacity} (${item.weight <= capacity ? "True" : "False"})
   T[i][c] = Max(T[i-1][c], (value + T[i - 1][c - w])) `}
         {active ?
           `
@@ -25,7 +25,7 @@ function TablePopulationPseudoCode({ item, capacity, index, solutionTable }) {
     const css = getCSS(active);
     return (
       <div className={css}>
-        {`}else {
+        {`else
   T[i][c] = T[i-1][c]  `}
         {active ?
           `
@@ -34,25 +34,16 @@ function TablePopulationPseudoCode({ item, capacity, index, solutionTable }) {
           : null
         }
         {` 
-}`}
+end if`}
       </div>
     )
   }
   const itemFitsInKnapsack = item.weight <= capacity
   return (
-    <div className="PseudoCode">
-      {/* <ul>
-        <li>T = Knapsack Solution Table</li>
-        <li>c = Capacity</li>
-        <li>i = row number</li>
-        <li>w = Item weight</li>
-        <li>v = Item value</li>
-      </ul> */}
       <pre>
         {ifBlock(itemFitsInKnapsack)}
         {elseBlock(!itemFitsInKnapsack)}
       </pre>
-    </div>
   )
 }
 export default TablePopulationPseudoCode;
