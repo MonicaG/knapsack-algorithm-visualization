@@ -6,6 +6,7 @@ function Capacity({ capacity, onCapacityChange }) {
     <div>
       <label hmlfor="capacity">Knapsack Capacity: </label>
       <input type="number"
+        aria-label="knapsack capacity"
         id="capacity" 
         name="capacity" 
         min={capacityDefaults.min} 

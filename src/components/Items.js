@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import AddItem from './AddItem';
+import {actionTypes} from '../App';
 
-function Items({ items, setItems }) {
-  
+function Items({ items, dispatch }) {
+  const ariaLabelAddNewItem = "Add new item";
+
   const [showAddRow, setShowAddRow] = React.useState(false);
   const maxNumberOfItems = 10;
 
@@ -14,11 +16,11 @@ function Items({ items, setItems }) {
 
   function handleDelete(item) {
     const filtered = items.filter(i => i !== item)
-    setItems(filtered);
+    dispatch({type: actionTypes.updateItems, items: filtered});
   }
 
   function shouldDisplayButton() {
-     return items.length >= maxNumberOfItems
+     return items.length >= maxNumberOfItems;
 
   }
 
@@ -36,21 +38,21 @@ function Items({ items, setItems }) {
             <span className="td" role="cell">{item.value}</span>
             <span className="td" role="cell">{item.weight}</span>
             <span className="td" role="cell">
-              <button type="button" onClick={() => handleDelete(item)}>-</button>
+              <button type="button" aria-label={`Delete item ${item.name}`} onClick={() => handleDelete(item)}>-</button>
             </span>
           </div>
         ))}
         {showAddRow ?
           <AddItem
             items = {items}
-            setItems = {setItems}
+            dispatch = {dispatch}
             setShowAddRow = {setShowAddRow}
           />
           : null
         }
         {shouldDisplayButton() ?
-          <button type="button" disabled>+</button> :
-          <button type="button" onClick={handleAddButton}>+</button>
+          <button type="button" disabled aria-label={ariaLabelAddNewItem}>+</button> :
+          <button type="button" aria-label={ariaLabelAddNewItem} onClick={handleAddButton}>+</button>
         }
       </div>
     </div>
