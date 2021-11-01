@@ -8,8 +8,8 @@ TO DO:
 - [x] Add validation for `item.value`. Currently it uses the capacityDefaults class. Should probably be a text field to allow for decimal numbers.
 - [ ] Use `<code>` tag for pseudo-code
 - [ ] Update pseudo-code to display values for current row/cell rather than generic variables
-- [ ] Add testing at App level for adding new item. I don't think I can do that at the Item level, as I pass in the state handler
-- [ ] Add unit test in Item level for duplicate item and empty item name.
+- [x] Add testing at App level for adding new item. I don't think I can do that at the Item level, as I pass in the state handler
+- [x] Add unit test in Item level for duplicate item and empty item name.
 - [ ] Add all the styling
 - [ ] Add text
 - [ ] On Solution Table add "back" and "skip to end" buttons

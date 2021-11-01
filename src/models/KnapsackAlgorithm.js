@@ -47,10 +47,9 @@ class KnapSackAlgorithm {
     var solution = [];
     var currentCapacity = this.capacity;
     for (let i = this.items.length; i > 0; i--) {
-      const previousItemIndex = i - 1;
-      if (this.#solutionTable[i][currentCapacity] !== this.#solutionTable[previousItemIndex][currentCapacity]) {
-        solution.push(new ItemToUse(this.items[previousItemIndex], previousItemIndex, currentCapacity));
-        currentCapacity -= this.items[previousItemIndex].weight;
+      if (this.#solutionTable[i][currentCapacity] !== this.#solutionTable[i-1][currentCapacity]) {
+        solution.push(new ItemToUse(this.items[i-1], i, currentCapacity));
+        currentCapacity -= this.items[i-1].weight;
       }
     }
     return solution;
