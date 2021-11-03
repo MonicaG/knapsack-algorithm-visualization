@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import SolutionTable from './SolutionTable';
-import KnapSackAlgorithm from './../models/KnapsackAlgorithm';
-import Item from './../models/Item';
+import KnapSackAlgorithm from '../../models/KnapsackAlgorithm';
+import Item from '../../models/Item';
 
 describe('the knapsack solution table', () => {
   const items = [

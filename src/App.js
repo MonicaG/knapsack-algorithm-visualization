@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import Items from './components/Items';
 import Capacity from './components/Capacity'
 import capacityDefaults from './models/CapacityDefaults';
-import SolutionTable from './components/SolutionTable';
+import SolutionTable from './components/solution/SolutionTable';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 

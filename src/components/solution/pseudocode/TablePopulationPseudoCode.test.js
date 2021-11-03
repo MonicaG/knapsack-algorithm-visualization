@@ -1,7 +1,7 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import TablePopulationPseudoCode from './TablePopulationPseudoCode';
-import KnapSackAlgorithm from '../models/KnapsackAlgorithm';
-import Item from '../models/Item';
+import KnapSackAlgorithm from '../../../models/KnapsackAlgorithm';
+import Item from '../../../models/Item';
 
 describe('the PseudoCode block', () => {
   const item1 = new Item('item1', 10, 3);
