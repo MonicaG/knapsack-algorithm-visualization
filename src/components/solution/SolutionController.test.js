@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, within } from '@testing-library/react';
-import SolutionTable from './SolutionTable';
+import SolutionController from './SolutionController';
 import KnapSackAlgorithm from '../../models/KnapsackAlgorithm';
 import Item from '../../models/Item';
 
@@ -14,7 +14,7 @@ describe('the knapsack solution table', () => {
     const capacity = 5;
     const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    render(<SolutionTable knapsackAlgorithm={algorithm} />);
+    render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     const rows = screen.getAllByRole("row");
 
@@ -32,7 +32,7 @@ describe('the knapsack solution table', () => {
     const capacity = 6;
     const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    render(<SolutionTable knapsackAlgorithm={algorithm} />);
+    render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     screen.getByRole("table");
     const rows = screen.getAllByRole("row");
@@ -50,7 +50,7 @@ describe('the knapsack solution table', () => {
     const capacity = 4;
     const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    const { getAllByRole } = render(<SolutionTable knapsackAlgorithm={algorithm} />);
+    const { getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     const allRows = getAllByRole("row");
     const capacityRow = allRows[0];
@@ -84,7 +84,7 @@ describe('clicking the button', () => {
 
   test('3 times results in first solution row being updated to capacity 4 (inclusive)', () => {
 
-    const { getByRole, getAllByRole } = render(<SolutionTable knapsackAlgorithm={algorithm} />);
+    const { getByRole, getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     for (let n = 0; n < 3; n++) {
       fireEvent.click(getByRole('button'))
@@ -128,7 +128,7 @@ describe('clicking the button', () => {
   });
 
   test('6 times results in second solution row being updated up to capacity 2 (inclusive)', () => {
-    const { getByRole, getAllByRole } = render(<SolutionTable knapsackAlgorithm={algorithm} />);
+    const { getByRole, getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
     for (let n = 0; n < 6; n++) {
       fireEvent.click(getByRole('button'))
     }
@@ -181,7 +181,7 @@ describe('clicking the button', () => {
   });
 
   test('14 times results in table being filled in', () => {
-    const { getByRole, getAllByRole } = render(<SolutionTable knapsackAlgorithm={algorithm} />);
+    const { getByRole, getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     for (let n = 0; n < 15; n++) {
       fireEvent.click(getByRole('button'))

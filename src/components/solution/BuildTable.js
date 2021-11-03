@@ -28,4 +28,20 @@ function BuildTable({ knapsackAlgorithm, state }) {
   );
 }
 
+BuildTable.propTypes = {
+  knapsackAlgorithm: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+      weight: PropTypes.number.isRequired
+    })).isRequired,
+    capacity: PropTypes.number.isRequired,
+  }).isRequired,
+  state: PropTypes.shape({
+    currentItemIndex: PropTypes.number.isRequired,
+    currentCapacity: PropTypes.number.isRequired,
+    currentCellIndex: PropTypes.number.isRequired
+  }).isRequired
+};
+
 export default BuildTable;

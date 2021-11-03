@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
-import { solutionTableActionTypes as types } from './SolutionTable';
+import { solutionTableActionTypes as types } from './SolutionController';
 import ItemToUse from '../../models/ItemToUse';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
@@ -32,10 +32,10 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
         <p>current capacity is: {state.currentCapacity}</p>
         <p>current item Index is: {state.solutionIndex}</p>
         <div>
-          {/* <ItemsToUsePseudoCode
+          <ItemsToUsePseudoCode
             solutionItems={knapsackAlgorithm.solutionItems}
             index={state.solutionIndex}
-          /> */}
+          />
           <SolutionItems
             solutionItems={state.solutionItems}
           />

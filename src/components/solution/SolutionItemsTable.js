@@ -26,4 +26,19 @@ function SolutionItemsTable({ knapsackAlgorithm, state }) {
     })
   );
 }
+
+SolutionItemsTable.propTypes = {
+  knapsackAlgorithm: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+      weight: PropTypes.number.isRequired
+    })).isRequired,
+    capacity: PropTypes.number.isRequired,
+  }).isRequired,
+  state: PropTypes.shape({
+    solutionItems: PropTypes.array
+  }).isRequired
+};
+
 export default SolutionItemsTable;

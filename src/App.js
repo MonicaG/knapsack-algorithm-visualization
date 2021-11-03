@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import Items from './components/Items';
 import Capacity from './components/Capacity'
 import capacityDefaults from './models/CapacityDefaults';
-import SolutionTable from './components/solution/SolutionTable';
+import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 
@@ -87,7 +87,7 @@ function App() {
         </div>
         :
         <div>
-          <SolutionTable
+          <SolutionController
             knapsackAlgorithm={state.knapsack}
           />
           <input type="button" value="Reset" onClick={() => dispatch({type: actionTypes.reset})} />

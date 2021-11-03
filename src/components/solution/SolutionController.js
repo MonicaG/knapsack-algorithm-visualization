@@ -7,14 +7,14 @@ import BuildTableInfo from './BuildTableInfo';
 import SolutionItemsTableInfo from './SolutionItemsTableInfo';
 
 
-const solutionTableActionTypes = {
+const solutionControllerActionTypes = {
   STEP_TO_NEXT_CELL: 1,
   STEP_TO_NEXT_ROW: 2,
   STEP_TO_FIND_SOLUTION_ITEMS: 3,
   STEP_FIND_NEXT_SOLUTION_ITEM: 4,
 }
 
-function SolutionTable({ knapsackAlgorithm }) {
+function SolutionController({ knapsackAlgorithm }) {
 
   const initialState = {
     currentItemIndex: 1,
@@ -31,26 +31,26 @@ function SolutionTable({ knapsackAlgorithm }) {
 
   function reducer(state, action) {
     switch (action.type) {
-      case solutionTableActionTypes.STEP_TO_NEXT_CELL:
+      case solutionControllerActionTypes.STEP_TO_NEXT_CELL:
         return {
           ...state,
           currentCapacity: state.currentCapacity + 1,
           currentCellIndex: state.currentCellIndex + 1
         }
-      case solutionTableActionTypes.STEP_TO_NEXT_ROW:
+      case solutionControllerActionTypes.STEP_TO_NEXT_ROW:
         return {
           ...state,
           currentItemIndex: state.currentItemIndex + 1,
           currentCapacity: 1,
           currentCellIndex: 1
         };
-      case solutionTableActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
+      case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
         return {
           ...state,
           findSolutionItems: true,
           currentCapacity: knapsackAlgorithm.capacity
         }
-      case solutionTableActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
+      case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
         let theState = {
           ...state,
           solutionIndex: state.solutionIndex - 1,
@@ -106,7 +106,7 @@ function SolutionTable({ knapsackAlgorithm }) {
   );
 };
 
-SolutionTable.propTypes = {
+SolutionController.propTypes = {
   knapsackAlgorithm: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -117,5 +117,5 @@ SolutionTable.propTypes = {
   }).isRequired
 };
 
-export default SolutionTable;
-export { solutionTableActionTypes };
+export default SolutionController;
+export { solutionControllerActionTypes as solutionTableActionTypes };

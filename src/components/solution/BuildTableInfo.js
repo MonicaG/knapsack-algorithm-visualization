@@ -1,6 +1,6 @@
 import React from 'react';
 import TablePopulationPseudoCode from './pseudocode/TablePopulationPseudoCode';
-import { solutionTableActionTypes as types} from './SolutionTable';
+import { solutionTableActionTypes as types} from './SolutionController';
 
 
 function BuildTableInfo({knapsackAlgorithm, state, dispatch}) {
