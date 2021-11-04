@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import {solutionItemsPropType} from '../helpers/proptypes'
 
 function ItemsToUsePseudoCode({ solutionItems, index }) {
   const item = solutionItems[index]
@@ -39,17 +40,7 @@ function ItemsToUsePseudoCode({ solutionItems, index }) {
 }
 
 ItemsToUsePseudoCode.propTypes = {
-  solutionItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      item: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        weight: PropTypes.number.isRequired
-    }),
-      row: PropTypes.number.isRequired,
-      column: PropTypes.number.isRequired
-  })
-  ).isRequired,
+  ...solutionItemsPropType,
   index: PropTypes.number.isRequired
 };
 

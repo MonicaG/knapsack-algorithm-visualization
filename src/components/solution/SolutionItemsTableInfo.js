@@ -1,4 +1,6 @@
 import React from 'react';
+import {knapsackAlgorithmPropType, solutionItemsPropType} from './helpers/proptypes'
+import PropTypes from 'prop-types';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
 import { solutionTableActionTypes as types } from './SolutionController';
@@ -12,17 +14,20 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
       newItem = new ItemToUse(knapsackAlgorithm.items[state.solutionIndex - 1], state.solutionIndex, state.currentCapacity);
       currentCapacity -= knapsackAlgorithm.items[state.solutionIndex - 1].weight
     }
+
+    let payload = { currentCapacity: currentCapacity }
     if (newItem) {
-      dispatch({
-        type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
-        payload: { newItem: newItem, currentCapacity: currentCapacity }
-      });
-    }else {
-      dispatch({
-        type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
-        payload: { currentCapacity: currentCapacity }
-      });
+      payload = {
+        ...payload,
+        newItem: newItem
+      }
     }
+
+    dispatch({
+      type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
+      payload: payload
+    });
+
   }
 
   return (
@@ -44,6 +49,16 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
     </div>
   )
 }
+
+SolutionItemsTableInfo.propTypes = {
+  ...knapsackAlgorithmPropType,
+  state: PropTypes.shape({
+    ...solutionItemsPropType,
+    solutionIndex: PropTypes.number.isRequired,
+    currentCapacity: PropTypes.number.isRequired,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 export default SolutionItemsTableInfo;
 

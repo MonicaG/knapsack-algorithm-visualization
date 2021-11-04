@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import {knapsackAlgorithmPropType} from './helpers/proptypes'
 import SolutionTableRow from './SolutionTableRow'
 import React from 'react';
 
@@ -29,14 +30,7 @@ function BuildTable({ knapsackAlgorithm, state }) {
 }
 
 BuildTable.propTypes = {
-  knapsackAlgorithm: PropTypes.shape({
-    items: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-      weight: PropTypes.number.isRequired
-    })).isRequired,
-    capacity: PropTypes.number.isRequired,
-  }).isRequired,
+  ...knapsackAlgorithmPropType,
   state: PropTypes.shape({
     currentItemIndex: PropTypes.number.isRequired,
     currentCapacity: PropTypes.number.isRequired,

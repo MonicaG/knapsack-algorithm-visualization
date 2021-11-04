@@ -1,5 +1,5 @@
+import React from 'react';
 function SolutionItems({ solutionItems }) {
-  debugger
   return (
     <div>
       <p>Items that fit:</p>
