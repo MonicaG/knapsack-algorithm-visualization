@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types';
-import {solutionItemsPropType} from '../helpers/proptypes'
+import {ItemPropType} from '../helpers/proptypes'
 
-function ItemsToUsePseudoCode({ solutionItems, index }) {
-  const item = solutionItems[index]
-  const row = item ? item.row : 0
-  const column = item ? item.column : 0
-  const previousItem = solutionItems[index + 1]
-  const previousItemWeight = previousItem ? previousItem.item.weight : 0
+function ItemsToUsePseudoCode({ previousItem, index, currentCapacity }) {
+  
   return (
     <div>
     
@@ -15,20 +11,21 @@ function ItemsToUsePseudoCode({ solutionItems, index }) {
     Where:
     items = {item_1, item_2...item_n}
     solution: {} // Empty to start. Will contain the items that fit into the knapsack
-    int currentCapacity = knapsackCapacity //`} {column}
+    int currentCapacity = knapsackCapacity //`} {currentCapacity}
           {`
 
 
     for i in items.size to 1 do 
       if (Table[i][currentCapacity] != Table[i-1][currentCapacity]) then 
-      // Table`}[{row}][{column}] != Table[{row - 1}][{column}]
+      // Table`}[{index}][{currentCapacity}] != Table[{index - 1}][{currentCapacity}]
           {`
+          //item is part of the solution
         solution.add(items[i-1])
         currentCapacity = currentCapacity - items[i-1].weight
-        //currentCapacity = `} {column} - {previousItemWeight} 
+        //currentCapacity = `} {currentCapacity} - {previousItem.weight}
         {`
       else 
-        //no-op
+        //no-op - item is not part of the solution
       end if
     end for
     
@@ -40,8 +37,9 @@ function ItemsToUsePseudoCode({ solutionItems, index }) {
 }
 
 ItemsToUsePseudoCode.propTypes = {
-  ...solutionItemsPropType,
-  index: PropTypes.number.isRequired
+  previousItem: ItemPropType.isRequired,
+  index: PropTypes.number.isRequired,
+  currentCapacity: PropTypes.number.isRequired
 };
 
 export default ItemsToUsePseudoCode;

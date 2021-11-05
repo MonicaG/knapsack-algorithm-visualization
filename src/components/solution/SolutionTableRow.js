@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import {ItemPropType} from './helpers/proptypes'
 
 function SolutionTableRow({ cellKey, row, item, currentCell, phase }) {
   return (
@@ -27,6 +28,6 @@ function SolutionTableRow({ cellKey, row, item, currentCell, phase }) {
 SolutionTableRow.propTypes = {
   cellKey: PropTypes.string.isRequired,
   row: PropTypes.arrayOf(PropTypes.number).isRequired,
-  item: PropTypes.object
+  item: ItemPropType
 };
 export default SolutionTableRow;

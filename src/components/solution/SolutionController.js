@@ -1,4 +1,4 @@
-import {knapsackAlgorithmPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType} from './helpers/proptypes'
 import SolutionTableRow from './SolutionTableRow';
 import React, { useReducer } from 'react';
 import BuildTable from './BuildTable';
@@ -107,7 +107,7 @@ function SolutionController({ knapsackAlgorithm }) {
 };
 
 SolutionController.propTypes = {
-  ...knapsackAlgorithmPropType
+  knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired
 };
 
 export default SolutionController;

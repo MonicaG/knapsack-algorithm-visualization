@@ -1,25 +1,20 @@
 import PropTypes from 'prop-types';
-export const knapsackAlgorithmPropType = {
-  knapsackAlgorithm: PropTypes.shape({
-    items: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-      weight: PropTypes.number.isRequired
-    })).isRequired,
+
+export const ItemPropType =  PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    weight: PropTypes.number.isRequired
+  });
+
+export const KnapsackAlgorithmPropType = PropTypes.shape({
+    items: PropTypes.arrayOf(ItemPropType).isRequired,
     capacity: PropTypes.number.isRequired,
     solutionTable: PropTypes.array.isRequired
-  }).isRequired
-};
+  });
 
-export const solutionItemsPropType = {
-  solutionItems: PropTypes.arrayOf(
+export const SolutionItemsPropType = PropTypes.arrayOf(
     PropTypes.shape({
-      item: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        weight: PropTypes.number.isRequired
-    }).isRequired,
+      item: ItemPropType.isRequired,
       row: PropTypes.number.isRequired,
       column: PropTypes.number.isRequired
-  })).isRequired
-};
+    }));

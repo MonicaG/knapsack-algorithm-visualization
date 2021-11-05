@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {knapsackAlgorithmPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType} from './helpers/proptypes'
 import React from 'react';
 import TablePopulationPseudoCode from './pseudocode/TablePopulationPseudoCode';
 import { solutionTableActionTypes as types} from './SolutionController';
@@ -38,7 +38,7 @@ function BuildTableInfo({knapsackAlgorithm, state, dispatch}) {
 }
 
 BuildTableInfo.propTypes = {
-  ...knapsackAlgorithmPropType,
+  knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired,
   state: PropTypes.shape({
     currentItemIndex: PropTypes.number.isRequired,
     currentCapacity: PropTypes.number.isRequired,

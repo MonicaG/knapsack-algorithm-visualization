@@ -1,5 +1,5 @@
 import React from 'react';
-import {knapsackAlgorithmPropType, solutionItemsPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/proptypes'
 import PropTypes from 'prop-types';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
@@ -37,10 +37,15 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
         <p>current capacity is: {state.currentCapacity}</p>
         <p>current item Index is: {state.solutionIndex}</p>
         <div>
+        {state.solutionIndex > 0 ?
           <ItemsToUsePseudoCode
-            solutionItems={knapsackAlgorithm.solutionItems}
+            previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
             index={state.solutionIndex}
+            currentCapacity={state.currentCapacity}
           />
+          :
+          null
+        }
           <SolutionItems
             solutionItems={state.solutionItems}
           />
@@ -51,9 +56,9 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
 }
 
 SolutionItemsTableInfo.propTypes = {
-  ...knapsackAlgorithmPropType,
+  knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired,
   state: PropTypes.shape({
-    ...solutionItemsPropType,
+    solutionItems: SolutionItemsPropType.isRequired,
     solutionIndex: PropTypes.number.isRequired,
     currentCapacity: PropTypes.number.isRequired,
   }).isRequired,
