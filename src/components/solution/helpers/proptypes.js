@@ -17,4 +17,5 @@ export const SolutionItemsPropType = PropTypes.arrayOf(
     item: ItemPropType.isRequired,
     row: PropTypes.number.isRequired,
     column: PropTypes.number.isRequired
-  }));
+  })
+);
