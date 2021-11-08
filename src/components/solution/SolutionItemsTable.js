@@ -6,10 +6,7 @@ import React from 'react';
 function SolutionItemsTable({ knapsackAlgorithm, state }) {
   //@todo - fix this to get cells to highlight
   function getCellToHighLight(index) {
-    //should only be one item per row.
-    // let item = state.solutionItems.filter(itemToUse => itemToUse.row === index)
-    // return item[0] ? item[0].column : null;
-    return null;
+    return index === state.solutionIndex && index > 0 ? state.currentCapacity : null;
   }
   return (
 
