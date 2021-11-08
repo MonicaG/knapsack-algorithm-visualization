@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {ItemPropType} from '../helpers/proptypes'
+import {ItemPropType} from '../helpers/PropTypesHelper'
 
 function ItemsToUsePseudoCode({ previousItem, index, currentCapacity }) {
   

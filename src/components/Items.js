@@ -33,7 +33,7 @@ function Items({ items, dispatch }) {
           <span className="td" role="cell">Weight</span>
         </div>
         {items.map(item => (
-          <div className="tr" role="row" key={item.name}>
+          <div className="tr" role="row" key={item.id}>
             <span className="td" role="cell">{item.name}</span>
             <span className="td" role="cell">{item.value}</span>
             <span className="td" role="cell">{item.weight}</span>

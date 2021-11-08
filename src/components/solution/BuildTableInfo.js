@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {KnapsackAlgorithmPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType} from './helpers/PropTypesHelper'
 import React from 'react';
 import TablePopulationPseudoCode from './pseudocode/TablePopulationPseudoCode';
 import { solutionTableActionTypes as types} from './SolutionController';

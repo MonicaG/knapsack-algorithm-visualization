@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import {ItemPropType} from './helpers/proptypes'
+import {ItemPropType} from './helpers/PropTypesHelper'
+import {getCellId} from './helpers/TableHelper';
 
-function SolutionTableRow({ cellKey, row, item, currentCell, cssClassName }) {
+function SolutionTableRow({ cellKey, row, item, currentCell }) {
   return (
     <tr>
       {item ?
@@ -13,8 +14,9 @@ function SolutionTableRow({ cellKey, row, item, currentCell, cssClassName }) {
         <td> </td>
       }
       {row.map((cell, index) => {
-        const currentCSS = index === currentCell ? cssClassName : "";
-        return <td key={cellKey + index} className={`${currentCSS}`}>{cell}</td>
+        const currentCSS = index === currentCell ? "CurrentCell" : "";
+        const id = getCellId(cellKey, index);
+        return <td id={id} key={id} className={`${currentCSS}`}>{cell}</td>
       })}
     </tr>
   );

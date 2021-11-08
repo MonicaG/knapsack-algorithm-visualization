@@ -7,13 +7,12 @@
   margin-top: 2em;
 }
 
-.ChosenItem {
-  background-color: aqua;
+.CurrentCell {
+  border-width: medium;
+  border-style: solid;
+  border-color: lightcoral;
 }
 
-.CurrentCell {
-  background-color: lightcoral;
-}
 
 .Muted {
   color: grey;

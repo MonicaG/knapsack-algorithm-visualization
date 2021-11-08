@@ -1,4 +1,4 @@
-import {KnapsackAlgorithmPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType} from './helpers/PropTypesHelper'
 import SolutionTableRow from './SolutionTableRow';
 import React, { useReducer } from 'react';
 import BuildTable from './BuildTable';

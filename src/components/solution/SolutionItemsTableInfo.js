@@ -1,5 +1,6 @@
 import React from 'react';
-import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/PropTypesHelper'
+import {getItemCellId} from './helpers/TableHelper';
 import PropTypes from 'prop-types';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
@@ -8,6 +9,16 @@ import ItemToUse from '../../models/ItemToUse';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
   const [gridItems, setGridItems] = React.useState([]);
+
+  React.useEffect(() => {
+    const usedBackground = "lightgreen";
+    const notUsedBackground = "lightgrey";
+    gridItems.forEach((item) => {
+      document.getElementById(item.gridId).style.background = item.isSolutionItem ? usedBackground : notUsedBackground;
+    });
+   
+  }, [gridItems]);
+
 
   function handleButtonClick() {
     let currentCapacity = state.currentCapacity
@@ -25,7 +36,7 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
       }
     }
 
-    //setGridItems(...gridItems, {row: state.solutionIndex, column: state.currentCapacity, isSolutionItem: newItem ? true: false})
+    setGridItems([...gridItems, {gridId: getItemCellId(knapsackAlgorithm.items[state.solutionIndex - 1], state.currentCapacity), isSolutionItem: newItem ? true: false}])
 
     dispatch({
       type: types.STEP_FIND_NEXT_SOLUTION_ITEM,

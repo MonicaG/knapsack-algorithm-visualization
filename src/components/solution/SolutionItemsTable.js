@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/proptypes'
+import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/PropTypesHelper'
 import SolutionTableRow from './SolutionTableRow';
 import React from 'react';
 
@@ -14,12 +14,11 @@ function SolutionItemsTable({ knapsackAlgorithm, state }) {
       const indexOffset = index - 1;
       const item = index === 0 ? null : knapsackAlgorithm.items[indexOffset]
       return <SolutionTableRow
-        key={item ? item.name : " "}
-        cellKey={item ? item.name + "Cell" : "Cell"}
+        key={item ? item.id : " "}
+        cellKey={item ? item.id : "Cell"}
         row={row}
         item={item}
         currentCell={getCellToHighLight(index)}
-        cssClassName={"ChosenItem"}
       />
     })
   );
