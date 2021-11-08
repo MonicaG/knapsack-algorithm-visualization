@@ -7,6 +7,8 @@ import { solutionTableActionTypes as types } from './SolutionController';
 import ItemToUse from '../../models/ItemToUse';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
+  const [gridItems, setGridItems] = React.useState([]);
+
   function handleButtonClick() {
     let currentCapacity = state.currentCapacity
     let newItem = null;
@@ -22,6 +24,8 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
         newItem: newItem
       }
     }
+
+    //setGridItems(...gridItems, {row: state.solutionIndex, column: state.currentCapacity, isSolutionItem: newItem ? true: false})
 
     dispatch({
       type: types.STEP_FIND_NEXT_SOLUTION_ITEM,

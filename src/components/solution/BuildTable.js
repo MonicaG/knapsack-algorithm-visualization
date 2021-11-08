@@ -23,7 +23,7 @@ function BuildTable({ knapsackAlgorithm, state }) {
         row={formattedRow}
         item={item}
         currentCell={highlightCellIndex}
-        phase={false}
+        cssClassName={"CurrentCell"}
       />
     })
   );

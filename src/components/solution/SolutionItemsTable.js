@@ -19,7 +19,7 @@ function SolutionItemsTable({ knapsackAlgorithm, state }) {
         row={row}
         item={item}
         currentCell={getCellToHighLight(index)}
-        phase={true}
+        cssClassName={"ChosenItem"}
       />
     })
   );
