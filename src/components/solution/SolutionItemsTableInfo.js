@@ -57,6 +57,7 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
             previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
             index={state.solutionIndex}
             currentCapacity={state.currentCapacity}
+            knapsackAlgorithm={knapsackAlgorithm}
           />
           :
           null
