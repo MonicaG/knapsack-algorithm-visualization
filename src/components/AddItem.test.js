@@ -1,9 +1,13 @@
 import AddItem from "./AddItem";
 import Item from './../models/Item'
-import { screen, render, fireEvent, within, waitFor, act} from '@testing-library/react';
+import { screen, render, fireEvent, within, waitFor } from '@testing-library/react';
 import "@testing-library/jest-dom";
-import {actionTypes} from '../App';
+import { actionTypes } from '../App';
+import { nanoid } from 'nanoid';
 
+jest.mock('nanoid', () => {
+  return { nanoid: () => "1234" };
+});
 
 describe('AddItem Form', () => {
 
@@ -15,7 +19,7 @@ describe('AddItem Form', () => {
 
 
   it('should display the default fields', () => {
-    render(<AddItem  />);
+    render(<AddItem />);
     expect(screen.getByPlaceholderText("Enter item name")).toBeInTheDocument();
     expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
     expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
@@ -27,10 +31,10 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: "item 4"}
+      target: { value: "item 4" }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -39,9 +43,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 51 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     expect(await screen.findAllByRole("alert")).toHaveLength(2);
     expect(mockDispatch).not.toBeCalled();
     expect(mockSetShowAddRow).not.toBeCalled();
@@ -51,10 +55,10 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: "item 4"}
+      target: { value: "item 4" }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -63,9 +67,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: -1 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     expect(await screen.findAllByRole("alert")).toHaveLength(2);
     expect(mockDispatch).not.toBeCalled();
     expect(mockSetShowAddRow).not.toBeCalled();
@@ -75,10 +79,10 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: "item 2"}
+      target: { value: "item 2" }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -87,9 +91,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 6 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
 
@@ -103,10 +107,10 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: "ITEM 1"}
+      target: { value: "ITEM 1" }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -115,9 +119,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 6 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
 
@@ -131,10 +135,10 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: " item 1 "}
+      target: { value: " item 1 " }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -143,9 +147,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 6 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
 
@@ -159,8 +163,8 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
       target: { value: 5 }
@@ -168,9 +172,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 6 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
 
@@ -184,11 +188,11 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
-    
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
+
 
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: " \r\n \t "}
+      target: { value: " \r\n \t " }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -197,9 +201,9 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 6 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
 
@@ -213,10 +217,10 @@ describe('AddItem Form', () => {
     const mockDispatch = jest.fn();
     const mockSetShowAddRow = jest.fn();
 
-    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow}/>);
+    render(<AddItem items={initItems} dispatch={mockDispatch} setShowAddRow={mockSetShowAddRow} />);
 
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
-      target: {value: "new item"}
+      target: { value: "new item" }
     });
 
     fireEvent.input(screen.getByRole("spinbutton", { name: /item weight/i }), {
@@ -225,17 +229,19 @@ describe('AddItem Form', () => {
     fireEvent.input(screen.getByRole("spinbutton", { name: /item value/i }), {
       target: { value: 6 }
     });
-  
+
     fireEvent.submit(screen.getByRole("button", { name: /Save Item/i }));
-    
+
     const alerts = screen.queryAllByRole("alert");
     expect(alerts).toHaveLength(0);
     let newItem = new Item('new item', 6, 5);
+    expect(newItem.id).toBe("1234");
     await waitFor(() =>
-    expect(mockDispatch).toHaveBeenCalledWith({
-      type: actionTypes.addItem, newItem: newItem
-    }));
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: actionTypes.addItem, newItem: newItem
+      }));
     await waitFor(() =>
-    expect(mockSetShowAddRow).toHaveBeenCalledWith(false));
+      expect(mockSetShowAddRow).toHaveBeenCalledWith(false)
+    );
   });
 });
