@@ -4,7 +4,7 @@ import capacityDefaults from "../models/CapacityDefaults";
 function Capacity({ capacity, onCapacityChange }) {
   return (
     <div>
-      <label hmlfor="capacity">Knapsack Capacity: </label>
+      <label className="mb-3 font-bold text-gray-700 text-left" hmlfor="capacity">Knapsack Capacity: </label>
       <input type="number"
         aria-label="knapsack capacity"
         id="capacity" 
@@ -12,7 +12,9 @@ function Capacity({ capacity, onCapacityChange }) {
         min={capacityDefaults.min} 
         max={capacityDefaults.max} 
         value={capacity}
-        onChange={onCapacityChange} />
+        onChange={onCapacityChange} 
+        className="w-min"
+        />
     </div>
   );
 };

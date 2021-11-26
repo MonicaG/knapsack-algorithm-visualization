@@ -22,7 +22,7 @@ function BuildTableInfo({knapsackAlgorithm, state, dispatch}) {
   return (
     <div className="BuildTableInfo">
     
-      <input type="button" value="Step" onClick={() => dispatch({type: getType()})} />
+      <input type="button" className="btn" value="Step" onClick={() => dispatch({type: getType()})} />
       <div>
         <p>current capacity is: {state.currentCapacity}</p>
         <p>current item Index is: {state.currentItemIndex}</p>

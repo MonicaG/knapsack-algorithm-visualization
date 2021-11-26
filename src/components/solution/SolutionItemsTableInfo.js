@@ -47,7 +47,7 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
 
   return (
     <div className="SolutionItemsTableInfo">
-      <input type="button" value="Step" disabled={state.solutionIndex <= 0} onClick={handleButtonClick} />
+      <input type="button" className="btn" value="Step" disabled={state.solutionIndex <= 0} onClick={handleButtonClick} />
       <div>
         <p>current capacity is: {state.currentCapacity}</p>
         <p>current item Index is: {state.solutionIndex}</p>

@@ -4,7 +4,7 @@ import SolutionTableRow from './SolutionTableRow';
 import React from 'react';
 
 function SolutionItemsTable({ knapsackAlgorithm, state }) {
-  //@todo - fix this to get cells to highlight
+  
   function getCellToHighLight(index) {
     return index === state.solutionIndex && index > 0 ? state.currentCapacity : null;
   }

@@ -6,15 +6,15 @@ function SolutionTableRow({ cellKey, row, item, currentCell }) {
   return (
     <tr>
       {item ?
-        <td>
+        <td className="cell">
           {item.name} <br />
           (V: {item.value} W: {item.weight})
         </td>
         :
-        <td> </td>
+        <td className="cell"> </td>
       }
       {row.map((cell, index) => {
-        const currentCSS = index === currentCell ? "CurrentCell" : "";
+        const currentCSS = index === currentCell ? "border-double border-red-900 cell" : "cell";
         const id = getCellId(cellKey, index);
         return <td id={id} key={id} className={`${currentCSS}`}>{cell}</td>
       })}

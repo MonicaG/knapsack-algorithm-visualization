@@ -70,8 +70,8 @@ function SolutionController({ knapsackAlgorithm }) {
     }
   }
   return (
-    <div className="SolutionTable">
-      <table border="1">
+    <div>
+      <table className="table-auto px-10 py-3">
         <tbody>
           <SolutionTableRow
             cellKey="capacityRowCell"
