@@ -45,7 +45,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
       render={({ messages }) =>
         messages &&
         Object.entries(messages).map(([type, message]) => (
-          <label className="text-red-500 text-sm my-2" role="alert" key={type}>{message}</label>
+          <p className="text-red-500 my-2" role="alert" key={type}>{message}</p>
         ))
       }
     />);
@@ -55,9 +55,15 @@ function AddItem({ items, dispatch, setShowAddRow }) {
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
       <div className="my-4">
         <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 bg-gray-100 p-6 relative">
+          <div className="sm:col-span-6 col-span-2">
+            {displayErrorMsg("itemName")}
+            {displayErrorMsg("itemValue")}
+            {displayErrorMsg("itemWeight")}
+          </div>
           <div className="sm:col-span-3 col-span-2">
             <label htmlFor="itemName" className="label">Item Name</label>
             <input type="text"
+              className={`${errors.itemName ? 'error' : ''}`}
               placeholder="Enter item name"
               aria-label="new item name"
               {...register("itemName", {
@@ -76,6 +82,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="col-span-1">
             <label htmlFor="itemValue" className="label">Value</label>
             <input type="number"
+              className={`${errors.itemValue ? 'error' : ''}`}
               defaultValue={itemValueDefaults.defaultValue}
               min={itemValueDefaults.min}
               max={itemValueDefaults.max}
@@ -101,6 +108,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="col-span-1">
             <label htmlFor="itemWeight" className="label">Weight</label>
             <input type="number"
+              className={`${errors.itemWeight ? 'error' : ''}`}
               defaultValue={capacityDefaults.defaultValue}
               min={capacityDefaults.min}
               max={capacityDefaults.max}
@@ -126,17 +134,6 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="sm:col-span-1 col-span-2 sm:place-self-end place-self-center">
             <button className="btnGreen" aria-label="Save Item" type="submit">Save</button>
           </div>
-
-          {/* <div className="sm:col-span-3 col-span-2">
-            {displayErrorMsg("itemName")}
-          </div>
-          <div className="col-span-1">
-            {displayErrorMsg("itemValue")}
-          </div>
-          <div className="col-span-1">
-            {displayErrorMsg("itemWeight")}
-          </div>
-          <div className="sm:col-span-1 col-span-2"></div> */}
           <button className="absolute top-1 right-1 text-gray-500 hover:bg-gray-300 rounded-full" aria-label="cancel" type="reset" onClick={resetAddForm}>
             <XCircleIcon className="h-6 w-6" />
           </button>

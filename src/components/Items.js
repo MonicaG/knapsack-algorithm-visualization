@@ -25,7 +25,7 @@ function Items({ items, dispatch }) {
   }
   
   return (
-    <div className="flex flex-col place-items-end">
+    <div className="flex flex-col place-items-end overflow-x-auto">
       <table className="table-auto px-10 py-3 w-full">
         <thead>
           <tr>
