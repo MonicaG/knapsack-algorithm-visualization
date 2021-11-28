@@ -15,11 +15,12 @@ describe('the initial screen', () => {
     const { getByRole, getAllByRole } = render(<Items items={initItems} setItems={()=>{}} />);
     const rows = getAllByRole("row");
     expect(rows.length).toBe(4);
-    const headerCells = within(rows[0]).getAllByRole("cell");
-    expect(headerCells.length).toBe(3);
+    const headerCells = within(rows[0]).getAllByRole("columnheader");
+    expect(headerCells.length).toBe(4);
     expect(within(headerCells[0]).getByText('Item Name')).toBeTruthy();
     expect(within(headerCells[1]).getByText('Value')).toBeTruthy();
     expect(within(headerCells[2]).getByText('Weight')).toBeTruthy();
+    expect(headerCells[3]).toBeEmptyDOMElement();
     
     const firstItemCells = within(rows[1]).getAllByRole("cell");
     expect(firstItemCells.length).toBe(4);
@@ -64,13 +65,21 @@ describe('iteracting with the buttons', () => {
     const addButton = getByRole("button", { name: /Add new item/i });
     expect(addButton).not.toBeDisabled();
     fireEvent.click(addButton);
-    expect(getByRole("textbox")).toBeInTheDocument();
-    expect(getAllByRole("spinbutton").length).toBe(2);
-    expect(getAllByRole("button").length).toBe(6)
+    expect(getByRole("textbox", {name: /new item name/i})).toBeInTheDocument();
+    expect(getByRole("spinbutton", {name:/item value/i})).toBeInTheDocument();
+    expect(getByRole("spinbutton", {name:/item weight/i})).toBeInTheDocument();
+    expect(getAllByRole("button").length).toBe(5)
+    expect(getByRole("button", {name: /Save Item/i})).toBeInTheDocument();
+    expect(getByRole("button", {name: /Cancel/i})).toBeInTheDocument();
+    expect(getAllByRole("button", {name: /Delete item item [123]/i}).length).toBe(3);
+    expect(queryByRole("button", {name: /Add new item/i})).not.toBeInTheDocument();
     fireEvent.click(getByRole("button", {name: /Cancel/i}));
     expect(queryByRole('textbox')).not.toBeInTheDocument();
     expect(queryAllByRole('spinbutton').length).toBe(0);
     expect(getAllByRole("button").length).toBe(4)
+    expect(getAllByRole("button", {name: /Delete item item [123]/i}).length).toBe(3);
+    expect(getByRole("button", {name:/Add new item/i})).toBeInTheDocument();
+
   });
 
   it('should disable the add button once the max number of items is reached', () => {

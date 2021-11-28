@@ -5,7 +5,6 @@ const capacityDefaults = {
   isNotInRange(value) {
     return (value < this.min || value > this.max);
   },
-  //@TODO - can i unit test this function?
   parseCapacity(event) {
     var numValue = parseInt(event.target.value, 10);
     if (isNaN(numValue)) {

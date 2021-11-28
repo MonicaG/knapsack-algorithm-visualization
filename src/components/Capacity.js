@@ -11,7 +11,7 @@ function Capacity({ capacity, onCapacityChange }) {
         name="capacity" 
         min={capacityDefaults.min} 
         max={capacityDefaults.max} 
-        defaultValue={capacity}
+        value={capacity}
         onChange={onCapacityChange} 
         className="w-min"
         />
