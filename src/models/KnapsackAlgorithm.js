@@ -1,8 +1,8 @@
 import ItemToUse from "./ItemToUse";
 
 class KnapSackAlgorithm {
-  #solutionTable;
-  #solutionItems;
+  _solutionTable;
+  _solutionItems;
   constructor(items, capacity) {
     /*
     Note to future self: I'm only providing getter functionality for items and capacity, since I create the object when 
@@ -15,17 +15,17 @@ class KnapSackAlgorithm {
     this._capacity = capacity;
   }
 
-  #init() {
-    if(!this.#solutionTable) {
-      this.#solutionTable = this.#knapsack();
+  _init() {
+    if(!this._solutionTable) {
+      this._solutionTable = this._knapsack();
     }
-    if(!this.#solutionItems) {
-      this.#solutionItems = this.#findItemsThatFit();
+    if(!this._solutionItems) {
+      this._solutionItems = this._findItemsThatFit();
     }
     
   }
 
-  #knapsack() {
+  _knapsack() {
     const table = [];
     for (let i = 0; i <= this.items.length; i++) {
       table.push(Array(this.capacity + 1).fill(0));
@@ -43,11 +43,11 @@ class KnapSackAlgorithm {
     return table;
   }
 
-  #findItemsThatFit() {
+  _findItemsThatFit() {
     var solution = [];
     var currentCapacity = this.capacity;
     for (let i = this.items.length; i > 0; i--) {
-      if (this.#solutionTable[i][currentCapacity] !== this.#solutionTable[i-1][currentCapacity]) {
+      if (this._solutionTable[i][currentCapacity] !== this._solutionTable[i-1][currentCapacity]) {
         solution.push(new ItemToUse(this.items[i-1], i, currentCapacity));
         currentCapacity -= this.items[i-1].weight;
       }
@@ -56,13 +56,13 @@ class KnapSackAlgorithm {
   }
 
   get solutionTable() {
-    this.#init();
-    return this.#solutionTable;
+    this._init();
+    return this._solutionTable;
   }
 
   get solutionItems() {
-    this.#init();
-    return this.#solutionItems;
+    this._init();
+    return this._solutionItems;
   }
 
   get items() {
