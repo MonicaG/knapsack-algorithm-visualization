@@ -7,7 +7,7 @@
   [type="number"],
   select
    {
-    @apply border border-gray-500 rounded-md w-full text-gray-600 tracking-wider shadow-sm;
+    @apply border-gray-500 rounded-md w-full text-gray-600 tracking-wider shadow-sm invalid:border-red-500 invalid:ring-red-500;
   }
   
 }

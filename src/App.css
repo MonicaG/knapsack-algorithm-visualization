@@ -36,7 +36,7 @@
     @apply block mb-3 font-bold text-gray-700 text-left;
   }
 
-  .error {
-    @apply focus:border-red-500 focus:ring-red-500 border-red-500
+  .errorMsg {
+    @apply text-red-500 my-2
   }
 }

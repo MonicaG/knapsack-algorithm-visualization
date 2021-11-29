@@ -2,17 +2,16 @@ import './App.css';
 import React, { useReducer } from "react";
 import Items from './components/Items';
 import Capacity from './components/Capacity'
-import capacityDefaults from './models/CapacityDefaults';
+import {capacityDefaults} from './models/ValueDefaults';
 import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 
 const actionTypes = {
   calculate: 1,
-  updateCapacity: 2,
-  reset: 3,
-  updateItems: 4,
-  addItem: 5
+  reset: 2,
+  updateItems: 3,
+  addItem: 4
 }
 
 function App() {
@@ -38,13 +37,9 @@ function App() {
       case actionTypes.calculate:
         return {
           ...state,
-          knapsack: new KnapsackAlgorithm(state.items, state.capacity),
+          capacity: action.capacityValue,
+          knapsack: new KnapsackAlgorithm(state.items, action.capacityValue),
           showEntryForm: false
-        };
-      case actionTypes.updateCapacity:
-        return {
-          ...state,
-          capacity: action.capacityValue
         };
       case actionTypes.reset:
         return {
@@ -67,12 +62,6 @@ function App() {
     }
   }
 
-  function handleCapacityChange(event) {
-    const newValue = capacityDefaults.parseCapacity(event);
-    dispatch({ type: actionTypes.updateCapacity, capacityValue: newValue });
-  }
-
-
   return (
     <div className="sm:p-6 bg-white">
       <h1 className="text-center text-6xl text-gray-600 mb-10">Knapsack Algorithm</h1>
@@ -83,14 +72,13 @@ function App() {
               <h2 className="text-center text-2xl mb-6">Step 1: Setup</h2>
               <div className="mb-4 flex flex-row items-baseline space-x-4">
                 <Capacity
-                  capacity={state.capacity}
-                  onCapacityChange={handleCapacityChange}
+                  dispatch={dispatch}
                 />
               </div>  
                 <label className="label2">Available Items</label>
                 <Items items={state.items}
                   dispatch={dispatch} />
-                <input className="btnBlue max-w-max place-self-center" type="button" value="Calculate" onClick={() => dispatch({ type: actionTypes.calculate })} />
+                <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" form="capacityForm" />
             </div>
             :
             <div>

@@ -7,8 +7,14 @@ module.exports = {
     extend: {},
   },
   variants: {
+    borderColor:  ({ after }) => after(['invalid']),
+    ringColor: ({ after }) => after(['invalid']),
+    backgroundColor: ({ after }) => after(['invalid']),
     extend: {
       opacity: ['disabled'],
+      borderColor: ['invalid'],
+      ringColor: ['invalid'],
+      backgroundColor: ['invalid'],
     },
   },
   plugins: [
@@ -23,6 +29,13 @@ module.exports = {
       addUtilities(cursor, {
         variants: ['disabled'],
       })
-    })
+    }),
+    plugin(function ({ addVariant, e }) {
+      addVariant('invalid', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`invalid${separator}${className}`)}:invalid`;
+        });
+      });
+    }),
   ],
 }

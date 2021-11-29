@@ -1,7 +1,6 @@
 import React from 'react';
 import Item from '../models/Item';
-import capacityDefaults from '../models/CapacityDefaults';
-import itemValueDefaults from '../models/ItemValueDefaults';
+import {itemValueDefaults, capacityDefaults} from '../models/ValueDefaults';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { actionTypes } from '../App';
@@ -16,7 +15,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
     setFocus,
     formState: { errors }
   } = useForm({
-    criteriaMode: "all"
+    shouldUseNativeValidation: true,
   });
 
   function onSubmit(data) {
@@ -39,16 +38,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
   }
 
   function displayErrorMsg(fieldName) {
-    return (<ErrorMessage
-      errors={errors}
-      name={fieldName}
-      render={({ messages }) =>
-        messages &&
-        Object.entries(messages).map(([type, message]) => (
-          <p className="text-red-500 my-2" role="alert" key={type}>{message}</p>
-        ))
-      }
-    />);
+    return( <ErrorMessage errors={errors} name={fieldName} as={<p className="errorMsg"/>}/>);
   }
 
   return (
@@ -63,7 +53,6 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="sm:col-span-3 col-span-2">
             <label htmlFor="itemName" className="label">Item Name</label>
             <input type="text"
-              className={`${errors.itemName ? 'error' : ''}`}
               placeholder="Enter item name"
               aria-label="new item name"
               {...register("itemName", {
@@ -82,7 +71,6 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="col-span-1">
             <label htmlFor="itemValue" className="label">Value</label>
             <input type="number"
-              className={`${errors.itemValue ? 'error' : ''}`}
               defaultValue={itemValueDefaults.defaultValue}
               min={itemValueDefaults.min}
               max={itemValueDefaults.max}
@@ -108,7 +96,6 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="col-span-1">
             <label htmlFor="itemWeight" className="label">Weight</label>
             <input type="number"
-              className={`${errors.itemWeight ? 'error' : ''}`}
               defaultValue={capacityDefaults.defaultValue}
               min={capacityDefaults.min}
               max={capacityDefaults.max}

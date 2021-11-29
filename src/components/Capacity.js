@@ -1,27 +1,57 @@
-import PropTypes from 'prop-types';
-import capacityDefaults from "../models/CapacityDefaults";
+import {capacityDefaults} from "../models/ValueDefaults";
+import { useForm } from "react-hook-form";
+import { actionTypes } from '../App';
+import { ErrorMessage } from '@hookform/error-message';
 
-function Capacity({ capacity, onCapacityChange }) {
+function Capacity({ dispatch }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    criteriaMode: "all"
+  });
+
+  function displayErrorMsg(fieldName) {
+    return( <ErrorMessage errors={errors} name={fieldName} as={<p className="errorMsg"/>}/>);
+  }
+
+
+  function onSubmit(event) {
+    dispatch({ type: actionTypes.calculate, capacityValue: event.capacity });
+  }
+
+
   return (
     <div>
-      <label className="mb-3 font-bold text-gray-700 text-left" hmlfor="capacity">Knapsack Capacity: </label>
-      <input type="number"
-        aria-label="knapsack capacity"
-        id="capacity" 
-        name="capacity" 
-        min={capacityDefaults.min} 
-        max={capacityDefaults.max} 
-        value={capacity}
-        onChange={onCapacityChange} 
-        className="w-min"
+     {displayErrorMsg("capacity")}
+      <form id="capacityForm" onSubmit={handleSubmit(onSubmit)}>
+        <label className="mb-3 font-bold text-gray-700 text-left" hmlfor="capacity">Knapsack Capacity: </label>
+        <input type="number"
+          aria-label="knapsack capacity"
+          min={capacityDefaults.min}
+          max={capacityDefaults.max}
+          defaultValue={capacityDefaults.defaultValue}
+          className="w-min"
+          {...register("capacity", {
+            valueAsNumber: true,
+                max: {
+                  value: capacityDefaults.max,
+                  message: "Please enter a smaller number"
+                },
+                min: {
+                  value: capacityDefaults.min,
+                  message: "Please enter a larger number",
+                },
+                required: {
+                  value: true,
+                  message: "Please enter a value"
+                }
+          })}
         />
+      </form>
     </div>
   );
-};
-
-Capacity.propTypes = {
-  capacity: PropTypes.number.isRequired,
-  onCapacityChange: PropTypes.func.isRequired,
 };
 
 export default Capacity;

@@ -9,26 +9,16 @@ describe('test the initial screen', () => {
     expect(capacity).toBeInTheDocument();
   });
 
-  it('should default a value larger than the maximum Knapsack Capacity to the default capacity', () => {
-    const { getByLabelText } = render(<App />);
-    const capacityInput = getByLabelText('knapsack capacity')
-    fireEvent.change(capacityInput, { target: { value: '20' } })
-    expect(capacityInput.value).toBe('5')
-  });
-
-  it('should default a value smaller than the minimum Knapsack Capacity to the default capacity', () => {
-    const { getByLabelText } = render(<App />);
-    const capacityInput = getByLabelText('knapsack capacity')
-    fireEvent.change(capacityInput, { target: { value: '0' } })
-    expect(capacityInput.value).toBe('5')
-  });
-
-  it('passes a modified Knapsack Capacity value to the Solutions Table', () => {
+  it('passes a modified Knapsack Capacity value to the Solutions Table', async () => {
     const { getByLabelText, getByText, getAllByRole } = render(<App />);
     const capacityInput = getByLabelText('knapsack capacity')
-    fireEvent.change(capacityInput, { target: { value: '4' } })
-    expect(capacityInput.value).toBe('4')
-    fireEvent.click(getByText('Calculate'))
+    await waitFor(() => 
+      fireEvent.change(capacityInput, { target: { value: '4' } })
+    );
+    expect(capacityInput.value).toBe('4');
+    await waitFor(() => 
+      fireEvent.click(getByText('Calculate'))
+    );
     const allRows = getAllByRole("row");
     const capacityRow = allRows[0];
     const capacityRowCells = within(capacityRow).getAllByRole("cell");
@@ -46,7 +36,10 @@ describe('test the initial screen', () => {
     render(<App />);
     const addButton = screen.getByRole("button", { name: /Add new item/i });
     expect(addButton).not.toBeDisabled();
-    fireEvent.click(addButton);
+    
+    await waitFor(() =>
+      fireEvent.click(addButton)
+    );
 
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
       target: { value: "item 4" }
@@ -124,7 +117,10 @@ describe('test the initial screen', () => {
     render(<App />);
     const addButton = screen.getByRole("button", { name: /Add new item/i });
     expect(addButton).not.toBeDisabled();
-    fireEvent.click(addButton);
+
+    await waitFor(() =>
+      fireEvent.click(addButton)
+    );
 
     fireEvent.input(screen.getByPlaceholderText("Enter item name"), {
       target: { value: "item 4" }
