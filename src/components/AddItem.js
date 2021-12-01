@@ -38,7 +38,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
   }
 
   function displayErrorMsg(fieldName) {
-    return( <ErrorMessage errors={errors} name={fieldName} as={<p className="errorMsg"/>}/>);
+    return( <ErrorMessage errors={errors} name={fieldName} as={<p role="alert" className="errorMsg"/>}/>);
   }
 
   return (
