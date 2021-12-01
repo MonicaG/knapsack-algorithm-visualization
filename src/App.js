@@ -1,8 +1,7 @@
 import './App.css';
 import React, { useReducer } from "react";
-import Items from './components/Items';
-import Capacity from './components/Capacity'
-import {capacityDefaults} from './models/ValueDefaults';
+import SetupScreen from './components/SetupScreen';
+import { capacityDefaults } from './models/ValueDefaults';
 import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
@@ -68,18 +67,10 @@ function App() {
       <div className="m-2 p-2 sm:m-4 sm:p-8 sm:bg-gradient-to-br sm:from-blue-50 sm:to-blue-200 bg-blue-100">
         <div className="border bg-white p-6 md:max-w-2xl md:mx-auto ">
           {state.showEntryForm ?
-            <div className="flex flex-col">
-              <h2 className="text-center text-2xl mb-6">Step 1: Setup</h2>
-              <div className="mb-4 flex flex-row items-baseline space-x-4">
-                <Capacity
-                  dispatch={dispatch}
-                />
-              </div>  
-                <label className="label2">Available Items</label>
-                <Items items={state.items}
-                  dispatch={dispatch} />
-                <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" form="capacityForm" />
-            </div>
+            <SetupScreen 
+              items={state.items} 
+              dispatch={dispatch} 
+            />
             :
             <div>
               <SolutionController
