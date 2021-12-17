@@ -10,7 +10,8 @@ const actionTypes = {
   calculate: 1,
   reset: 2,
   updateItems: 3,
-  addItem: 4
+  addItem: 4,
+  cancelAddItem: 5,
 }
 
 function App() {
@@ -27,17 +28,20 @@ function App() {
     items: initItems,
     knapsack: null,
     showEntryForm: true,
+    calculateBtnDisabled: false,
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function reducer(state, action) {
+    const toggledCalculateBtn = !state.calculateBtnDisabled;
     switch (action.type) {
       case actionTypes.calculate:
         return {
           ...state,
           capacity: action.capacityValue,
           knapsack: new KnapsackAlgorithm(state.items, action.capacityValue),
+          calculateBtnDisabled: toggledCalculateBtn,
           showEntryForm: false
         };
       case actionTypes.reset:
@@ -55,6 +59,11 @@ function App() {
           ...state,
           items: [...state.items, action.newItem]
         }
+      case actionTypes.cancelAddItem:
+        return {
+          ...state,
+          calculateBtnDisabled: toggledCalculateBtn,
+        }
       default:
         //@todo should default do something else?
         throw new Error();
@@ -70,6 +79,7 @@ function App() {
             <SetupScreen 
               items={state.items} 
               dispatch={dispatch} 
+              calculateBtnDisabled={state.calculateBtnDisabled}
             />
             :
             <div>

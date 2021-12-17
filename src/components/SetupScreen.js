@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { actionTypes } from '../App';
 import { ErrorMessage } from '@hookform/error-message';
 
-function SetupScreen({ items, dispatch }) {
+function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
 
   const {
     register,
@@ -15,12 +15,13 @@ function SetupScreen({ items, dispatch }) {
   });
 
   function displayErrorMsg(fieldName) {
-    return (<ErrorMessage errors={errors} name={fieldName} as={<p className="errorMsg" />} />);
+    return (<ErrorMessage errors={errors} name={fieldName} role="alert" as={<p className="errorMsg" />} />);
   }
 
 
   function onSubmit(event) {
-    dispatch({ type: actionTypes.calculate, capacityValue: event.capacity });
+    const value = event.capacity;
+    dispatch({ type: actionTypes.calculate, capacityValue: value });
   }
 
 
@@ -42,15 +43,15 @@ function SetupScreen({ items, dispatch }) {
                 valueAsNumber: true,
                 max: {
                   value: capacityDefaults.max,
-                  message: "Please enter a smaller number"
+                  message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
                 },
                 min: {
                   value: capacityDefaults.min,
-                  message: "Please enter a larger number",
+                  message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
                 },
                 required: {
                   value: true,
-                  message: "Please enter a value"
+                  message: "Please enter a knapsack capacity value"
                 }
               })}
             />

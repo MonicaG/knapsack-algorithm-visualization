@@ -13,6 +13,7 @@ function Items({ items, dispatch }) {
 
   function handleAddButton(event) {
     setShowAddRow(true);
+    dispatch({ type: actionTypes.cancelAddItem});
   }
 
   function handleDelete(item) {

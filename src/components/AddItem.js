@@ -32,6 +32,11 @@ function AddItem({ items, dispatch, setShowAddRow }) {
     return items.filter(item => item.name.toLowerCase().trim() === itemName.toLowerCase().trim()).length === 0;
   }
 
+  function handleResetAddForm() {
+    dispatch({ type: actionTypes.cancelAddItem});
+    resetAddForm();
+  }
+
   function resetAddForm() {
     setShowAddRow(false);
     reset({})
@@ -121,7 +126,7 @@ function AddItem({ items, dispatch, setShowAddRow }) {
           <div className="sm:col-span-1 col-span-2 sm:place-self-end place-self-center">
             <button className="btnGreen" aria-label="Save Item" type="submit">Save</button>
           </div>
-          <button className="absolute top-1 right-1 text-gray-500 hover:bg-gray-300 rounded-full" aria-label="cancel" type="reset" onClick={resetAddForm}>
+          <button className="absolute top-1 right-1 text-gray-500 hover:bg-gray-300 rounded-full" aria-label="cancel" type="reset" onClick={handleResetAddForm}>
             <XCircleIcon className="h-6 w-6" />
           </button>
         </div>
