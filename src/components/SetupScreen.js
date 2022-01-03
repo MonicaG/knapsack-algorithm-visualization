@@ -61,7 +61,7 @@ function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
       <label className="label2">Available Items</label>
       <Items items={items}
         dispatch={dispatch} />
-      <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" form="capacityForm" />
+      <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" form="capacityForm" disabled={calculateBtnDisabled}/>
     </div>
   )
 }

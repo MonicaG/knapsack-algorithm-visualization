@@ -34,7 +34,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function reducer(state, action) {
-    const toggledCalculateBtn = !state.calculateBtnDisabled;
+    const toggledCalculateBtn = !state.calculateBtnDisabled
     switch (action.type) {
       case actionTypes.calculate:
         return {
@@ -47,7 +47,8 @@ function App() {
       case actionTypes.reset:
         return {
           ...state,
-          showEntryForm: true
+          showEntryForm: true,
+          calculateBtnDisabled: toggledCalculateBtn,
         };
       case actionTypes.updateItems:
         return {
@@ -57,7 +58,8 @@ function App() {
       case actionTypes.addItem:
         return {
           ...state,
-          items: [...state.items, action.newItem]
+          items: [...state.items, action.newItem],
+          calculateBtnDisabled: toggledCalculateBtn,
         }
       case actionTypes.cancelAddItem:
         return {

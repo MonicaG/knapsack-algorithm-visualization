@@ -166,39 +166,41 @@ describe('integration test between screens', () => {
     });
   });
 
-  // it('should disable the calculate button when the Add Item form is present.', async () => {
-  //   render(<App />);
+ 
+  
+  it('should disable the calculate button when the Add Item form is present.', async () => {
+    render(<App />);
 
-  //   expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
-  //   userEvent.click(screen.getByRole("button", { name: /Add new item/i }))
+    expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
+    userEvent.click(screen.getByRole("button", { name: /Add new item/i }))
 
-  //   await waitFor(() => {
-  //     expect(screen.getByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
-  //     expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
-  //     expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
-  //     expect(screen.getByRole("button", { name: /calculate/i })).toBeDisabled();
-  //   });
-  // });
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
+      expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
+      expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /calculate/i })).toBeDisabled();
+    });
 
-  // it('should close the add item form when the cancel button is pressed', async () => {
-  //   render(<App />);
+  });
 
-  //   expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
-  //   userEvent.click(screen.getByRole("button", { name: /Add new item/i }));
+  it('should close the add item form when the cancel button is pressed', async () => {
+    render(<App />);
 
-  //   expect(screen.getByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
-  //   expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
-  //   expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
-  //   expect(await screen.findByRole("button", { name: /calculate/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
+    userEvent.click(screen.getByRole("button", { name: /Add new item/i }));
 
-  //   userEvent.click(screen.getByRole("button", { name: /cancel/i }))
+    expect(screen.getByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: /calculate/i })).toBeDisabled();
 
+    userEvent.click(screen.getByRole("button", { name: /cancel/i }))
 
-  //   expect(screen.queryByPlaceholderText(/Enter item name/i)).not.toBeInTheDocument();
-  //   expect(screen.queryByRole("spinbutton", { name: /item weight/i })).not.toBeInTheDocument();
-  //   expect(screen.queryByRole("spinbutton", { name: /item value/i })).not.toBeInTheDocument();
-  //   expect(screen.queryByRole("button", { name: /calculate/i })).toBeEnabled();
-  // });
+    expect(screen.queryByPlaceholderText(/Enter item name/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("spinbutton", { name: /item weight/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("spinbutton", { name: /item value/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /calculate/i })).toBeEnabled();
+  });
 
 });
 
