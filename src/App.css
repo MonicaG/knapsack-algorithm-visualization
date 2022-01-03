@@ -1,3 +1,7 @@
+
+@tailwind components;
+
+
 .Muted {
   color: grey;
 }

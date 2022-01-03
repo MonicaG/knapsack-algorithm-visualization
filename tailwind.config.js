@@ -1,8 +1,7 @@
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  content: [    "./src/**/*.{js,jsx,ts,tsx}",  ],
   theme: {
     extend: {},
   },
@@ -11,7 +10,6 @@ module.exports = {
     ringColor: ({ after }) => after(['invalid']),
     backgroundColor: ({ after }) => after(['invalid']),
     extend: {
-      opacity: ['disabled'],
       borderColor: ['invalid'],
       ringColor: ['invalid'],
       backgroundColor: ['invalid'],
