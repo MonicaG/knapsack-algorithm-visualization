@@ -1,4 +1,4 @@
-import {KnapsackAlgorithmPropType} from './helpers/PropTypesHelper'
+import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import SolutionTableRow from './SolutionTableRow';
 import React, { useReducer } from 'react';
 import BuildTable from './BuildTable';
@@ -57,7 +57,7 @@ function SolutionController({ knapsackAlgorithm }) {
           currentCapacity: action.payload.currentCapacity
         }
 
-        if(action.payload.newItem) {
+        if (action.payload.newItem) {
           theState = {
             ...theState,
             solutionItems: [...state.solutionItems, action.payload.newItem]
@@ -71,25 +71,27 @@ function SolutionController({ knapsackAlgorithm }) {
   }
   return (
     <div>
-      <table className="table-auto px-10 py-3">
-        <tbody>
-          <SolutionTableRow
-            cellKey="capacityRowCell"
-            row={capacityRow}
-          />
-
-          {state.findSolutionItems === false ?
-            <BuildTable
-              knapsackAlgorithm={knapsackAlgorithm}
-              state={state}
-            /> :
-            <SolutionItemsTable
-              knapsackAlgorithm={knapsackAlgorithm}
-              state={state}
+      <div className="overflow-x-auto">
+        <table className="table-auto px-10 py-3">
+          <tbody>
+            <SolutionTableRow
+              cellKey="capacityRowCell"
+              row={capacityRow}
             />
-          }
-        </tbody>
-      </table>
+
+            {state.findSolutionItems === false ?
+              <BuildTable
+                knapsackAlgorithm={knapsackAlgorithm}
+                state={state}
+              /> :
+              <SolutionItemsTable
+                knapsackAlgorithm={knapsackAlgorithm}
+                state={state}
+              />
+            }
+          </tbody>
+        </table>
+      </div>
       {state.findSolutionItems === false ?
         <BuildTableInfo
           knapsackAlgorithm={knapsackAlgorithm}

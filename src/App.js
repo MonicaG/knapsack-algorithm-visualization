@@ -88,7 +88,9 @@ function App() {
               <SolutionController
                 knapsackAlgorithm={state.knapsack}
               />
-              <input className="btnBlue" type="button" value="Reset" onClick={() => dispatch({ type: actionTypes.reset })} />
+              <div className="text-center">
+                <input className="btnBlue" type="button" value="Reset" onClick={() => dispatch({ type: actionTypes.reset })} />
+              </div>
             </div>
           }
         </div>

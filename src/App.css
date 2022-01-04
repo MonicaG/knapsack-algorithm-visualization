@@ -43,4 +43,12 @@
   .errorMsg {
     @apply text-red-500 my-2
   }
+
+  .tableInfo {
+    @apply py-4
+  }
+
+  .pseudoCode {
+    @apply overflow-x-auto py-2
+  }
 }
