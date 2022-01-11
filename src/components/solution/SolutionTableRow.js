@@ -3,12 +3,15 @@ import {ItemPropType} from './helpers/PropTypesHelper'
 import {getCellId} from './helpers/TableHelper';
 
 function SolutionTableRow({ cellKey, row, item, currentCell }) {
+  const MAX_DECIMAL_NUMS = 2
   return (
     <tr>
       {item ?
         <td className="cell">
-          {item.name} <br />
-          (V: {item.value} W: {item.weight})
+          <span className="whitespace-nowrap">{item.name}</span>
+          <div className="whitespace-nowrap">
+            (V: {item.value} W: {item.weight})
+          </div>
         </td>
         :
         <td className="cell"> </td>
@@ -16,7 +19,9 @@ function SolutionTableRow({ cellKey, row, item, currentCell }) {
       {row.map((cell, index) => {
         const currentCSS = index === currentCell ? "border-double border-red-900 cell" : "cell";
         const id = getCellId(cellKey, index);
-        return <td id={id} key={id} className={`${currentCSS}`}>{cell}</td>
+        // num formatting from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
+        const value = new Intl.NumberFormat('en-US', {useGrouping: false, maximumFractionDigits: MAX_DECIMAL_NUMS}).format(cell)
+        return <td id={id} key={id} className={`${currentCSS}`}>{value}</td>
       })}
     </tr>
   );

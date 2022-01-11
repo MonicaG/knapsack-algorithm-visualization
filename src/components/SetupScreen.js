@@ -27,7 +27,7 @@ function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-center text-2xl mb-6">Step 1: Setup</h2>
+      <h2 className="title">Step 1: Setup</h2>
       <div className="mb-4 flex flex-row items-baseline space-x-4">
         <div>
           {displayErrorMsg("capacity")}
