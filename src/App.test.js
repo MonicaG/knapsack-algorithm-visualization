@@ -27,7 +27,7 @@ describe('integration test between screens', () => {
     await waitFor(() => {
       const allRows = screen.getAllByRole("row");
       const capacityRow = allRows[0];
-      const capacityRowCells = within(capacityRow).getAllByRole("cell");
+      const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
       expect(capacityRowCells.length).toBe(6);
       expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
       expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();

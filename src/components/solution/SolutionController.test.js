@@ -43,18 +43,19 @@ describe('the knapsack solution table', () => {
     //capacity is 6, plus the zero cell, plust the label cell, so 8 columns
     //Total number is number of columns multiplied by the  expected number of rows
     //so 8 * 5
-    expect(cells.length).toBe(40);
+    const headers = screen.getAllByRole("columnheader");
+    expect(cells.length + headers.length).toBe(40);
   });
 
   test('is initialized with zeros', () => {
     const capacity = 4;
     const algorithm = new KnapSackAlgorithm(items, capacity);
 
-    const { getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
+    render(<SolutionController knapsackAlgorithm={algorithm} />);
 
-    const allRows = getAllByRole("row");
+    const allRows = screen.getAllByRole("row");
     const capacityRow = allRows[0];
-    const capacityRowCells = within(capacityRow).getAllByRole("cell");
+    const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
     expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
     expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();
     expect(within(capacityRowCells[2]).getByText('1')).toBeTruthy();
@@ -84,15 +85,15 @@ describe('clicking the button', () => {
 
   test('3 times results in first solution row being updated to capacity 4 (inclusive)', () => {
 
-    const { getByRole, getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
+    render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     for (let n = 0; n < 3; n++) {
-      fireEvent.click(getByRole('button'))
+      fireEvent.click(screen.getByRole('button'))
     }
 
-    const allRows = getAllByRole("row");
+    const allRows = screen.getAllByRole("row");
     const capacityRow = allRows[0];
-    const capacityRowCells = within(capacityRow).getAllByRole("cell");
+    const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
     expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
     expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();
     expect(within(capacityRowCells[2]).getByText('1')).toBeTruthy();
@@ -128,14 +129,14 @@ describe('clicking the button', () => {
   });
 
   test('6 times results in second solution row being updated up to capacity 2 (inclusive)', () => {
-    const { getByRole, getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
+    render(<SolutionController knapsackAlgorithm={algorithm} />);
     for (let n = 0; n < 6; n++) {
-      fireEvent.click(getByRole('button'))
+      fireEvent.click(screen.getByRole('button'))
     }
 
-    const allRows = getAllByRole("row");
+    const allRows = screen.getAllByRole("row");
     const capacityRow = allRows[0];
-    const capacityRowCells = within(capacityRow).getAllByRole("cell");
+    const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
     expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
     expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();
     expect(within(capacityRowCells[2]).getByText('1')).toBeTruthy();
@@ -181,15 +182,15 @@ describe('clicking the button', () => {
   });
 
   test('14 times results in table being filled in', () => {
-    const { getByRole, getAllByRole } = render(<SolutionController knapsackAlgorithm={algorithm} />);
+    render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     for (let n = 0; n < 15; n++) {
-      fireEvent.click(getByRole('button'))
+      fireEvent.click(screen.getByRole('button'))
     }
 
-    const allRows = getAllByRole("row");
+    const allRows = screen.getAllByRole("row");
     const capacityRow = allRows[0];
-    const capacityRowCells = within(capacityRow).getAllByRole("cell");
+    const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
     expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
     expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();
     expect(within(capacityRowCells[2]).getByText('1')).toBeTruthy();
