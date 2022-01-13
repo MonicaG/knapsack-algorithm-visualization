@@ -1,6 +1,7 @@
-import { render, screen, within, waitFor } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
+import { TITLE_STEP_2 } from './components/solution/SolutionController'
 
 
 describe('integration test between screens', () => {
@@ -24,18 +25,19 @@ describe('integration test between screens', () => {
 
     userEvent.click(screen.getByRole("button", { name: /calculate/i }))
 
-    await waitFor(() => {
-      const allRows = screen.getAllByRole("row");
-      const capacityRow = allRows[0];
-      const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
-      expect(capacityRowCells.length).toBe(6);
-      expect(within(capacityRowCells[0]).getByText('')).toBeTruthy();
-      expect(within(capacityRowCells[1]).getByText('0')).toBeTruthy();
-      expect(within(capacityRowCells[2]).getByText('1')).toBeTruthy();
-      expect(within(capacityRowCells[3]).getByText('2')).toBeTruthy();
-      expect(within(capacityRowCells[4]).getByText('3')).toBeTruthy();
-      expect(within(capacityRowCells[5]).getByText('4')).toBeTruthy();
-    });
+    expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
+
+    const allRows = screen.getAllByRole("row");
+    const capacityRow = allRows[0];
+    const capacityRowCells = within(capacityRow).getAllByRole("columnheader");
+
+    expect(capacityRowCells.length).toBe(6);
+    expect(within(capacityRowCells[0]).queryByText(/\S/)).not.toBeInTheDocument();
+    expect(within(capacityRowCells[1]).getByText(/0/)).toBeInTheDocument();
+    expect(within(capacityRowCells[2]).getByText(/1/)).toBeInTheDocument();
+    expect(within(capacityRowCells[3]).getByText(/2/)).toBeInTheDocument();
+    expect(within(capacityRowCells[4]).getByText(/3/)).toBeInTheDocument();
+    expect(within(capacityRowCells[5]).getByText(/4/)).toBeInTheDocument();
   });
 
   it('should add an item to the item list and pass the modified list to the next screen', async () => {
@@ -56,36 +58,37 @@ describe('integration test between screens', () => {
 
     userEvent.click(screen.getByRole("button", { name: /Save Item/i }));
 
-    await waitFor(() => {
-      expect(screen.getByText(/item 1/)).toBeInTheDocument();
-      expect(screen.getByText(/item 2/)).toBeInTheDocument();
-      expect(screen.getByText(/item 3/)).toBeInTheDocument();
-      expect(screen.getByText(/item 4/)).toBeInTheDocument();
-    });
+
+    expect(await screen.findByText(/item 1/)).toBeInTheDocument();
+    expect(screen.getByText(/item 2/)).toBeInTheDocument();
+    expect(screen.getByText(/item 3/)).toBeInTheDocument();
+    expect(screen.getByText(/item 4/)).toBeInTheDocument();
+
 
     userEvent.click(screen.getByText('Calculate'));
 
-    await waitFor(() => {
-      const allRows = screen.getAllByRole("row");
-      expect(allRows.length).toBe(6);
+    expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
-      const firstItemRow = allRows[2];
-      const firstItemRowCells = within(firstItemRow).getAllByRole("cell");
-      expect(within(firstItemRowCells[0]).getByText(/\s*item 1\s*/i)).toBeTruthy();
+    const allRows = screen.getAllByRole("row");
+    expect(allRows.length).toBe(6);
 
-      const thirdItemRow = allRows[3];
-      const thirdItemRowCells = within(thirdItemRow).getAllByRole("cell");
-      expect(within(thirdItemRowCells[0]).getByText(/\s*item 2\s*/i)).toBeTruthy();
+    const firstItemRow = allRows[2];
+    const firstItemRowCells = within(firstItemRow).getAllByRole("cell");
+    expect(within(firstItemRowCells[0]).getByText(/\s*item 1\s*/i)).toBeInTheDocument();
 
-      const fourthItemRow = allRows[4];
-      const fourthItemRowCells = within(fourthItemRow).getAllByRole("cell");
-      expect(within(fourthItemRowCells[0]).getByText(/\s*item 3\s*/i)).toBeTruthy();
+    const thirdItemRow = allRows[3];
+    const thirdItemRowCells = within(thirdItemRow).getAllByRole("cell");
+    expect(within(thirdItemRowCells[0]).getByText(/\s*item 2\s*/i)).toBeInTheDocument();
+
+    const fourthItemRow = allRows[4];
+    const fourthItemRowCells = within(fourthItemRow).getAllByRole("cell");
+    expect(within(fourthItemRowCells[0]).getByText(/\s*item 3\s*/i)).toBeInTheDocument();
 
 
-      const fifthItemRow = allRows[5];
-      const fifthItemRowCells = within(fifthItemRow).getAllByRole("cell");
-      expect(within(fifthItemRowCells[0]).getByText(/\s*item 4\s*/i)).toBeTruthy();
-    });
+    const fifthItemRow = allRows[5];
+    const fifthItemRowCells = within(fifthItemRow).getAllByRole("cell");
+    expect(within(fifthItemRowCells[0]).getByText(/\s*item 4\s*/i)).toBeInTheDocument();
+
   });
 
   it('should delete an item from the item list and pass the modified list to the next screen', async () => {
@@ -101,18 +104,19 @@ describe('integration test between screens', () => {
 
     userEvent.click(screen.getByText('Calculate'))
 
-    await waitFor(() => {
-      const allRows = screen.getAllByRole("row");
-      expect(allRows.length).toBe(4);
+    expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
-      const firstItemRow = allRows[2];
-      const firstItemRowCells = within(firstItemRow).getAllByRole("cell");
-      expect(within(firstItemRowCells[0]).getByText(/\s*item 1\s*/i)).toBeTruthy();
+    const allRows = screen.getAllByRole("row");
+    expect(allRows.length).toBe(4);
 
-      const secondItemRow = allRows[3];
-      const secondItemRowCells = within(secondItemRow).getAllByRole("cell");
-      expect(within(secondItemRowCells[0]).getByText(/\s*item 3\s*/i)).toBeTruthy();
-    });
+    const firstItemRow = allRows[2];
+    const firstItemRowCells = within(firstItemRow).getAllByRole("cell");
+    expect(within(firstItemRowCells[0]).getByText(/\s*item 1\s*/i)).toBeInTheDocument();
+
+    const secondItemRow = allRows[3];
+    const secondItemRowCells = within(secondItemRow).getAllByRole("cell");
+    expect(within(secondItemRowCells[0]).getByText(/\s*item 3\s*/i)).toBeInTheDocument();
+
   });
 
   it('should add and delete items from the item list and pass the modified list to the next screen', async () => {
@@ -139,47 +143,47 @@ describe('integration test between screens', () => {
 
     userEvent.click(deleteButton)
 
-    await waitFor(() => {
-      expect(screen.getByLabelText('Delete item item 1')).toBeInTheDocument();
-      expect(screen.getByLabelText('Delete item item 2')).toBeInTheDocument();
-      expect(screen.queryByLabelText('Delete item item 3')).toBeNull();
-      expect(screen.getByLabelText('Delete item item 4')).toBeInTheDocument();
-    });
+    expect(await screen.findByLabelText('Delete item item 1')).toBeInTheDocument();
+    expect(screen.getByLabelText('Delete item item 2')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Delete item item 3')).toBeNull();
+    expect(screen.getByLabelText('Delete item item 4')).toBeInTheDocument();
+
 
 
     userEvent.click(screen.getByText('Calculate'))
-    await waitFor(() => {
-      const allRows = screen.getAllByRole("row");
-      expect(allRows.length).toBe(5);
+    expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
-      const firstItemRow = allRows[2];
-      const firstItemRowCells = within(firstItemRow).getAllByRole("cell");
-      expect(within(firstItemRowCells[0]).getByText(/\s*item 1\s*/i)).toBeTruthy();
 
-      const secondItemRow = allRows[3];
-      const secondItemRowCells = within(secondItemRow).getAllByRole("cell");
-      expect(within(secondItemRowCells[0]).getByText(/\s*item 2\s*/i)).toBeTruthy();
+    const allRows = screen.getAllByRole("row");
+    expect(allRows.length).toBe(5);
 
-      const thirdItemRow = allRows[4];
-      const thirdItemRowCells = within(thirdItemRow).getAllByRole("cell");
-      expect(within(thirdItemRowCells[0]).getByText(/\s*item 4\s*/i)).toBeTruthy();
-    });
+    const firstItemRow = allRows[2];
+    const firstItemRowCells = within(firstItemRow).getAllByRole("cell");
+    expect(within(firstItemRowCells[0]).getByText(/\s*item 1\s*/i)).toBeInTheDocument();
+
+    const secondItemRow = allRows[3];
+    const secondItemRowCells = within(secondItemRow).getAllByRole("cell");
+    expect(within(secondItemRowCells[0]).getByText(/\s*item 2\s*/i)).toBeInTheDocument();
+
+    const thirdItemRow = allRows[4];
+    const thirdItemRowCells = within(thirdItemRow).getAllByRole("cell");
+    expect(within(thirdItemRowCells[0]).getByText(/\s*item 4\s*/i)).toBeInTheDocument();
+
   });
 
- 
-  
+
+
   it('should disable the calculate button when the Add Item form is present.', async () => {
     render(<App />);
 
     expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
     userEvent.click(screen.getByRole("button", { name: /Add new item/i }))
 
-    await waitFor(() => {
-      expect(screen.getByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
-      expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
-      expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: /calculate/i })).toBeDisabled();
-    });
+    expect(await screen.findByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /calculate/i })).toBeDisabled();
+
 
   });
 

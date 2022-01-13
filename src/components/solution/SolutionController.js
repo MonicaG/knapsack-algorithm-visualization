@@ -149,4 +149,4 @@ SolutionController.propTypes = {
 };
 
 export default SolutionController;
-export { solutionControllerActionTypes as solutionTableActionTypes };
+export { solutionControllerActionTypes as solutionTableActionTypes, TITLE_STEP_2 };
