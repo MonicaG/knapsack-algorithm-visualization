@@ -29,6 +29,7 @@ function SolutionController({ knapsackAlgorithm }) {
     solutionIndex: knapsackAlgorithm.items.length,
     title: TITLE_STEP_2,
     cellDimensions: new Array(knapsackAlgorithm.capacity + 1).fill({width: 0, height: 0}),
+    phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -60,7 +61,8 @@ function SolutionController({ knapsackAlgorithm }) {
           ...state,
           currentCapacity: state.currentCapacity + 1,
           currentCellIndex: state.currentCellIndex + 1,
-          title: TITLE_STEP_2
+          title: TITLE_STEP_2,
+          phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL,
         }
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW:
         return {
@@ -68,21 +70,24 @@ function SolutionController({ knapsackAlgorithm }) {
           currentItemIndex: state.currentItemIndex + 1,
           currentCapacity: 1,
           currentCellIndex: 1,
-          title: TITLE_STEP_2
+          title: TITLE_STEP_2,
+          phase: solutionControllerActionTypes.STEP_TO_NEXT_ROW,
         };
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
         return {
           ...state,
           findSolutionItems: true,
           currentCapacity: knapsackAlgorithm.capacity,
-          title: TITLE_STEP_3
+          title: TITLE_STEP_3,
+          phase: solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS,
         }
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
         let theState = {
           ...state,
-          solutionIndex: state.solutionIndex - 1,
+          solutionIndex: action.payload.solutionIndex,
           currentCapacity: action.payload.currentCapacity,
-          title: TITLE_STEP_3
+          title: TITLE_STEP_3,
+          phase: solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM,
         }
 
         if (action.payload.newItem) {
@@ -95,7 +100,9 @@ function SolutionController({ knapsackAlgorithm }) {
       case solutionControllerActionTypes.CELL_DIMENSIONS:
         return {
           ...state,
-          cellDimensions: action.cellDimensions
+          cellDimensions: action.cellDimensions,
+          phase: solutionControllerActionTypes.CELL_DIMENSIONS,
+
         }
       default:
         //@todo should default do something else?

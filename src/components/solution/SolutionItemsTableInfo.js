@@ -1,6 +1,6 @@
 import React from 'react';
-import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/PropTypesHelper'
-import {getItemCellId} from './helpers/TableHelper';
+import { KnapsackAlgorithmPropType, SolutionItemsPropType } from './helpers/PropTypesHelper'
+import { getItemCellId } from './helpers/TableHelper';
 import PropTypes from 'prop-types';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
@@ -16,9 +16,42 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
     gridItems.forEach((item) => {
       document.getElementById(item.gridId).style.background = item.isSolutionItem ? usedBackground : notUsedBackground;
     });
-   
+
   }, [gridItems]);
 
+  function handleFindItemsButtonClick() {
+    let payload = { currentCapacity: knapsackAlgorithm.capacity, solutionIndex: state.solutionIndex}
+    dispatch({
+      type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
+      payload: payload,
+    });
+  }
+
+  function buildPsuedo() {
+    return (
+      <div>
+        <input type="button" className="btnBlue" value="Step" disabled={state.solutionIndex <= 0} onClick={handleButtonClick} />
+        <div className="pseudoCode">
+          <p>current capacity is: {state.currentCapacity}</p>
+          <p>current item Index is: {state.solutionIndex}</p>
+          <div>
+            {state.solutionIndex > 0 ?
+              <ItemsToUsePseudoCode
+                previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
+                index={state.solutionIndex}
+                currentCapacity={state.currentCapacity}
+                knapsackAlgorithm={knapsackAlgorithm}
+              />
+              :
+              null
+            }
+            <SolutionItems
+              solutionItems={state.solutionItems}
+            />
+          </div>
+        </div>
+      </div>)
+  }
 
   function handleButtonClick() {
     let currentCapacity = state.currentCapacity
@@ -28,7 +61,7 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
       currentCapacity -= knapsackAlgorithm.items[state.solutionIndex - 1].weight
     }
 
-    let payload = { currentCapacity: currentCapacity }
+    let payload = { currentCapacity: currentCapacity, solutionIndex: state.solutionIndex - 1 }
     if (newItem) {
       payload = {
         ...payload,
@@ -36,7 +69,7 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
       }
     }
 
-    setGridItems([...gridItems, {gridId: getItemCellId(knapsackAlgorithm.items[state.solutionIndex - 1], state.currentCapacity), isSolutionItem: newItem ? true: false}])
+    setGridItems([...gridItems, { gridId: getItemCellId(knapsackAlgorithm.items[state.solutionIndex - 1], state.currentCapacity), isSolutionItem: newItem ? true : false }])
 
     dispatch({
       type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
@@ -47,26 +80,11 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
 
   return (
     <div className="tableInfo">
-      <input type="button" className="btnBlue" value="Step" disabled={state.solutionIndex <= 0} onClick={handleButtonClick} />
-      <div className="pseudoCode">
-        <p>current capacity is: {state.currentCapacity}</p>
-        <p>current item Index is: {state.solutionIndex}</p>
-        <div>
-        {state.solutionIndex > 0 ?
-          <ItemsToUsePseudoCode
-            previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
-            index={state.solutionIndex}
-            currentCapacity={state.currentCapacity}
-            knapsackAlgorithm={knapsackAlgorithm}
-          />
-          :
-          null
-        }
-          <SolutionItems
-            solutionItems={state.solutionItems}
-          />
-        </div>
-      </div>
+      {state.phase === types.STEP_TO_FIND_SOLUTION_ITEMS ?
+        <input type="button" className="btnBlue" value="Find Solution Items" onClick={handleFindItemsButtonClick} />
+        :
+        buildPsuedo()
+      }
     </div>
   )
 }
