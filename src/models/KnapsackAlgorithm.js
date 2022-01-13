@@ -1,4 +1,4 @@
-import ItemToUse from "./ItemToUse";
+import SolutionItem from "./ItemToUse";
 
 class KnapSackAlgorithm {
   _solutionTable;
@@ -47,9 +47,13 @@ class KnapSackAlgorithm {
     var solution = [];
     var currentCapacity = this.capacity;
     for (let i = this.items.length; i > 0; i--) {
+      let item = new SolutionItem(this.items[i-1], i, currentCapacity, false)
       if (this._solutionTable[i][currentCapacity] !== this._solutionTable[i-1][currentCapacity]) {
-        solution.push(new ItemToUse(this.items[i-1], i, currentCapacity));
+        item.inSolution = true;
+        solution.push(item);
         currentCapacity -= this.items[i-1].weight;
+      }else {
+        solution.push(item);
       }
     }
     return solution;

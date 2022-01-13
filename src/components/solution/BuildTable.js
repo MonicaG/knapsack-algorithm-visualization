@@ -5,6 +5,8 @@ import React from 'react';
 
 function BuildTable({ knapsackAlgorithm, state }) {
 
+  const currentCellCSS = "border-double border-red-900"
+
   function getCellIndexToHighlight(index) {
     return index === state.currentItemIndex ? state.currentCellIndex : null;
   }
@@ -23,6 +25,7 @@ function BuildTable({ knapsackAlgorithm, state }) {
         row={formattedRow}
         item={item}
         currentCell={highlightCellIndex}
+        currentCellCSS={currentCellCSS}
       />
     })
   );

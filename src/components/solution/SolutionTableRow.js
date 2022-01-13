@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {ItemPropType} from './helpers/PropTypesHelper'
 import {getCellId} from './helpers/TableHelper';
 
-function SolutionTableRow({ cellKey, row, item, currentCell }) {
+function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
   const MAX_DECIMAL_NUMS = 2
   return (
     <tr>
@@ -17,11 +17,11 @@ function SolutionTableRow({ cellKey, row, item, currentCell }) {
         <td className="cell"> </td>
       }
       {row.map((cell, index) => {
-        const currentCSS = index === currentCell ? "border-double border-red-900 cell" : "cell";
+        const currentCSS = index === currentCell ? currentCellCSS: ""
         const id = getCellId(cellKey, index);
         // num formatting from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
         const value = new Intl.NumberFormat('en-US', {useGrouping: false, maximumFractionDigits: MAX_DECIMAL_NUMS}).format(cell)
-        return <td id={id} key={id} className={`${currentCSS}`}>{value}</td>
+        return <td id={id} key={id} className={`cell ${currentCSS}`}>{value}</td>
       })}
     </tr>
   );
@@ -31,6 +31,9 @@ function SolutionTableRow({ cellKey, row, item, currentCell }) {
 SolutionTableRow.propTypes = {
   cellKey: PropTypes.string.isRequired,
   row: PropTypes.arrayOf(PropTypes.number).isRequired,
-  item: ItemPropType
+  item: ItemPropType,
+  currentCell: PropTypes.number,
+  currentCellCSS: PropTypes.string,
+
 };
 export default SolutionTableRow;

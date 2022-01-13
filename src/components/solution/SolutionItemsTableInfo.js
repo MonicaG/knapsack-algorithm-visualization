@@ -5,19 +5,19 @@ import PropTypes from 'prop-types';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
 import { solutionTableActionTypes as types } from './SolutionController';
-import ItemToUse from '../../models/ItemToUse';
+import SolutionItem from '../../models/ItemToUse';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
   const [gridItems, setGridItems] = React.useState([]);
 
-  React.useEffect(() => {
-    const usedBackground = "lightgreen";
-    const notUsedBackground = "lightgrey";
-    gridItems.forEach((item) => {
-      document.getElementById(item.gridId).style.background = item.isSolutionItem ? usedBackground : notUsedBackground;
-    });
+  // React.useEffect(() => {
+  //   const usedBackground = "lightgreen";
+  //   const notUsedBackground = "lightgrey";
+  //   gridItems.forEach((item) => {
+  //     document.getElementById(item.gridId).style.background = item.isSolutionItem ? usedBackground : notUsedBackground;
+  //   });
 
-  }, [gridItems]);
+  // }, [gridItems]);
 
   function handleFindItemsButtonClick() {
     let payload = { currentCapacity: knapsackAlgorithm.capacity, solutionIndex: state.solutionIndex}
@@ -57,7 +57,7 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
     let currentCapacity = state.currentCapacity
     let newItem = null;
     if (knapsackAlgorithm.solutionTable[state.solutionIndex][state.currentCapacity] !== knapsackAlgorithm.solutionTable[state.solutionIndex - 1][state.currentCapacity]) {
-      newItem = new ItemToUse(knapsackAlgorithm.items[state.solutionIndex - 1], state.solutionIndex, state.currentCapacity);
+      newItem = new SolutionItem(knapsackAlgorithm.items[state.solutionIndex - 1], state.solutionIndex, state.currentCapacity);
       currentCapacity -= knapsackAlgorithm.items[state.solutionIndex - 1].weight
     }
 

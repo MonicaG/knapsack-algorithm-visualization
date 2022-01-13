@@ -1,9 +1,10 @@
-class ItemToUse {
-  constructor(item, row, column) {
+class SolutionItem {
+  constructor(item, row, column, inSolution=false) {
     this.item = item;
     this.row = row;
     this.column = column;
+    this.inSolution = inSolution;
   }
 }
 
-export default ItemToUse;
+export default SolutionItem;
