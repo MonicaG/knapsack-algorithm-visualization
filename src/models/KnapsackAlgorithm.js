@@ -1,4 +1,4 @@
-import SolutionItem from "./ItemToUse";
+import SolutionItem from "./SolutionItem";
 
 class KnapSackAlgorithm {
   _solutionTable;

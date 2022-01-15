@@ -1,37 +1,43 @@
 import PropTypes from 'prop-types';
-import {KnapsackAlgorithmPropType, SolutionItemsPropType} from './helpers/PropTypesHelper'
+import {KnapsackAlgorithmPropType} from './helpers/PropTypesHelper'
 import SolutionTableRow from './SolutionTableRow';
 import React from 'react';
 import { solutionTableActionTypes as types } from './SolutionController';
 
+class RetValue {
+  constructor(column, css) {
+    this.column = column;
+    this.css = css;
+  }
+}
+
 function SolutionItemsTable({ knapsackAlgorithm, state }) {
   
-  function getCellToHighLight(index) {
+  function getCellToHighLightAndCSS(index) {
     if(state.phase === types.STEP_TO_FIND_SOLUTION_ITEMS) {
-      return null;
+      return new RetValue(null, null);
     }
-    return index === state.solutionIndex && index > 0 ? state.currentCapacity : null;
+    let item = knapsackAlgorithm.solutionItems.filter( x => x.column >= state.currentCapacity && x.row === index && x.row >= state.solutionIndex)
+    if(item && item.length === 1) {
+      const css = item[0].inSolution ? "bg-lime-300" : "bg-gray-200"
+      return new RetValue(item[0].column, css);
+    }
+    return new RetValue(null, null)
   }
 
-  function getCSS() {
-    let item = knapsackAlgorithm.solutionItems.filter( x => x.column === state.currentCapacity && x.row === state.solutionIndex)
-    if(item && item.length === 1) {
-      return item[0].inSolution ? "bg-lime-300" : "bg-gray-200"
-    }
-    return ""
-  }
   return (
 
     knapsackAlgorithm.solutionTable.map((row, index) => {
       const indexOffset = index - 1;
       const item = index === 0 ? null : knapsackAlgorithm.items[indexOffset]
+      const highlightCell = getCellToHighLightAndCSS(index)
       return <SolutionTableRow
         key={item ? item.id : " "}
         cellKey={item ? item.id : "Cell"}
         row={row}
         item={item}
-        currentCell={getCellToHighLight(index)}
-        currentCellCSS={getCSS()}
+        currentCell={highlightCell.column}
+        currentCellCSS={highlightCell.css}
       />
     })
   );
@@ -40,7 +46,8 @@ function SolutionItemsTable({ knapsackAlgorithm, state }) {
 SolutionItemsTable.propTypes = {
   knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired,
  state: PropTypes.shape({
-  solutionItems: SolutionItemsPropType.isRequired,
+  currentCapacity: PropTypes.number.isRequired,
+  solutionIndex: PropTypes.number.isRequired,
 })};
 
 export default SolutionItemsTable;

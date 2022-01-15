@@ -25,7 +25,6 @@ function SolutionController({ knapsackAlgorithm }) {
     currentCapacity: 1,
     currentCellIndex: 1,
     findSolutionItems: false,
-    solutionItems: [],
     solutionIndex: knapsackAlgorithm.items.length,
     title: TITLE_STEP_2,
     cellDimensions: new Array(knapsackAlgorithm.capacity + 1).fill({width: 0, height: 0}),
@@ -82,27 +81,18 @@ function SolutionController({ knapsackAlgorithm }) {
           phase: solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS,
         }
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
-        let theState = {
+        return {
           ...state,
-          solutionIndex: action.payload.solutionIndex,
-          currentCapacity: action.payload.currentCapacity,
+          solutionIndex: action.solutionIndex,
+          currentCapacity: action.currentCapacity,
           title: TITLE_STEP_3,
           phase: solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM,
         }
-
-        if (action.payload.newItem) {
-          theState = {
-            ...theState,
-            solutionItems: [...state.solutionItems, action.payload.newItem]
-          }
-        }
-        return theState;
       case solutionControllerActionTypes.CELL_DIMENSIONS:
         return {
           ...state,
           cellDimensions: action.cellDimensions,
           phase: solutionControllerActionTypes.CELL_DIMENSIONS,
-
         }
       default:
         //@todo should default do something else?

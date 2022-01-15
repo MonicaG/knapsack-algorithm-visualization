@@ -12,11 +12,3 @@ export const KnapsackAlgorithmPropType = PropTypes.shape({
   capacity: PropTypes.number.isRequired,
   solutionTable: PropTypes.array.isRequired
 });
-
-export const SolutionItemsPropType = PropTypes.arrayOf(
-  PropTypes.shape({
-    item: ItemPropType.isRequired,
-    row: PropTypes.number.isRequired,
-    column: PropTypes.number.isRequired
-  })
-);

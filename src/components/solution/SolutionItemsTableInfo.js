@@ -1,32 +1,15 @@
 import React from 'react';
-import { KnapsackAlgorithmPropType, SolutionItemsPropType } from './helpers/PropTypesHelper'
-import { getItemCellId } from './helpers/TableHelper';
+import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import PropTypes from 'prop-types';
 import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
 import SolutionItems from './SolutionItems'
 import { solutionTableActionTypes as types } from './SolutionController';
-import SolutionItem from '../../models/ItemToUse';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
-  const [gridItems, setGridItems] = React.useState([]);
 
-  // React.useEffect(() => {
-  //   const usedBackground = "lightgreen";
-  //   const notUsedBackground = "lightgrey";
-  //   gridItems.forEach((item) => {
-  //     document.getElementById(item.gridId).style.background = item.isSolutionItem ? usedBackground : notUsedBackground;
-  //   });
-
-  // }, [gridItems]);
-
-  function handleFindItemsButtonClick() {
-    let payload = { currentCapacity: knapsackAlgorithm.capacity, solutionIndex: state.solutionIndex}
-    dispatch({
-      type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
-      payload: payload,
-    });
+  function getSolutionItems() {
+    return knapsackAlgorithm.solutionItems.filter(x => x.inSolution)
   }
-
   function buildPsuedo() {
     return (
       <div>
@@ -43,39 +26,34 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
                 knapsackAlgorithm={knapsackAlgorithm}
               />
               :
-              null
+              <SolutionItems
+                solutionItems={getSolutionItems()}
+              />
             }
-            <SolutionItems
-              solutionItems={state.solutionItems}
-            />
           </div>
         </div>
       </div>)
   }
 
-  function handleButtonClick() {
-    let currentCapacity = state.currentCapacity
-    let newItem = null;
-    if (knapsackAlgorithm.solutionTable[state.solutionIndex][state.currentCapacity] !== knapsackAlgorithm.solutionTable[state.solutionIndex - 1][state.currentCapacity]) {
-      newItem = new SolutionItem(knapsackAlgorithm.items[state.solutionIndex - 1], state.solutionIndex, state.currentCapacity);
-      currentCapacity -= knapsackAlgorithm.items[state.solutionIndex - 1].weight
-    }
-
-    let payload = { currentCapacity: currentCapacity, solutionIndex: state.solutionIndex - 1 }
-    if (newItem) {
-      payload = {
-        ...payload,
-        newItem: newItem
-      }
-    }
-
-    setGridItems([...gridItems, { gridId: getItemCellId(knapsackAlgorithm.items[state.solutionIndex - 1], state.currentCapacity), isSolutionItem: newItem ? true : false }])
-
+  function doDispatch(solutionIndex, capacity) {
     dispatch({
       type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
-      payload: payload
+      currentCapacity: capacity,
+      solutionIndex: solutionIndex,
     });
+  }
 
+  function handleButtonClick() {
+    const solutionIndex = state.solutionIndex - 1;
+    let currentCapacity = state.currentCapacity;
+    if (knapsackAlgorithm.solutionTable[state.solutionIndex][state.currentCapacity] !== knapsackAlgorithm.solutionTable[state.solutionIndex - 1][state.currentCapacity]) {
+      currentCapacity -= knapsackAlgorithm.items[state.solutionIndex - 1].weight
+    }
+    doDispatch(solutionIndex, currentCapacity);
+  }
+
+  function handleFindItemsButtonClick() {
+    doDispatch(state.solutionIndex, knapsackAlgorithm.capacity);
   }
 
   return (
@@ -92,7 +70,6 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
 SolutionItemsTableInfo.propTypes = {
   knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired,
   state: PropTypes.shape({
-    solutionItems: SolutionItemsPropType.isRequired,
     solutionIndex: PropTypes.number.isRequired,
     currentCapacity: PropTypes.number.isRequired,
   }).isRequired,
