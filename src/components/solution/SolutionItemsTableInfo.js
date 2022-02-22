@@ -1,7 +1,7 @@
 import React from 'react';
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import PropTypes from 'prop-types';
-import ItemsToUsePseudoCode from './pseudocode/ItemsToUsePseudoCode';
+import ItemsToUseCodeBlock from './codeblocks/ItemsToUseCodeBlock';
 import SolutionItems from './SolutionItems'
 import { solutionTableActionTypes as types } from './SolutionController';
 
@@ -15,11 +15,9 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
       <div>
         <input type="button" className="btnBlue" value="Step" disabled={state.solutionIndex <= 0} onClick={handleButtonClick} />
         <div className="pseudoCode">
-          <p>current capacity is: {state.currentCapacity}</p>
-          <p>current item Index is: {state.solutionIndex}</p>
           <div>
             {state.solutionIndex > 0 ?
-              <ItemsToUsePseudoCode
+              <ItemsToUseCodeBlock
                 previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
                 index={state.solutionIndex}
                 currentCapacity={state.currentCapacity}

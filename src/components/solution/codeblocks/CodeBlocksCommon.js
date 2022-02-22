@@ -1,0 +1,2 @@
+const HIGHLIGHT_COLOUR = '#BEF264';
+export {HIGHLIGHT_COLOUR}

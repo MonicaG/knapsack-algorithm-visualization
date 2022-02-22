@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {KnapsackAlgorithmPropType} from './helpers/PropTypesHelper'
 import React from 'react';
-import TablePopulationPseudoCode from './pseudocode/TablePopulationPseudoCode';
+import TablePopulationCodeBlock from './codeblocks/TablePopulationCodeBlock';
 import { solutionTableActionTypes as types} from './SolutionController';
 
 
@@ -23,9 +23,7 @@ function BuildTableInfo({knapsackAlgorithm, state, dispatch}) {
     <div className="tableInfo">
       <input type="button" className="btnBlue" value="Step" onClick={() => dispatch({type: getType()})} />
       <div className="pseudoCode">
-        <p>current capacity is: {state.currentCapacity}</p>
-        <p>current item Index is: {state.currentItemIndex}</p>
-        <TablePopulationPseudoCode
+        <TablePopulationCodeBlock
           item={knapsackAlgorithm.items[state.currentItemIndex - 1]}
           capacity={state.currentCapacity}
           index={state.currentItemIndex}
