@@ -3,7 +3,6 @@ import Item from './../models/Item'
 import { screen, render, fireEvent, within, waitFor } from '@testing-library/react';
 import "@testing-library/jest-dom";
 import { actionTypes } from '../App';
-import { nanoid } from 'nanoid';
 
 jest.mock('nanoid', () => {
   return { nanoid: () => "1234" };
