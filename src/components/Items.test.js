@@ -1,6 +1,6 @@
 import Items from "./Items";
 import Item from './../models/Item'
-import { render, fireEvent, within } from '@testing-library/react';
+import { render, fireEvent, within, screen } from '@testing-library/react';
 
 
 describe('the initial screen', () => {
@@ -12,8 +12,8 @@ describe('the initial screen', () => {
   ];
 
   it('does not show the add item form', () => {
-    const { getByRole, getAllByRole } = render(<Items items={initItems} setItems={()=>{}} />);
-    const rows = getAllByRole("row");
+    render(<Items items={initItems} setItems={()=>{}} />);
+    const rows = screen.getAllByRole("row");
     expect(rows.length).toBe(4);
     const headerCells = within(rows[0]).getAllByRole("columnheader");
     expect(headerCells.length).toBe(4);
@@ -43,9 +43,9 @@ describe('the initial screen', () => {
     expect(within(thirdItemCells[2]).getByText('2')).toBeTruthy();
     expect(within(thirdItemCells[3]).getByRole('button', {name: /Delete item item 3/i})).toBeTruthy();
     
-    expect(getByRole("button", { name: /Add new item/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Add new item/i })).toBeInTheDocument();
 
-    expect(getAllByRole('button').length).toBe(4);
+    expect(screen.getAllByRole('button').length).toBe(4);
     
   });
 });
@@ -61,24 +61,24 @@ describe('iteracting with the buttons', () => {
   let dispatch = ()=>{};
 
   it('displays the add form when the Add Button is clicked and removes the form when Cancel Button is clicked', () => {
-    const { getAllByRole, getByRole, queryByRole, queryAllByRole } = render(<Items items={initItems} dispatch={dispatch}  />);
-    const addButton = getByRole("button", { name: /Add new item/i });
+    render(<Items items={initItems} dispatch={dispatch}  />);
+    const addButton = screen.getByRole("button", { name: /Add new item/i });
     expect(addButton).not.toBeDisabled();
     fireEvent.click(addButton);
-    expect(getByRole("textbox", {name: /new item name/i})).toBeInTheDocument();
-    expect(getByRole("spinbutton", {name:/item value/i})).toBeInTheDocument();
-    expect(getByRole("spinbutton", {name:/item weight/i})).toBeInTheDocument();
-    expect(getAllByRole("button").length).toBe(5)
-    expect(getByRole("button", {name: /Save Item/i})).toBeInTheDocument();
-    expect(getByRole("button", {name: /Cancel/i})).toBeInTheDocument();
-    expect(getAllByRole("button", {name: /Delete item item [123]/i}).length).toBe(3);
-    expect(queryByRole("button", {name: /Add new item/i})).not.toBeInTheDocument();
-    fireEvent.click(getByRole("button", {name: /Cancel/i}));
-    expect(queryByRole('textbox')).not.toBeInTheDocument();
-    expect(queryAllByRole('spinbutton').length).toBe(0);
-    expect(getAllByRole("button").length).toBe(4)
-    expect(getAllByRole("button", {name: /Delete item item [123]/i}).length).toBe(3);
-    expect(getByRole("button", {name:/Add new item/i})).toBeInTheDocument();
+    expect(screen.getByRole("textbox", {name: /new item name/i})).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", {name:/item value/i})).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", {name:/item weight/i})).toBeInTheDocument();
+    expect(screen.getAllByRole("button").length).toBe(5)
+    expect(screen.getByRole("button", {name: /Save Item/i})).toBeInTheDocument();
+    expect(screen.getByRole("button", {name: /Cancel/i})).toBeInTheDocument();
+    expect(screen.getAllByRole("button", {name: /Delete item item [123]/i}).length).toBe(3);
+    expect(screen.queryByRole("button", {name: /Add new item/i})).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", {name: /Cancel/i}));
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(screen.queryAllByRole('spinbutton').length).toBe(0);
+    expect(screen.getAllByRole("button").length).toBe(4)
+    expect(screen.getAllByRole("button", {name: /Delete item item [123]/i}).length).toBe(3);
+    expect(screen.getByRole("button", {name:/Add new item/i})).toBeInTheDocument();
 
   });
 
@@ -93,7 +93,7 @@ describe('iteracting with the buttons', () => {
       new Item('item 9', 4, 1),
       new Item('item 10', 5, 1)
     ]
-    const { getByRole } = render(<Items items={maxItems} dispatch={dispatch}  />);
-    expect(getByRole("button", {name: /Add new item/i})).toBeDisabled();
+    render(<Items items={maxItems} dispatch={dispatch}  />);
+    expect(screen.getByRole("button", {name: /Add new item/i})).toBeDisabled();
   });
 });
