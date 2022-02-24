@@ -6,7 +6,7 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
     Object {
       "background": "#f8f8ff",
       "color": "#000",
-      "display": "block",
+      "display": "flex",
       "overflowX": "auto",
       "padding": "0.5em",
     }
@@ -579,7 +579,7 @@ exports[`the code block displays when an item is part of the solution 1`] = `
     Object {
       "background": "#f8f8ff",
       "color": "#000",
-      "display": "block",
+      "display": "flex",
       "overflowX": "auto",
       "padding": "0.5em",
     }

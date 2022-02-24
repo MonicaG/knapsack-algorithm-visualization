@@ -6,7 +6,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
     Object {
       "background": "#f8f8ff",
       "color": "#000",
-      "display": "block",
+      "display": "flex",
       "overflowX": "auto",
       "padding": "0.5em",
     }
@@ -566,7 +566,7 @@ exports[`the code block displays the code block when an item fits in the knapsac
     Object {
       "background": "#f8f8ff",
       "color": "#000",
-      "display": "block",
+      "display": "flex",
       "overflowX": "auto",
       "padding": "0.5em",
     }

@@ -103,7 +103,7 @@ function SolutionController({ knapsackAlgorithm }) {
   return (
     <div>
       <h2 className="title">{state.title}</h2>
-      <div className="overflow-x-auto overflow-y-auto h-96 sm:h-max" ref={ref}>
+      <div className="overflow-x-auto overflow-y-auto h-72 sm:h-96" ref={ref}>
         <table className="table-auto px-10 py-3 w-full">
             <SolutionTableHeaderRow
               cellKey="capacityRowCell"
