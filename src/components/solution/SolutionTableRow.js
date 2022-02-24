@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import {ItemPropType} from './helpers/PropTypesHelper'
 import {getCellId} from './helpers/TableHelper';
+import {format} from './helpers/Formatting';
 
 function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
-  const MAX_DECIMAL_NUMS = 2
   return (
     <tr>
       {item ?
@@ -19,8 +19,7 @@ function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
       {row.map((cell, index) => {
         const currentCSS = index === currentCell ? currentCellCSS: ""
         const id = getCellId(cellKey, index);
-        // num formatting from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
-        const value = new Intl.NumberFormat('en-US', {useGrouping: false, maximumFractionDigits: MAX_DECIMAL_NUMS}).format(cell)
+        const value = format(cell);
         return <td id={id} key={id} className={`cell ${currentCSS}`}>{value}</td>
       })}
     </tr>

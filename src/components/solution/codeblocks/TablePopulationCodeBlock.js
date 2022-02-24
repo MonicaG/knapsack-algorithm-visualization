@@ -1,4 +1,5 @@
 import {buildSyntaxHighlight} from './CodeBlocksCommon';
+import {format} from '../helpers/Formatting';
 
 function TablePopulationCodeBlock({ item, capacity, index, solutionTable }) {
 
@@ -7,8 +8,8 @@ function TablePopulationCodeBlock({ item, capacity, index, solutionTable }) {
 `
 /* 
 T[${index}][${capacity}] = Math.max(T[${index - 1}][${capacity}], (${item.value} + T[${index - 1}][${capacity - item.weight}])) 
-T[${index}][${capacity}] = Math.max(${solutionTable[index - 1][capacity]}, ${item.value + solutionTable[index - 1][capacity - item.weight]})
-T[${index}][${capacity}] = ${solutionTable[index][capacity]}
+T[${index}][${capacity}] = Math.max(${format(solutionTable[index - 1][capacity])}, ${format(item.value + solutionTable[index - 1][capacity - item.weight])})
+T[${index}][${capacity}] = ${format(solutionTable[index][capacity])}
 */`
   }
 
@@ -17,7 +18,7 @@ T[${index}][${capacity}] = ${solutionTable[index][capacity]}
 `
 /* 
 T[${index}][${capacity}] = T[${index - 1}][${capacity}]
-T[${index}][${capacity}] = ${solutionTable[index][capacity]}
+T[${index}][${capacity}] = ${format(solutionTable[index][capacity])}
 */`    
   }
 

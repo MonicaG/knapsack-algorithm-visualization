@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {ItemPropType, KnapsackAlgorithmPropType} from '../helpers/PropTypesHelper'
 import {buildSyntaxHighlight} from './CodeBlocksCommon';
+import {format} from '../helpers/Formatting';
 
 function ItemsToUseCodeBlock({ previousItem, index, currentCapacity, knapsackAlgorithm }) {
  
@@ -20,7 +21,7 @@ for (let i = items.length; i > 0; i--) {
     solution.push(item);
     capacity = capacity - items[i-1].weight;  ${!isSolutionItem ? "": 
     `
-    //capacity = ${currentCapacity} - ${previousItem.weight} = ${currentCapacity - previousItem.weight}`
+    //capacity = ${currentCapacity} - ${previousItem.weight} = ${format(currentCapacity - previousItem.weight)}`
   }
   }else {
     // no - op
