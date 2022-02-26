@@ -2,7 +2,7 @@ import KnapSackAlgorithm from './KnapsackAlgorithm';
 import Item from './Item';
 
 describe('knapsack algorithm solution table', () => {
-  test('has 3 items and a capacity of 6', () => {
+  it('has 3 items and a capacity of 6', () => {
     const capacity = 6;
     const item1 = new Item('TV', 10, 5);
     const item2 =  new Item('ring', 15, 1);
@@ -38,7 +38,7 @@ describe('knapsack algorithm solution table', () => {
 
   });
 
-  test('has 5 items and a capacity of 4. The weight of one item is greater than the capacity', () => {
+  it('has 5 items and a capacity of 4. The weight of one item is greater than the capacity', () => {
     const capacity = 4;
     const item1 = new Item ('item 1', 10, 5);
     const item2 = new Item ('item 2', 15, 1);

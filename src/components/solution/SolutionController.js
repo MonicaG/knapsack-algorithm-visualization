@@ -1,10 +1,11 @@
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
-import React, { useReducer, useRef, useEffect} from 'react';
-import BuildTable from './BuildTable';
-import SolutionItemsTable from './SolutionItemsTable';
+import React, { useReducer, useRef, useEffect } from 'react';
 import BuildTableInfo from './BuildTableInfo';
+import SolutionTableRow from './SolutionTableRow';
 import SolutionItemsTableInfo from './SolutionItemsTableInfo';
 import SolutionTableHeaderRow from './SolutionTableHeaderRow';
+import FindItemsTableState from '../../models/tablestate/FindItemsTableState';
+import BuildTableState from '../../models/tablestate/BuildTableState';
 
 
 const TITLE_STEP_2 = "Step 2: Build Table";
@@ -27,13 +28,14 @@ function SolutionController({ knapsackAlgorithm }) {
     findSolutionItems: false,
     solutionIndex: knapsackAlgorithm.items.length,
     title: TITLE_STEP_2,
-    cellDimensions: new Array(knapsackAlgorithm.capacity + 1).fill({width: 0, height: 0}),
+    cellDimensions: new Array(knapsackAlgorithm.capacity + 1).fill({ width: 0, height: 0 }),
     phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const capacityRow = Array.from({ length: knapsackAlgorithm.capacity + 1 }, (e, i) => i);
   const ref = useRef(null);
+  const tableState = state.findSolutionItems ? new FindItemsTableState(state, knapsackAlgorithm) : new BuildTableState(state)
 
   function summation(prevValue, curValue) {
     return prevValue + curValue.width
@@ -44,10 +46,10 @@ function SolutionController({ knapsackAlgorithm }) {
     const itemIndex = state.findSolutionItems ? state.solutionIndex : state.currentItemIndex
     if (state.currentCellIndex === 1) {
       ref.current.scrollLeft = 0;
-    }else {
-      ref.current.scrollLeft =  state.cellDimensions.slice(0, index + 1).reduce(summation, 0) + state.cellDimensions[index].width
+    } else {
+      ref.current.scrollLeft = state.cellDimensions.slice(0, index + 1).reduce(summation, 0) + state.cellDimensions[index].width
     }
-    if(state.currentItemIndex > 1 || state.findSolutionItems) {
+    if (state.currentItemIndex > 1 || state.findSolutionItems) {
       ref.current.scrollTop = rowName.height * itemIndex
     }
 
@@ -105,23 +107,27 @@ function SolutionController({ knapsackAlgorithm }) {
       <h2 className="title">{state.title}</h2>
       <div className="overflow-x-auto overflow-y-auto h-72 sm:h-96" ref={ref}>
         <table className="table-auto px-10 py-3 w-full">
-            <SolutionTableHeaderRow
-              cellKey="capacityRowCell"
-              row={capacityRow}
-              state={state}
-              dispatch={dispatch}
-            />
+          <SolutionTableHeaderRow
+            cellKey="capacityRowCell"
+            row={capacityRow}
+            state={state}
+            dispatch={dispatch}
+          />
           <tbody>
-            {state.findSolutionItems === false ?
-              <BuildTable
-                knapsackAlgorithm={knapsackAlgorithm}
-                state={state}
-              /> :
-              <SolutionItemsTable
-                knapsackAlgorithm={knapsackAlgorithm}
-                state={state}
+            {knapsackAlgorithm.solutionTable.map((row, index) => {
+              const indexOffset = index - 1;
+              const item = index === 0 ? null : knapsackAlgorithm.items[indexOffset]
+              const highlightCell = tableState.getCellToHighLightAndCSS(index)
+              const formattedRow = tableState.getFormattedRow(row, index);
+              return <SolutionTableRow
+                key={item ? item.id : " "}
+                cellKey={item ? item.id : "Cell"}
+                row={formattedRow}
+                item={item}
+                currentCell={highlightCell.column}
+                currentCellCSS={highlightCell.css}
               />
-            }
+            })}
           </tbody>
         </table>
       </div>
