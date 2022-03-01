@@ -1,6 +1,6 @@
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import React, { useReducer, useRef, useEffect } from 'react';
-import BuildTableInfo from './BuildTableInfo';
+import DisplayTablePopulationCodeBlock from './DisplayTablePopulationCodeBlock';
 import SolutionTableRow from './SolutionTableRow';
 import SolutionItemsTableInfo from './SolutionItemsTableInfo';
 import SolutionTableHeaderRow from './SolutionTableHeaderRow';
@@ -112,7 +112,7 @@ function SolutionController({ knapsackAlgorithm }) {
     switch(state.phase) {
       case solutionControllerActionTypes.STEP_TO_NEXT_CELL: 
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW: 
-        return  <BuildTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
+        return  <DisplayTablePopulationCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS: 
         return <InBetweenPhases state={state} dispatch={dispatch} capacity={knapsackAlgorithm.capacity}/>
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
@@ -120,7 +120,7 @@ function SolutionController({ knapsackAlgorithm }) {
       case solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS:
         return <SolutionItems solutionItems={knapsackAlgorithm.solutionItems}/>
       default:
-        return <BuildTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
+        return <DisplayTablePopulationCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
     }
   }
 

@@ -1,0 +1,1199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the code block displays the code block when an item does NOT fit in the knapsack 1`] = `
+<div>
+  <input
+    className="btnBlue"
+    onClick={[Function]}
+    type="button"
+    value="Step"
+  />
+  <div
+    className="py-2"
+  >
+    <pre
+      style={
+        Object {
+          "background": "#f8f8ff",
+          "color": "#000",
+          "display": "flex",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        }
+      }
+    >
+      <code
+        className="language-javascript"
+        style={
+          Object {
+            "whiteSpace": "pre",
+          }
+        }
+      >
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // w: item weight (2)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            2
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // value: item value (25)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            3
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // c: current capacity (2)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            4
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // i: index (3)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            5
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#954121",
+              }
+            }
+          >
+            if
+          </span>
+          <span
+            style={Object {}}
+          >
+             (w &lt;= c) { 
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // 2 &lt;= 2
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            6
+          </span>
+          <span
+            style={Object {}}
+          >
+              T[i][c] = 
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#0086b3",
+              }
+            }
+          >
+            Math
+          </span>
+          <span
+            style={Object {}}
+          >
+            .max(T[i-
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c], (value + T[i - 
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c - w])) 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            7
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            /* 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "color": "#408080",
+              "display": "block",
+              "fontStyle": "italic",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            8
+          </span>
+          T[3][2] = Math.max(T[2][2], (25 + T[2][0])) 
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "color": "#408080",
+              "display": "block",
+              "fontStyle": "italic",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            9
+          </span>
+          T[3][2] = Math.max(20, 25)
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "color": "#408080",
+              "display": "block",
+              "fontStyle": "italic",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            10
+          </span>
+          T[3][2] = 25
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            11
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            */
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            12
+          </span>
+          <span
+            style={Object {}}
+          >
+            }
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#954121",
+              }
+            }
+          >
+            else
+          </span>
+          <span
+            style={Object {}}
+          >
+             {
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            13
+          </span>
+          <span
+            style={Object {}}
+          >
+              T[i][c] = T[i-
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c] 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            14
+          </span>
+          }
+
+        </span>
+      </code>
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`the code block displays the code block when an item fits in the knapsack 1`] = `
+<div>
+  <input
+    className="btnBlue"
+    onClick={[Function]}
+    type="button"
+    value="Step"
+  />
+  <div
+    className="py-2"
+  >
+    <pre
+      style={
+        Object {
+          "background": "#f8f8ff",
+          "color": "#000",
+          "display": "flex",
+          "overflowX": "auto",
+          "padding": "0.5em",
+        }
+      }
+    >
+      <code
+        className="language-javascript"
+        style={
+          Object {
+            "whiteSpace": "pre",
+          }
+        }
+      >
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // w: item weight (2)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            2
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // value: item value (25)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            3
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // c: current capacity (3)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            4
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // i: index (3)
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            5
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#954121",
+              }
+            }
+          >
+            if
+          </span>
+          <span
+            style={Object {}}
+          >
+             (w &lt;= c) { 
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            // 2 &lt;= 3
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            6
+          </span>
+          <span
+            style={Object {}}
+          >
+              T[i][c] = 
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#0086b3",
+              }
+            }
+          >
+            Math
+          </span>
+          <span
+            style={Object {}}
+          >
+            .max(T[i-
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c], (value + T[i - 
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c - w])) 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            7
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            /* 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "color": "#408080",
+              "display": "block",
+              "fontStyle": "italic",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            8
+          </span>
+          T[3][3] = Math.max(T[2][3], (25 + T[2][1])) 
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "color": "#408080",
+              "display": "block",
+              "fontStyle": "italic",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            9
+          </span>
+          T[3][3] = Math.max(20, 45)
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "color": "#408080",
+              "display": "block",
+              "fontStyle": "italic",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            10
+          </span>
+          T[3][3] = 45
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            11
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#408080",
+                "fontStyle": "italic",
+              }
+            }
+          >
+            */
+          </span>
+          <span
+            style={Object {}}
+          >
+            
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            12
+          </span>
+          <span
+            style={Object {}}
+          >
+            }
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#954121",
+              }
+            }
+          >
+            else
+          </span>
+          <span
+            style={Object {}}
+          >
+             {
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            13
+          </span>
+          <span
+            style={Object {}}
+          >
+              T[i][c] = T[i-
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c] 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            14
+          </span>
+          }
+
+        </span>
+      </code>
+    </pre>
+  </div>
+</div>
+`;
