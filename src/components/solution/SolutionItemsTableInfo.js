@@ -2,7 +2,6 @@ import React from 'react';
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import PropTypes from 'prop-types';
 import ItemsToUseCodeBlock from './codeblocks/ItemsToUseCodeBlock';
-import SolutionItems from './SolutionItems'
 import { solutionTableActionTypes as types } from './SolutionController';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
@@ -41,18 +40,8 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
     doDispatch(solutionIndex, currentCapacity);
   }
 
-  function handleFindItemsButtonClick() {
-    doDispatch(state.solutionIndex, knapsackAlgorithm.capacity);
-  }
-
   return (
-    <div className="tableInfo">
-      {state.phase === types.STEP_TO_FIND_SOLUTION_ITEMS ?
-        <input type="button" className="btnBlue" value="Find Solution Items" onClick={handleFindItemsButtonClick} />
-        :
         buildPsuedo()
-      }
-    </div>
   )
 }
 

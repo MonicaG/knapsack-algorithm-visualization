@@ -7,6 +7,7 @@ import SolutionTableHeaderRow from './SolutionTableHeaderRow';
 import FindItemsTableState from '../../models/tablestate/FindItemsTableState';
 import BuildTableState from '../../models/tablestate/BuildTableState';
 import SolutionItems from './SolutionItems';
+import InBetweenPhases from './InBetweenPhases';
 
 
 const TITLE_STEP_2 = "Step 2: Build Table";
@@ -113,6 +114,7 @@ function SolutionController({ knapsackAlgorithm }) {
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW: 
         return  <BuildTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS: 
+        return <InBetweenPhases state={state} dispatch={dispatch} capacity={knapsackAlgorithm.capacity}/>
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
         return  <SolutionItemsTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
       case solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS:
