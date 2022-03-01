@@ -7,27 +7,18 @@ import { solutionTableActionTypes as types } from './SolutionController';
 
 function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
 
-  function getSolutionItems() {
-    return knapsackAlgorithm.solutionItems.filter(x => x.inSolution)
-  }
   function buildPsuedo() {
     return (
       <div>
-        <input type="button" className="btnBlue" value="Step" disabled={state.solutionIndex <= 0} onClick={handleButtonClick} />
+        <input type="button" className="btnBlue" value="Step" onClick={handleButtonClick} />
         <div className="pseudoCode">
           <div>
-            {state.solutionIndex > 0 ?
               <ItemsToUseCodeBlock
                 previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
                 index={state.solutionIndex}
                 currentCapacity={state.currentCapacity}
                 knapsackAlgorithm={knapsackAlgorithm}
               />
-              :
-              <SolutionItems
-                solutionItems={getSolutionItems()}
-              />
-            }
           </div>
         </div>
       </div>)

@@ -6,6 +6,7 @@ import SolutionItemsTableInfo from './SolutionItemsTableInfo';
 import SolutionTableHeaderRow from './SolutionTableHeaderRow';
 import FindItemsTableState from '../../models/tablestate/FindItemsTableState';
 import BuildTableState from '../../models/tablestate/BuildTableState';
+import SolutionItems from './SolutionItems';
 
 
 const TITLE_STEP_2 = "Step 2: Build Table";
@@ -17,6 +18,7 @@ const solutionControllerActionTypes = {
   STEP_TO_FIND_SOLUTION_ITEMS: 3,
   STEP_FIND_NEXT_SOLUTION_ITEM: 4,
   CELL_DIMENSIONS: 5,
+  STEP_SHOW_ALL_SOLUTION_ITEMS: 6,
 }
 
 function SolutionController({ knapsackAlgorithm }) {
@@ -83,22 +85,40 @@ function SolutionController({ knapsackAlgorithm }) {
           phase: solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS,
         }
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
+        let tempPhase = solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM;
+        if (state.solutionIndex <= 1) {
+          tempPhase = solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS;
+        }
         return {
           ...state,
           solutionIndex: action.solutionIndex,
           currentCapacity: action.currentCapacity,
           title: TITLE_STEP_3,
-          phase: solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM,
+          phase: tempPhase,
         }
       case solutionControllerActionTypes.CELL_DIMENSIONS:
         return {
           ...state,
           cellDimensions: action.cellDimensions,
-          phase: solutionControllerActionTypes.CELL_DIMENSIONS,
         }
       default:
         //@todo should default do something else?
         throw new Error();
+    }
+  }
+
+  function getComponent() {
+    switch(state.phase) {
+      case solutionControllerActionTypes.STEP_TO_NEXT_CELL: 
+      case solutionControllerActionTypes.STEP_TO_NEXT_ROW: 
+        return  <BuildTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
+      case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS: 
+      case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
+        return  <SolutionItemsTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
+      case solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS:
+        return <SolutionItems solutionItems={knapsackAlgorithm.solutionItems}/>
+      default:
+        return <BuildTableInfo knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch}/>
     }
   }
 
@@ -131,7 +151,9 @@ function SolutionController({ knapsackAlgorithm }) {
           </tbody>
         </table>
       </div>
-      {state.findSolutionItems === false ?
+        {
+          getComponent()
+          /* state.findSolutionItems === false ?
         <BuildTableInfo
           knapsackAlgorithm={knapsackAlgorithm}
           state={state}
@@ -141,8 +163,8 @@ function SolutionController({ knapsackAlgorithm }) {
           knapsackAlgorithm={knapsackAlgorithm}
           state={state}
           dispatch={dispatch}
-        />
-      }
+        /> */
+        }
     </div>
   );
 };

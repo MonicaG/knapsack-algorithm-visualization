@@ -7,8 +7,18 @@ export const ItemPropType = PropTypes.shape({
   weight: PropTypes.number.isRequired
 });
 
+export const SolutionItemsPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    item: ItemPropType.isRequired,
+    row: PropTypes.number.isRequired,
+    column: PropTypes.number.isRequired,
+    inSolution: PropTypes.bool.isRequired,
+  })
+);
+
 export const KnapsackAlgorithmPropType = PropTypes.shape({
   items: PropTypes.arrayOf(ItemPropType).isRequired,
   capacity: PropTypes.number.isRequired,
-  solutionTable: PropTypes.array.isRequired
+  solutionTable: PropTypes.array.isRequired,
+  solutionItems: SolutionItemsPropType.isRequired,
 });
