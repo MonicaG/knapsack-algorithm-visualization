@@ -145,7 +145,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
               }
             }
           >
-            // c: current capacity (2)
+            // c: current capacity (1)
           </span>
           <span
             style={Object {}}
@@ -200,7 +200,6 @@ exports[`the code block displays the code block when an item does NOT fit in the
         <span
           style={
             Object {
-              "backgroundColor": "#BEF264",
               "display": "block",
             }
           }
@@ -246,7 +245,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
               }
             }
           >
-            // 2 &lt;= 2
+            // 2 &lt;= 1
           </span>
           <span
             style={Object {}}
@@ -258,7 +257,6 @@ exports[`the code block displays the code block when an item does NOT fit in the
         <span
           style={
             Object {
-              "backgroundColor": "#BEF264",
               "display": "block",
             }
           }
@@ -351,6 +349,92 @@ exports[`the code block displays the code block when an item does NOT fit in the
           <span
             style={Object {}}
           >
+            }
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#954121",
+              }
+            }
+          >
+            else
+          </span>
+          <span
+            style={Object {}}
+          >
+             {
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            8
+          </span>
+          <span
+            style={Object {}}
+          >
+              T[i][c] = T[i-
+          </span>
+          <span
+            style={
+              Object {
+                "color": "#40a070",
+              }
+            }
+          >
+            1
+          </span>
+          <span
+            style={Object {}}
+          >
+            ][c] 
+
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            9
+          </span>
+          <span
+            style={Object {}}
+          >
             
           </span>
           <span
@@ -387,70 +471,18 @@ exports[`the code block displays the code block when an item does NOT fit in the
               }
             }
           >
-            8
-          </span>
-          T[3][2] = Math.max(T[2][2], (25 + T[2][0])) 
-
-        </span>
-        <span
-          style={
-            Object {
-              "backgroundColor": "#BEF264",
-              "color": "#408080",
-              "display": "block",
-              "fontStyle": "italic",
-            }
-          }
-        >
-          <span
-            className="comment linenumber react-syntax-highlighter-line-number"
-            style={
-              Object {
-                "display": "inline-block",
-                "minWidth": "2.25em",
-                "paddingRight": "1em",
-                "textAlign": "right",
-                "userSelect": "none",
-              }
-            }
-          >
-            9
-          </span>
-          T[3][2] = Math.max(20, 25)
-
-        </span>
-        <span
-          style={
-            Object {
-              "backgroundColor": "#BEF264",
-              "color": "#408080",
-              "display": "block",
-              "fontStyle": "italic",
-            }
-          }
-        >
-          <span
-            className="comment linenumber react-syntax-highlighter-line-number"
-            style={
-              Object {
-                "display": "inline-block",
-                "minWidth": "2.25em",
-                "paddingRight": "1em",
-                "textAlign": "right",
-                "userSelect": "none",
-              }
-            }
-          >
             10
           </span>
-          T[3][2] = 25
+          T[3][1] = T[2][1]
 
         </span>
         <span
           style={
             Object {
               "backgroundColor": "#BEF264",
+              "color": "#408080",
               "display": "block",
+              "fontStyle": "italic",
             }
           }
         >
@@ -467,6 +499,31 @@ exports[`the code block displays the code block when an item does NOT fit in the
             }
           >
             11
+          </span>
+          T[3][1] = 20
+
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#BEF264",
+              "display": "block",
+            }
+          }
+        >
+          <span
+            className="comment linenumber react-syntax-highlighter-line-number"
+            style={
+              Object {
+                "display": "inline-block",
+                "minWidth": "2.25em",
+                "paddingRight": "1em",
+                "textAlign": "right",
+                "userSelect": "none",
+              }
+            }
+          >
+            12
           </span>
           <span
             style={
@@ -504,91 +561,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
               }
             }
           >
-            12
-          </span>
-          <span
-            style={Object {}}
-          >
-            }
-          </span>
-          <span
-            style={
-              Object {
-                "color": "#954121",
-              }
-            }
-          >
-            else
-          </span>
-          <span
-            style={Object {}}
-          >
-             {
-
-          </span>
-        </span>
-        <span
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-        >
-          <span
-            className="comment linenumber react-syntax-highlighter-line-number"
-            style={
-              Object {
-                "display": "inline-block",
-                "minWidth": "2.25em",
-                "paddingRight": "1em",
-                "textAlign": "right",
-                "userSelect": "none",
-              }
-            }
-          >
             13
-          </span>
-          <span
-            style={Object {}}
-          >
-              T[i][c] = T[i-
-          </span>
-          <span
-            style={
-              Object {
-                "color": "#40a070",
-              }
-            }
-          >
-            1
-          </span>
-          <span
-            style={Object {}}
-          >
-            ][c] 
-
-          </span>
-        </span>
-        <span
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-        >
-          <span
-            className="comment linenumber react-syntax-highlighter-line-number"
-            style={
-              Object {
-                "display": "inline-block",
-                "minWidth": "2.25em",
-                "paddingRight": "1em",
-                "textAlign": "right",
-                "userSelect": "none",
-              }
-            }
-          >
-            14
           </span>
           }
 

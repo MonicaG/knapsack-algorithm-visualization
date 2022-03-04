@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer';
 import KnapSackAlgorithm from '../../models/KnapsackAlgorithm';
 import Item from '../../models/Item';
-import DisplayTablePopulationCodeBlock from './DisplayTablePopulationCodeBlock';
+import PopulateTableCodeBlock from './PopulateTableCodeBlock';
 
 /** 
  * Using snapshot testing because the syntax hightlighting uses a lot of span tags. This makes it difficult to match text as the text 
@@ -23,7 +23,7 @@ describe('the code block', () => {
   it('displays the code block when an item fits in the knapsack', () => {
     state.currentCapacity = 3;
     const tree = renderer
-      .create(<DisplayTablePopulationCodeBlock
+      .create(<PopulateTableCodeBlock
        knapsackAlgorithm={algorithm}
        state={state}
        dispatch={mockDispatch}
@@ -34,9 +34,9 @@ describe('the code block', () => {
   })
 
   it('displays the code block when an item does NOT fit in the knapsack', () => {
-    state.currentCapacity = 2;
+    state.currentCapacity = 1;
     const tree = renderer
-    .create(<DisplayTablePopulationCodeBlock
+    .create(<PopulateTableCodeBlock
       knapsackAlgorithm={algorithm}
       state={state}
       dispatch={mockDispatch}

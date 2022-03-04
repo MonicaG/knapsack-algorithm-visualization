@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import React from 'react';
 import { solutionTableActionTypes as types } from './SolutionController';
-import { buildSyntaxHighlight } from './codeblocks/CodeBlocksCommon';
+import { buildSyntaxHighlight } from './helpers/CodeBlocksCommon'
 import PopulateTableCode from '../../models/codeblock/PopulateTableCode';
 
 
-function DisplayTablePopulationCodeBlock({ knapsackAlgorithm, state, dispatch }) {
+function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch }) {
 
   const codeBlock = new PopulateTableCode(knapsackAlgorithm.items[state.currentItemIndex - 1], state.currentCapacity, state.currentItemIndex, knapsackAlgorithm.solutionTable);
   function getType() {
@@ -30,7 +30,7 @@ function DisplayTablePopulationCodeBlock({ knapsackAlgorithm, state, dispatch })
   );
 }
 
-DisplayTablePopulationCodeBlock.propTypes = {
+PopulateTableCodeBlock.propTypes = {
   knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired,
   state: PropTypes.shape({
     currentItemIndex: PropTypes.number.isRequired,
@@ -39,4 +39,4 @@ DisplayTablePopulationCodeBlock.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-export default DisplayTablePopulationCodeBlock;
+export default PopulateTableCodeBlock;

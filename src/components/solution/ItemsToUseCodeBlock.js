@@ -1,27 +1,22 @@
 import React from 'react';
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
 import PropTypes from 'prop-types';
-import ItemsToUseCodeBlock from './codeblocks/ItemsToUseCodeBlock';
 import { solutionTableActionTypes as types } from './SolutionController';
+import { buildSyntaxHighlight } from './helpers/CodeBlocksCommon';
+import ItemsToUseCode from '../../models/codeblock/ItemsToUseCode';
 
-function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
+function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch }) {
 
-  function buildPsuedo() {
-    return (
-      <div>
-        <input type="button" className="btnBlue" value="Step" onClick={handleButtonClick} />
-        <div className="pseudoCode">
-          <div>
-              <ItemsToUseCodeBlock
-                previousItem={knapsackAlgorithm.items[state.solutionIndex - 1]}
-                index={state.solutionIndex}
-                currentCapacity={state.currentCapacity}
-                knapsackAlgorithm={knapsackAlgorithm}
-              />
-          </div>
-        </div>
-      </div>)
-  }
+  const codeBlock = new ItemsToUseCode(state.solutionIndex, state.currentCapacity, knapsackAlgorithm);
+
+  return (
+    <div>
+      <input type="button" className="btnBlue" value="Step" onClick={handleButtonClick} />
+      <div className="py-2">
+      {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
+      </div>
+    </div>
+  )
 
   function doDispatch(solutionIndex, capacity) {
     dispatch({
@@ -39,13 +34,9 @@ function SolutionItemsTableInfo({ knapsackAlgorithm, state, dispatch }) {
     }
     doDispatch(solutionIndex, currentCapacity);
   }
-
-  return (
-        buildPsuedo()
-  )
 }
 
-SolutionItemsTableInfo.propTypes = {
+ItemsToUseCodeBlock.propTypes = {
   knapsackAlgorithm: KnapsackAlgorithmPropType.isRequired,
   state: PropTypes.shape({
     solutionIndex: PropTypes.number.isRequired,
@@ -54,6 +45,4 @@ SolutionItemsTableInfo.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-export default SolutionItemsTableInfo;
-
-
+export default ItemsToUseCodeBlock;

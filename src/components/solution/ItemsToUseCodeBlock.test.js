@@ -1,6 +1,6 @@
 import renderer from 'react-test-renderer';
-import KnapSackAlgorithm from '../../../models/KnapsackAlgorithm';
-import Item from '../../../models/Item';
+import KnapSackAlgorithm from '../../models/KnapsackAlgorithm';
+import Item from '../../models/Item';
 import ItemsToUseCodeBlock from './ItemsToUseCodeBlock';
 
 /** 
@@ -16,18 +16,22 @@ describe('the code block', () => {
   const capacity = 5
 
   const algorithm = new KnapSackAlgorithm(items, capacity);
+  const mockDispatch = jest.fn();
 
   it('displays when an item is part of the solution', () => {
     /**
      * The test is setup for the solution to be at the first step, which is the last item, max capacity.
      * Item 3 is part of the solution
      */
+     const state = {
+      solutionIndex: 3,
+      currentCapacity: capacity
+    }
     const tree = renderer
       .create(<ItemsToUseCodeBlock
-        previousItem={item2}
-        index={3}
-        currentCapacity={capacity}
-        knapsackAlgorithm={algorithm} />)
+        knapsackAlgorithm = {algorithm}
+        state = {state} 
+        dispatch = {mockDispatch} />)
       .toJSON();
 
     expect(tree).toMatchSnapshot()
@@ -39,13 +43,15 @@ describe('the code block', () => {
      * of step 1. There is only 2 weight units left in the knapsack.
      * Item 2 is NOT part of the solution even though it fits, because the previous item provides a higher value.
      */
-    const currentCapacity = capacity - item3.weight
+      const state = {
+        solutionIndex: 2,
+        currentCapacity: capacity - item3.weight
+      }
     const tree = renderer
       .create(<ItemsToUseCodeBlock
-        previousItem={item1}
-        index={2}
-        currentCapacity={currentCapacity}
-        knapsackAlgorithm={algorithm} />)
+        knapsackAlgorithm = {algorithm}
+        state = {state} 
+        dispatch = {mockDispatch} />)
       .toJSON();
 
     expect(tree).toMatchSnapshot()

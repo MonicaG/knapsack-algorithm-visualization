@@ -19,7 +19,17 @@ function App() {
   const initItems = [
     new Item('item 1', 4, 2),
     new Item('item 2', 3, 1),
-    new Item('item 3', 5, 3)
+    new Item('item 3', 5, 3),
+    // new Item('item 1', 49.9, 2),
+    // new Item('item 2', 3, 1),
+    // new Item('item 3', 37.8, 3),
+    // new Item('item 4', 21, 1),
+    // new Item('item 5', 11.3, 1),
+    // new Item('item 6', 4, 2),
+    // new Item('item 7', 5, 5),
+    // new Item('item 8', 3, 7),
+    // new Item('item 9', 1, 1),
+    // new Item('item 10', 15, 9),
   ];
 
 
