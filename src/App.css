@@ -47,4 +47,8 @@
   .errorMsg {
     @apply text-red-500 my-2
   }
+
+  .link {
+    @apply text-blue-500 visited:text-purple-600 hover:underline;
+  }
 }

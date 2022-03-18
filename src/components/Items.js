@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import AddItem from './AddItem';
-import { actionTypes } from './../App'
-import { TrashIcon } from '@heroicons/react/solid'
+import { actionTypes } from './../App';
+import { TrashIcon } from '@heroicons/react/solid';
+import {maxNumOfItems} from '../models/ValueDefaults';
 
 function Items({ items, dispatch }) {
   const ariaLabelAddNewItem = "Add new item";
 
   const [showAddRow, setShowAddRow] = React.useState(false);
-  const maxNumberOfItems = 10;
 
 
   function handleAddButton(event) {
@@ -22,7 +22,7 @@ function Items({ items, dispatch }) {
   }
 
   function shouldDisableButton() {
-    return items.length >= maxNumberOfItems;
+    return items.length >= maxNumOfItems;
   }
   
   return (

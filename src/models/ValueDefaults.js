@@ -11,4 +11,6 @@ const itemValueDefaults = {
   step: 0.1,
 };
 
-export {capacityDefaults, itemValueDefaults};
+const maxNumOfItems = 10;
+
+export {capacityDefaults, itemValueDefaults, maxNumOfItems};
