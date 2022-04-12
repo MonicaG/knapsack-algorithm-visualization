@@ -12,7 +12,7 @@ describe('SolutionItems tests', () => {
     const solutionItems = [solutionItem1, solutionItem2, solutionItem3]
     render(<SolutionItems solutionItems={solutionItems} />);
 
-    const items = screen.queryAllByRole("listitem");
+    const items = screen.queryAllByRole("listitem", { name: /solution item/i });
     expect(items).toHaveLength(1);
     expect(within(items[0]).getByText(/item 1/)).toBeInTheDocument()
   });
@@ -24,7 +24,7 @@ describe('SolutionItems tests', () => {
     const solutionItems = [solutionItem1, solutionItem2, solutionItem3]
     render(<SolutionItems solutionItems={solutionItems} />);
 
-    const items = screen.queryAllByRole("listitem");
+    const items = screen.queryAllByRole("listitem", { name: /solution item/i });
     expect(items).toHaveLength(2);
     expect(within(items[0]).getByText(/item 1/)).toBeInTheDocument()
     expect(within(items[1]).getByText(/item 3/)).toBeInTheDocument()
@@ -37,7 +37,7 @@ describe('SolutionItems tests', () => {
     const solutionItems = [solutionItem1, solutionItem2, solutionItem3]
     render(<SolutionItems solutionItems={solutionItems} />);
 
-    const items = screen.queryAllByRole("listitem");
+    const items = screen.queryAllByRole("listitem", { name: /solution item/i});
     expect(items).toHaveLength(0);
     expect(screen.getByText(/No items fit in the knapsack./i)).toBeInTheDocument();
   });
