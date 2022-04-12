@@ -4,20 +4,31 @@ import {getCellId} from './helpers/TableHelper';
 import {format} from './helpers/Formatting';
 
 function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
+
+  function getCSS(index) {
+    if(!item || index === 0) {
+      return "text-slate-400";
+    }else if (index === currentCell) {
+      return currentCellCSS;
+    }else {
+      return "";
+    }
+
+  }
   return (
     <tr>
       {item ?
         <td className="cell">
           <span className="whitespace-nowrap">{item.name}</span>
           <div className="whitespace-nowrap">
-            (V: {item.value} W: {item.weight})
+            (v: {item.value} w: {item.weight})
           </div>
         </td>
         :
         <td className="cell"> </td>
       }
       {row.map((cell, index) => {
-        const currentCSS = index === currentCell ? currentCellCSS: ""
+        const currentCSS = getCSS(index)
         const id = getCellId(cellKey, index);
         const value = format(cell);
         return <td id={id} key={id} className={`cell ${currentCSS}`}>{value}</td>

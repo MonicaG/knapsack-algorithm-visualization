@@ -51,4 +51,8 @@
   .link {
     @apply text-blue-500 visited:text-purple-600 hover:underline;
   }
+
+  .explanation {
+    @apply mt-6 text-base space-y-4
+  }
 }

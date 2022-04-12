@@ -15,9 +15,9 @@ class PopulateTableCode {
     return !this.isInSolutions() ? "" : 
 `
 /* 
-T[${this.index}][${this.capacity}] = Math.max(T[${this.index - 1}][${this.capacity}], (${this.item.value} + T[${this.index - 1}][${this.capacity - this.item.weight}])) 
-T[${this.index}][${this.capacity}] = Math.max(${format(this.solutionTable[this.index - 1][this.capacity])}, ${format(this.item.value + this.solutionTable[this.index - 1][this.capacity - this.item.weight])})
-T[${this.index}][${this.capacity}] = ${format(this.solutionTable[this.index][this.capacity])}
+T[${this.index}][${this.capacity}] = Math.max(T[${this.index - 1}][${this.capacity}], (${this.item.value} + T[${this.index - 1}][${this.remainingCapacity()}])) 
+T[${this.index}][${this.capacity}] = Math.max(${format(this.previousCellValue())}, ${format(this.item.value + this.valueAtRemainingCapacity())})
+T[${this.index}][${this.capacity}] = ${format(this.cellValue())}
 */`
   }
 
@@ -26,7 +26,7 @@ T[${this.index}][${this.capacity}] = ${format(this.solutionTable[this.index][thi
 `
 /* 
 T[${this.index}][${this.capacity}] = T[${this.index - 1}][${this.capacity}]
-T[${this.index}][${this.capacity}] = ${format(this.solutionTable[this.index][this.capacity])}
+T[${this.index}][${this.capacity}] = ${format(this.cellValue())}
 */`    
   }
 
@@ -53,7 +53,23 @@ if (w <= c) { // ${this.item.weight} <= ${this.capacity}
   }
 
   isInSolutions() {
-    return  this.item.weight <= this.capacity
+    return  this.item.weight <= this.capacity;
+  }
+
+  previousCellValue() {
+    return this.solutionTable[this.index - 1][this.capacity];
+  }
+
+  valueAtRemainingCapacity() {
+    return this.solutionTable[this.index - 1][this.capacity - this.item.weight];
+  }
+
+  cellValue() {
+    return this.solutionTable[this.index][this.capacity];
+  }
+
+  remainingCapacity() {
+    return this.capacity - this.item.weight;
   }
 }
 

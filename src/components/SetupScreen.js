@@ -62,7 +62,7 @@ function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
       <Items items={items}
         dispatch={dispatch} />
       <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" form="capacityForm" disabled={calculateBtnDisabled}/>
-      <div className="mt-6 text-base space-y-4">
+      <div className="explanation">
         <p>The <a className="link" href="https://en.wikipedia.org/wiki/Knapsack_problem">knapsack problem</a> is usually described with a story. For example, a hiker needs to pack a knapsack for their expedition. There are many items the hiker would like to take: a tent, a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the knapsack can only carry a maximum amount of weight.</p>
         <p>The hiker has given a value to the potential items. An item that will be very beneficial, like a sleeping bag, will have a high value. An item that will be less beneficial, like a frisbee, will have a lower value. The hiker must prioritize which items to take based on the items' values and weights.</p>
         <p>In this version of the story there are also two constraints:</p>
