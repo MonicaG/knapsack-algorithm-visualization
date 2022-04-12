@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InBetweenPhases tests displays the explanation text 1`] = `
+<div>
+  <input
+    className="btnBlue"
+    onClick={[Function]}
+    type="button"
+    value="Find Solution Items"
+  />
+  <div
+    className="explanation"
+  >
+    <p>
+      The table is now populated. Each cell contains the maximum value for the capacity and item(s) combination. The last cell contains the maximum value the knapsack can contain. In this case, it is the cell at Table[
+      3
+      ][
+      5
+      ] and the value is 
+      45
+      .
+    </p>
+    <p>
+      The next step of the algorithm finds the items that make up the maximum value. Click the 
+      <span
+        className="italic"
+      >
+        Find Solution Items
+      </span>
+       button to step through the next stage of the algorithm.
+    </p>
+  </div>
+</div>
+`;

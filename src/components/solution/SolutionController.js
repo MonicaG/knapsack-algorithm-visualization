@@ -114,7 +114,7 @@ function SolutionController({ knapsackAlgorithm }) {
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW:
         return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
-        return <InBetweenPhases state={state} dispatch={dispatch} capacity={knapsackAlgorithm.capacity} />
+        return <InBetweenPhases state={state} dispatch={dispatch} knapsackAlgorithm={knapsackAlgorithm} />
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
         return <ItemsToUseCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
       case solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS:
