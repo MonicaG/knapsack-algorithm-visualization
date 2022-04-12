@@ -8,12 +8,24 @@ import ItemsToUseCode from '../../models/codeblock/ItemsToUseCode';
 function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch }) {
 
   const codeBlock = new ItemsToUseCode(state.solutionIndex, state.currentCapacity, knapsackAlgorithm);
-
+  const btnName = "Step"
   return (
     <div>
-      <input type="button" className="btnBlue" value="Step" onClick={handleButtonClick} />
+      <input type="button" className="btnBlue" value={btnName} onClick={handleButtonClick} />
       <div className="py-2">
-      {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
+        {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
+      </div>
+      <div className="explanation">
+        <p>It is now time to find the items that fit in the knapsack. This step checks if each item fits in the knapsack, starting with the last item. It starts there because that item's last cell contains the maximum value of the knapsack.</p>
+        <p>Click the <span className="italic">{btnName}</span> button to find the items. A green cell means the item fits in the knapsack for the given capacity. A grey cell means the item did  not fit.</p>
+        <p>For each item, the algorithm checks if the current cell matches the previous cell's value. If it does NOT match, it means the item is part of the solution. Why? In step 1 of the algorithm the previous cell's value was copied when:</p>
+        <ul className="list-disc ml-8">
+          <li>the item's weight was greater than the knapsack's capacity, or</li>
+          <li>the previous cell's value is greater than the item's value plus the value at any remaining capacity </li>
+        </ul>
+        <p>A different value means a new, greater value was calculated for the capacity. So, the item is part of the solution.</p>
+        <p>If the item is part of the solution, then the capacity is set to the current capacity minus this item's weight. Why? The item may not take up the entire knapsack's capacity.  One or more items may fit in the left over capacity. So, the next item uses the left over capacity to see if it fits.</p>
+        <p>Note: the above code snippet uses an else statement to show the case when the cell values match. The else block is here for demonstration purposes. Omit it in an actual implementation.</p>
       </div>
     </div>
   )
