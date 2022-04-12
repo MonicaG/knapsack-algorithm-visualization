@@ -24,7 +24,7 @@ function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch }) {
           <li>the previous cell's value is greater than the item's value plus the value at any remaining capacity </li>
         </ul>
         <p>A different value means a new, greater value was calculated for the capacity. So, the item is part of the solution.</p>
-        <p>If the item is part of the solution, then the capacity is set to the current capacity minus this item's weight. Why? The item may not take up the entire knapsack's capacity.  One or more items may fit in the left over capacity. So, the next item uses the left over capacity to see if it fits.</p>
+        <p>If the item is part of the solution, then the capacity is set to the current capacity minus this item's weight. Why? The item may not take up the entire knapsack's capacity.  One or more items may fit in the left-over capacity. So, the next item uses the left-over capacity to see if it fits.</p>
         <p>Note: the above code snippet uses an else statement to show the case when the cell values match. The else block is here for demonstration purposes. Omit it in an actual implementation.</p>
       </div>
     </div>
