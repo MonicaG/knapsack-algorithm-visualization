@@ -2,12 +2,22 @@
 
 exports[`the code block displays the code block when an item does NOT fit in the knapsack 1`] = `
 <div>
-  <input
-    className="btnBlue"
-    onClick={[Function]}
-    type="button"
-    value="Step"
-  />
+  <div
+    className="flex justify-between"
+  >
+    <input
+      className="btnGray"
+      onClick={[Function]}
+      type="button"
+      value="Reset"
+    />
+    <input
+      className="btnBlue"
+      onClick={[Function]}
+      type="button"
+      value="Step"
+    />
+  </div>
   <div
     className="py-2"
   >
@@ -629,12 +639,22 @@ exports[`the code block displays the code block when an item does NOT fit in the
 
 exports[`the code block displays the code block when an item fits in the knapsack 1`] = `
 <div>
-  <input
-    className="btnBlue"
-    onClick={[Function]}
-    type="button"
-    value="Step"
-  />
+  <div
+    className="flex justify-between"
+  >
+    <input
+      className="btnGray"
+      onClick={[Function]}
+      type="button"
+      value="Reset"
+    />
+    <input
+      className="btnBlue"
+      onClick={[Function]}
+      type="button"
+      value="Step"
+    />
+  </div>
   <div
     className="py-2"
   >

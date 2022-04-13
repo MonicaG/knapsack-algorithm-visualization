@@ -22,7 +22,7 @@ const solutionControllerActionTypes = {
   STEP_SHOW_ALL_SOLUTION_ITEMS: 6,
 }
 
-function SolutionController({ knapsackAlgorithm }) {
+function SolutionController({ knapsackAlgorithm, appDispatch }) {
 
   const initialState = {
     currentItemIndex: 1,
@@ -102,6 +102,11 @@ function SolutionController({ knapsackAlgorithm }) {
           ...state,
           cellDimensions: action.cellDimensions,
         }
+      case solutionControllerActionTypes.RESET:
+          return {
+            ...state,
+            showEntryForm: true,
+          };
       default:
         //@todo should default do something else?
         throw new Error();
@@ -112,15 +117,15 @@ function SolutionController({ knapsackAlgorithm }) {
     switch (state.phase) {
       case solutionControllerActionTypes.STEP_TO_NEXT_CELL:
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW:
-        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
+        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
-        return <InBetweenPhases state={state} dispatch={dispatch} knapsackAlgorithm={knapsackAlgorithm} />
+        return <InBetweenPhases state={state} dispatch={dispatch} knapsackAlgorithm={knapsackAlgorithm} appDispatch={appDispatch}/>
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
-        return <ItemsToUseCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
+        return <ItemsToUseCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
       case solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS:
-        return <SolutionItems solutionItems={knapsackAlgorithm.solutionItems} />
+        return <SolutionItems solutionItems={knapsackAlgorithm.solutionItems} appDispatch={appDispatch}/>
       default:
-        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
+        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
     }
   }
 

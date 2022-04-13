@@ -3,8 +3,9 @@ import { solutionTableActionTypes as types } from './SolutionController';
 import {format} from './helpers/Formatting';
 import PropTypes from 'prop-types';
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper';
+import ControlButtons from './ControlButtons';
 
-function InBetweenPhases({ state, dispatch, knapsackAlgorithm }) {
+function InBetweenPhases({ state, dispatch, knapsackAlgorithm, appDispatch }) {
 
   const btnName = "Find Solution Items";
   function btnClick() {
@@ -17,7 +18,7 @@ function InBetweenPhases({ state, dispatch, knapsackAlgorithm }) {
 
   return (
     <div>
-      <input type="button" className="btnBlue" value={btnName} onClick={btnClick} />
+      <ControlButtons appDispatch={appDispatch} buttonName={btnName} buttonAction={btnClick}/>
       <div className="explanation">
         <p>The table is now populated. Each cell contains the maximum value for the capacity and item(s) combination. The last cell contains the maximum value the knapsack can contain. In this case, it is the cell at Table[{state.currentItemIndex}][{knapsackAlgorithm.capacity}] and the value is {format(knapsackAlgorithm.solutionTable[state.currentItemIndex][knapsackAlgorithm.capacity])}.</p>
         <p>The next step of the algorithm finds the items that make up the maximum value. Click the <span className="italic">{btnName}</span> button to step through the next stage of the algorithm.</p>

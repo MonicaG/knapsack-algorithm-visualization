@@ -25,7 +25,7 @@ describe('InBetweenPhases tests', () => {
       dispatch={mockDispatch}
       knapsackAlgorithm={algorithm} />);
 
-    fireEvent.click(screen.getByRole('button'))
+    fireEvent.click(screen.getByRole('button', { name: /Find Solution Items/i }))
     expect(mockDispatch).toHaveBeenCalledWith({
       type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
       currentCapacity: capacity,

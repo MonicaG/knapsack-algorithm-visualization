@@ -2,12 +2,22 @@
 
 exports[`InBetweenPhases tests displays the explanation text 1`] = `
 <div>
-  <input
-    className="btnBlue"
-    onClick={[Function]}
-    type="button"
-    value="Find Solution Items"
-  />
+  <div
+    className="flex justify-between"
+  >
+    <input
+      className="btnGray"
+      onClick={[Function]}
+      type="button"
+      value="Reset"
+    />
+    <input
+      className="btnBlue"
+      onClick={[Function]}
+      type="button"
+      value="Find Solution Items"
+    />
+  </div>
   <div
     className="explanation"
   >

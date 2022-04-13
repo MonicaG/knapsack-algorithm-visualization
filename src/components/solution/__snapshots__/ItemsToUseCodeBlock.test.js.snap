@@ -2,12 +2,22 @@
 
 exports[`the code block displays when an item is not part of the solution 1`] = `
 <div>
-  <input
-    className="btnBlue"
-    onClick={[Function]}
-    type="button"
-    value="Step"
-  />
+  <div
+    className="flex justify-between"
+  >
+    <input
+      className="btnGray"
+      onClick={[Function]}
+      type="button"
+      value="Reset"
+    />
+    <input
+      className="btnBlue"
+      onClick={[Function]}
+      type="button"
+      value="Step"
+    />
+  </div>
   <div
     className="py-2"
   >
@@ -625,12 +635,22 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
 
 exports[`the code block displays when an item is part of the solution 1`] = `
 <div>
-  <input
-    className="btnBlue"
-    onClick={[Function]}
-    type="button"
-    value="Step"
-  />
+  <div
+    className="flex justify-between"
+  >
+    <input
+      className="btnGray"
+      onClick={[Function]}
+      type="button"
+      value="Reset"
+    />
+    <input
+      className="btnBlue"
+      onClick={[Function]}
+      type="button"
+      value="Step"
+    />
+  </div>
   <div
     className="py-2"
   >

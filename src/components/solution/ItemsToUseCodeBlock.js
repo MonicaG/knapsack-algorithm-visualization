@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import { solutionTableActionTypes as types } from './SolutionController';
 import { buildSyntaxHighlight } from './helpers/CodeBlocksCommon';
 import ItemsToUseCode from '../../models/codeblock/ItemsToUseCode';
+import ControlButtons from './ControlButtons';
 
-function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch }) {
+function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatch }) {
 
   const codeBlock = new ItemsToUseCode(state.solutionIndex, state.currentCapacity, knapsackAlgorithm);
   const btnName = "Step"
   return (
     <div>
-      <input type="button" className="btnBlue" value={btnName} onClick={handleButtonClick} />
+      <ControlButtons appDispatch={appDispatch} buttonName={btnName} buttonAction={handleButtonClick}/>
       <div className="py-2">
         {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
       </div>

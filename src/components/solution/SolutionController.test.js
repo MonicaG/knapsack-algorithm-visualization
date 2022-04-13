@@ -88,7 +88,7 @@ describe('clicking the button', () => {
     render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     for (let n = 0; n < 3; n++) {
-      fireEvent.click(screen.getByRole('button'))
+      fireEvent.click(screen.getByRole('button', { name: /Step/i }))
     }
 
     const allRows = screen.getAllByRole("row");
@@ -131,7 +131,7 @@ describe('clicking the button', () => {
   test('6 times results in second solution row being updated up to capacity 2 (inclusive)', () => {
     render(<SolutionController knapsackAlgorithm={algorithm} />);
     for (let n = 0; n < 6; n++) {
-      fireEvent.click(screen.getByRole('button'))
+      fireEvent.click(screen.getByRole('button', { name: /Step/i }))
     }
 
     const allRows = screen.getAllByRole("row");
@@ -185,7 +185,7 @@ describe('clicking the button', () => {
     render(<SolutionController knapsackAlgorithm={algorithm} />);
 
     for (let n = 0; n < 15; n++) {
-      fireEvent.click(screen.getByRole('button'))
+      fireEvent.click(screen.getByRole('button', { name: /Step/i }))
     }
 
     const allRows = screen.getAllByRole("row");

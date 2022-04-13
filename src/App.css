@@ -31,6 +31,10 @@
     @apply btn bg-blue-500 hover:bg-blue-600 focus:ring-blue-300
   }
 
+  .btnGray {
+    @apply btn  bg-gray-400 hover:bg-gray-500 focus:ring-gray-300
+  }
+
   .btnGreen {
     @apply btn bg-green-500 hover:bg-green-600 focus:ring-green-300
   }

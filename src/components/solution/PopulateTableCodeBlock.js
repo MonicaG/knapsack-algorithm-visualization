@@ -5,8 +5,9 @@ import { solutionTableActionTypes as types } from './SolutionController';
 import { buildSyntaxHighlight } from './helpers/CodeBlocksCommon'
 import PopulateTableCode from '../../models/codeblock/PopulateTableCode';
 import {format} from './helpers/Formatting';
+import ControlButtons from './ControlButtons';
 
-function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch }) {
+function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatch }) {
 
   const codeBlock = new PopulateTableCode(knapsackAlgorithm.items[state.currentItemIndex - 1], state.currentCapacity, state.currentItemIndex, knapsackAlgorithm.solutionTable);
   function getType() {
@@ -20,9 +21,13 @@ function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch }) {
       return types.STEP_TO_NEXT_CELL;
     }
   }
+
+  function btnClick() {
+    dispatch({ type: getType() });
+  }
   return (
     <div>
-      <input type="button" className="btnBlue" value="Step" onClick={() => dispatch({ type: getType() })} />
+      <ControlButtons appDispatch={appDispatch} buttonName="Step" buttonAction={btnClick}/>
       <div className='py-2'>
         {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
       </div>
