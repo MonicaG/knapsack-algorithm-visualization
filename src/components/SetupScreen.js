@@ -1,27 +1,80 @@
-import Items from './Items';
+import { nanoid } from 'nanoid'
 import { capacityDefaults, itemValueDefaults, maxNumOfItems } from "../models/ValueDefaults";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { actionTypes } from '../App';
 import { ErrorMessage } from '@hookform/error-message';
+import { TrashIcon } from '@heroicons/react/solid';
+import React from 'react';
 
-function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
+function SetupScreen({ items, dispatch }) {
+
+  const ariaLabelAddNewItem = "Add new item";
+
+  const [calculateBtn, setcalculateBtn] = React.useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    control,
+    watch,
+    formState: { errors },
   } = useForm({
-    criteriaMode: "all"
+    criteriaMode: "all",
+    defaultValues: {
+      itemsArray: items
+    }
+  });
+
+  const { fields, remove, append } = useFieldArray({ control, name: "itemsArray" });
+
+  const watchFieldArray = watch("itemsArray");
+  const controlledFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchFieldArray[index]
+    };
   });
 
   function displayErrorMsg(fieldName) {
     return (<ErrorMessage errors={errors} name={fieldName} role="alert" as={<p className="errorMsg" />} />);
   }
 
+  function deleteItem(index) {
+    remove(index)
+    if (controlledFields.length <= 1) {
+      setcalculateBtn(true);
+    }
+  }
+
+  function addItem() {
+    append({
+      id: nanoid(),
+      name: `item ${controlledFields.length + 1}`,
+      value: itemValueDefaults.defaultValue,
+      weight: capacityDefaults.defaultValue,
+    })
+    if (calculateBtn) {
+      setcalculateBtn(false);
+    }
+  }
+
+  function shouldDisableButton() {
+    return controlledFields.length >= maxNumOfItems;
+  }
 
   function onSubmit(event) {
     const value = event.capacity;
-    dispatch({ type: actionTypes.calculate, capacityValue: value });
+    dispatch({ type: actionTypes.calculate, capacityValue: value, items: event.itemsArray });
+  }
+
+  function getCSS(index, fieldName) {
+    if (errors.itemsArray && errors.itemsArray[index] && errors.itemsArray[index] && errors.itemsArray[index][fieldName]) {
+      return "border-1 border-red-500 focus:border-2 focus:border-red-500 focus:ring-0 focus:ring-red-500 focus:ring-offset-red-300 ";
+    }
+  }
+
+  function isItemNameUnique(itemName) {
+    return controlledFields.filter(item => item.name.toLowerCase().trim() === itemName.toLowerCase().trim()).length <= 1;
   }
 
 
@@ -29,39 +82,138 @@ function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
     <div className="flex flex-col">
       <h2 className="title">Step 1: Setup</h2>
       <div className="mb-4 flex flex-row items-baseline space-x-4">
-        <div>
-          {displayErrorMsg("capacity")}
-          <form id="capacityForm" onSubmit={handleSubmit(onSubmit)}>
-            <label className="mb-3 font-bold text-gray-700 text-left" hmlfor="capacity">Knapsack Capacity: </label>
-            <input type="number"
-              aria-label="knapsack capacity"
-              min={capacityDefaults.min}
-              max={capacityDefaults.max}
-              defaultValue={capacityDefaults.defaultValue}
-              className="w-min"
-              {...register("capacity", {
-                valueAsNumber: true,
-                max: {
-                  value: capacityDefaults.max,
-                  message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
-                },
-                min: {
-                  value: capacityDefaults.min,
-                  message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
-                },
-                required: {
-                  value: true,
-                  message: "Please enter a knapsack capacity value"
-                }
-              })}
-            />
-          </form>
-        </div>
+        {displayErrorMsg("capacity")}
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+          <label className="mb-3 font-bold text-gray-700 text-left" hmlfor="capacity">Knapsack Capacity: </label>
+          <input type="number"
+            aria-label="knapsack capacity"
+            min={capacityDefaults.min}
+            max={capacityDefaults.max}
+            defaultValue={capacityDefaults.defaultValue}
+            className="w-min"
+            {...register("capacity", {
+              valueAsNumber: true,
+              max: {
+                value: capacityDefaults.max,
+                message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
+              },
+              min: {
+                value: capacityDefaults.min,
+                message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
+              },
+              required: {
+                value: true,
+                message: "Please enter a knapsack capacity value"
+              }
+            })}
+          />
+          {/* start items */}
+          <div>
+            <label className="label2">Available Items</label>
+            <div className="flex flex-col place-items-end overflow-x-auto">
+              <table className="table-auto px-10 py-3 w-full" role="table">
+                <thead>
+                  <tr>
+                    <th className="header">Item Name</th>
+                    <th className="header">Value</th>
+                    <th className="header">Weight</th>
+                    <th className="header"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {controlledFields.map((item, index) => (
+                    <tr key={item.id}>
+                      <td className="cell">
+                        <input type="text"
+                          placeholder="Enter item name"
+                          aria-label={`name for item ${index}`}
+                          className={getCSS(index, "name")}
+                          key={item.id}
+                          {...register(`itemsArray.${index}.name`, {
+                            //Note on why 'required: true' option is not used here.  I wanted to check the case where only white space 
+                            //was entered as a name. That is checked in the isNotEmpty validation below.  When I set required: true
+                            //react-hooks-form would validate that plus the isNotEmpty valication.  So, I would get multiple error messages. 
+                            //The isNotEmpty covers the required scenario so it is used. 
+                            //See: https://github.com/react-hook-form/react-hook-form/issues/1650
+                            validate: {
+                              isUnique: v => isItemNameUnique(v) || "Please enter a unique item name",
+                              isNotEmpty: v => !!v.trim() || "Please enter an item name"
+                            }
+                          })}
+                        />
+                        {displayErrorMsg(`itemsArray.${index}.name`)}
+                      </td>
+                      <td className="cell">
+                        <input type="number"
+                          defaultValue={itemValueDefaults.defaultValue}
+                          min={itemValueDefaults.min}
+                          max={itemValueDefaults.max}
+                          step={itemValueDefaults.step}
+                          aria-label={`value for item ${index}`}
+                          className={getCSS(index, "value")}
+                          key={item.id}
+                          {...register(`itemsArray.${index}.value`, {
+                            valueAsNumber: true,
+                            max: {
+                              value: itemValueDefaults.max,
+                              message: "Please enter a smaller number"
+                            },
+                            min: {
+                              value: itemValueDefaults.min,
+                              message: "Please enter a larger number",
+                            },
+                            required: {
+                              value: true,
+                              message: "Please enter a value"
+                            }
+                          })}
+                        />
+                        {displayErrorMsg(`itemsArray.${index}.value`)}
+                      </td>
+                      <td className="cell">
+                        <input type="number"
+                          defaultValue={capacityDefaults.defaultValue}
+                          min={capacityDefaults.min}
+                          max={capacityDefaults.max}
+                          className={getCSS(index, "weight")}
+                          aria-label={`weight for item ${index}`}
+                          key={item.id}
+                          {...register(`itemsArray.${index}.weight`, {
+                            valueAsNumber: true,
+                            max: {
+                              value: capacityDefaults.max,
+                              message: "Please enter a smaller number"
+                            },
+                            min: {
+                              value: capacityDefaults.min,
+                              message: "Please enter a larger number",
+                            },
+                            required: {
+                              value: true,
+                              message: "Please enter a value"
+                            }
+                          })} />
+                        {displayErrorMsg(`itemsArray.${index}.weight`)}
+                      </td>
+                      <td className="cell">
+                        <button type="button" aria-label={`Delete item ${item.name}`} onClick={() => deleteItem(index)}>
+                          <TrashIcon className="w-5 h- text-red-500" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <button type="button" className="my-4 max-w-max btnGreen" disabled={shouldDisableButton()} aria-label={ariaLabelAddNewItem} onClick={() => addItem()}>
+                Add Item
+              </button>
+              <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" disabled={calculateBtn} />
+            </div>
+          </div>
+          {/* end items */}
+        </form>
       </div>
-      <label className="label2">Available Items</label>
-      <Items items={items}
-        dispatch={dispatch} />
-      <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" form="capacityForm" disabled={calculateBtnDisabled}/>
       <div className="explanation">
         <p>The <a className="link" href="https://en.wikipedia.org/wiki/Knapsack_problem">knapsack problem</a> is usually described with a story. For example, a hiker needs to pack a knapsack for their expedition. There are many items the hiker would like to take: a tent, a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the knapsack can only carry a maximum amount of weight.</p>
         <p>The hiker has given a value to the potential items. An item that will be very beneficial, like a sleeping bag, will have a high value. An item that will be less beneficial, like a frisbee, will have a lower value. The hiker must prioritize which items to take based on the items' values and weights.</p>
@@ -89,10 +241,10 @@ function SetupScreen({ items, dispatch, calculateBtnDisabled }) {
           <li>[B]</li>
           <li>[C]</li>
           <li>[A,B]</li>
-          <li>[A,C]</li> 
+          <li>[A,C]</li>
           <li>[B,C]</li>
-          <li>[A,B,C]</li> 
-        </ol> 
+          <li>[A,B,C]</li>
+        </ol>
         <p>Instead, <a className="link" href="https://en.wikipedia.org/wiki/Dynamic_programming">dynamic programming</a> is used to solve the problem. Dynamic programming breaks the problem into subproblems. The solution to each subproblem is stored and used to solve other, larger, subproblems. The final solution is built up from these subproblems.</p>
         <p>In this case, an in-memory table stores the max value at different weights and number of items. Those values are used to build up a table that last's cell will contain the max value the knapsack can contain. The algorithm then walks through the table to get the items that make up that max value.</p>
         <p>This app will step through the algorithm. Above, you may define the inputs to the algorithm. You can set the knapsack capacity (maximum weight) between {capacityDefaults.min} and {capacityDefaults.max}. You can define up to {maxNumOfItems} items, with values between {itemValueDefaults.min} and {itemValueDefaults.max} and weight between {capacityDefaults.min} and {capacityDefaults.max}.</p>

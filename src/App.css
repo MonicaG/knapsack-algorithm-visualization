@@ -49,7 +49,7 @@
   }
 
   .errorMsg {
-    @apply text-red-500 my-2
+    @apply text-red-500 my-2 md:text-base text-sm
   }
 
   .link {

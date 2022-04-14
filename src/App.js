@@ -9,9 +9,6 @@ import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 const actionTypes = {
   calculate: 1,
   reset: 2,
-  updateItems: 3,
-  addItem: 4,
-  cancelAddItem: 5,
 }
 
 function App() {
@@ -38,44 +35,25 @@ function App() {
     items: initItems,
     knapsack: null,
     showEntryForm: true,
-    calculateBtnDisabled: false,
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function reducer(state, action) {
-    const toggledCalculateBtn = !state.calculateBtnDisabled
     switch (action.type) {
       case actionTypes.calculate:
         return {
           ...state,
+          items: action.items,
           capacity: action.capacityValue,
-          knapsack: new KnapsackAlgorithm(state.items, action.capacityValue),
-          calculateBtnDisabled: toggledCalculateBtn,
-          showEntryForm: false
+          knapsack: new KnapsackAlgorithm(action.items, action.capacityValue),
+          showEntryForm: false,
         };
       case actionTypes.reset:
         return {
           ...state,
           showEntryForm: true,
-          calculateBtnDisabled: toggledCalculateBtn,
         };
-      case actionTypes.updateItems:
-        return {
-          ...state,
-          items: action.items
-        }
-      case actionTypes.addItem:
-        return {
-          ...state,
-          items: [...state.items, action.newItem],
-          calculateBtnDisabled: toggledCalculateBtn,
-        }
-      case actionTypes.cancelAddItem:
-        return {
-          ...state,
-          calculateBtnDisabled: toggledCalculateBtn,
-        }
       default:
         //@todo should default do something else?
         throw new Error();
@@ -91,7 +69,6 @@ function App() {
             <SetupScreen 
               items={state.items} 
               dispatch={dispatch} 
-              calculateBtnDisabled={state.calculateBtnDisabled}
             />
             :
             <div>

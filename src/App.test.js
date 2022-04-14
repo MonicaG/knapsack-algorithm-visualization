@@ -48,24 +48,19 @@ describe('integration test between screens', () => {
 
     userEvent.click(addButton);
 
-    userEvent.type(screen.getByPlaceholderText("Enter item name"), 'item 4');
+    //number is index based, so one lower than item name
+    userEvent.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
+    userEvent.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /item weight/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /item weight/i }), '5');
+    userEvent.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
+    userEvent.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '6');
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /item value/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /item value/i }), '6');
+    expect(screen.getByDisplayValue(/item 1/)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/item 2/)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/item 3/)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/item 4/)).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: /Save Item/i }));
-
-
-    expect(await screen.findByText(/item 1/)).toBeInTheDocument();
-    expect(screen.getByText(/item 2/)).toBeInTheDocument();
-    expect(screen.getByText(/item 3/)).toBeInTheDocument();
-    expect(screen.getByText(/item 4/)).toBeInTheDocument();
-
-
-    userEvent.click(screen.getByText('Calculate'));
+    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -102,7 +97,7 @@ describe('integration test between screens', () => {
     expect(screen.getByLabelText('Delete item item 3')).toBeInTheDocument();
 
 
-    userEvent.click(screen.getByText('Calculate'))
+    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -127,16 +122,12 @@ describe('integration test between screens', () => {
 
     userEvent.click(addButton)
 
+    //number is index based, so one lower than item name
+    userEvent.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
+    userEvent.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
 
-    userEvent.type(screen.getByPlaceholderText("Enter item name"), 'item 4');
-
-    userEvent.clear(screen.getByRole("spinbutton", { name: /item weight/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /item weight/i }), '5');
-
-    userEvent.clear(screen.getByRole("spinbutton", { name: /item value/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /item value/i }), '6');
-
-    userEvent.click(screen.getByRole("button", { name: /Save Item/i }));
+    userEvent.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
+    userEvent.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '6');
 
 
     const deleteButton = screen.getByLabelText('Delete item item 3')
@@ -149,8 +140,7 @@ describe('integration test between screens', () => {
     expect(screen.getByLabelText('Delete item item 4')).toBeInTheDocument();
 
 
-
-    userEvent.click(screen.getByText('Calculate'))
+    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
 
@@ -170,41 +160,5 @@ describe('integration test between screens', () => {
     expect(within(thirdItemRowCells[0]).getByText(/\s*item 4\s*/i)).toBeInTheDocument();
 
   });
-
-
-
-  it('should disable the calculate button when the Add Item form is present.', async () => {
-    render(<App />);
-
-    expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
-    userEvent.click(screen.getByRole("button", { name: /Add new item/i }))
-
-    expect(await screen.findByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
-    expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
-    expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /calculate/i })).toBeDisabled();
-
-
-  });
-
-  it('should close the add item form when the cancel button is pressed', async () => {
-    render(<App />);
-
-    expect(screen.getByRole("button", { name: /calculate/i })).toBeEnabled();
-    userEvent.click(screen.getByRole("button", { name: /Add new item/i }));
-
-    expect(screen.getByPlaceholderText(/Enter item name/i)).toBeInTheDocument();
-    expect(screen.getByRole("spinbutton", { name: /item weight/i })).toBeInTheDocument();
-    expect(screen.getByRole("spinbutton", { name: /item value/i })).toBeInTheDocument();
-    expect(await screen.findByRole("button", { name: /calculate/i })).toBeDisabled();
-
-    userEvent.click(screen.getByRole("button", { name: /cancel/i }))
-
-    expect(screen.queryByPlaceholderText(/Enter item name/i)).not.toBeInTheDocument();
-    expect(screen.queryByRole("spinbutton", { name: /item weight/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole("spinbutton", { name: /item value/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /calculate/i })).toBeEnabled();
-  });
-
 });
 
