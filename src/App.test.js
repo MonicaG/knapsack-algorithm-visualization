@@ -7,7 +7,7 @@ import { TITLE_STEP_2 } from './components/solution/SolutionController'
 describe('integration test between screens', () => {
   it('should display the Knapsack Capacity element', () => {
     render(<App />);
-    const capacity = screen.getByText(/Knapsack Capacity:/i);
+    const capacity = screen.getByLabelText(/Knapsack Capacity/i);
     expect(capacity).toBeInTheDocument();
   });
 
