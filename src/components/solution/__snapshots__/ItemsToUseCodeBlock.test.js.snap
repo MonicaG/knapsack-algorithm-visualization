@@ -3,7 +3,7 @@
 exports[`the code block displays when an item is not part of the solution 1`] = `
 <div>
   <div
-    className="flex justify-between"
+    className="flex justify-between mt-4"
   >
     <input
       className="btnGray"
@@ -636,7 +636,7 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
 exports[`the code block displays when an item is part of the solution 1`] = `
 <div>
   <div
-    className="flex justify-between"
+    className="flex justify-between mt-4"
   >
     <input
       className="btnGray"

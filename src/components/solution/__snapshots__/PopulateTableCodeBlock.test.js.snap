@@ -3,7 +3,7 @@
 exports[`the code block displays the code block when an item does NOT fit in the knapsack 1`] = `
 <div>
   <div
-    className="flex justify-between"
+    className="flex justify-between mt-4"
   >
     <input
       className="btnGray"
@@ -640,7 +640,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
 exports[`the code block displays the code block when an item fits in the knapsack 1`] = `
 <div>
   <div
-    className="flex justify-between"
+    className="flex justify-between mt-4"
   >
     <input
       className="btnGray"

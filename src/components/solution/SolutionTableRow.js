@@ -7,7 +7,7 @@ function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
 
   function getCSS(index) {
     if(!item || index === 0) {
-      return "text-slate-400";
+      return "Muted";
     }else if (index === currentCell) {
       return currentCellCSS;
     }else {

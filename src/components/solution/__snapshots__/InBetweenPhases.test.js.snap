@@ -3,7 +3,7 @@
 exports[`InBetweenPhases tests displays the explanation text 1`] = `
 <div>
   <div
-    className="flex justify-between"
+    className="flex justify-between mt-4"
   >
     <input
       className="btnGray"
