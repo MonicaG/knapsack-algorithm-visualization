@@ -40,16 +40,6 @@ describe('FindItemsTableState', () => {
     expect(fits.getCellToHighLightAndCSS(2)).toStrictEqual(expectedRetValue);
   });
 
-  it('will return nothing when the item is not part of the solution at the given capacity', () => {  
-    state.currentCapacity = 3;
-    state.currentItemIndex = 2;
-    state.currentCellIndex = 2;
-    state.solutionIndex = 2;
-    const fits = new FindItemsTableState(state, knapsackAlgorithm);
-    const expectedRetValue = new TableStateReturnValue(null, null);
-    expect(fits.getCellToHighLightAndCSS(2)).toStrictEqual(expectedRetValue);
-  });
-
   it('will return nothing when the phase is STEP_TO_FIND_SOLUTION_ITEMS', () => {  
     state.phase = 3;
     const fits = new FindItemsTableState(state, knapsackAlgorithm);

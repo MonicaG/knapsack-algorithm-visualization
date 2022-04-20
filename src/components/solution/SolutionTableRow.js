@@ -1,19 +1,24 @@
 import PropTypes from 'prop-types';
-import {ItemPropType} from './helpers/PropTypesHelper'
-import {getCellId} from './helpers/TableHelper';
-import {format} from './helpers/Formatting';
+import { ItemPropType } from './helpers/PropTypesHelper'
+import { getCellId } from './helpers/TableHelper';
+import { format } from './helpers/Formatting';
 
 function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
 
+  const mutedCSS = "Muted";
+
   function getCSS(index) {
-    if(!item || index === 0) {
-      return "Muted";
-    }else if (index === currentCell) {
-      return currentCellCSS;
-    }else {
+    if (index === currentCell) {
+      let css = currentCellCSS;
+      if (index === 0) {
+        css = `${mutedCSS} ${css}`
+      }
+      return css;
+    } else if (!item || index === 0) {
+      return mutedCSS;
+    } else {
       return "";
     }
-
   }
   return (
     <tr>

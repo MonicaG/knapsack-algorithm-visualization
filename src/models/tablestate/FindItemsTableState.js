@@ -18,7 +18,7 @@ class FindItemsTableState {
      if(this.state.phase === types.STEP_TO_FIND_SOLUTION_ITEMS) {
       return new RetValue(null, null);
     }
-    let item = this.knapsackAlgorithm.solutionItems.filter( x => x.column >= this.state.currentCapacity && x.row === index && x.row >= this.state.solutionIndex)
+    let item = this.knapsackAlgorithm.solutionItems.filter( x => x.row === index && x.row >= this.state.solutionIndex)
     if(item && item.length === 1) {
       const css = item[0].inSolution ? FindItemsTableState.CSS_IN_SOLUTION : FindItemsTableState.CSS_NOT_IN_SOLUTION
       return new RetValue(item[0].column, css);

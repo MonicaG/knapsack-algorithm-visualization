@@ -1,6 +1,6 @@
 import RetValue from "./TableStateReturnValue";
 class BuildTableState {
-  static CSS_SELECTED = "border-double border-red-900";
+  static CSS_SELECTED = "bg-lime-300";
 
   constructor(state) {
     this.state = state;
