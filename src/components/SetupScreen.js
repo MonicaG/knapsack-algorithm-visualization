@@ -9,6 +9,7 @@ import React from 'react';
 function SetupScreen({ items, dispatch }) {
 
   const ariaLabelAddNewItem = "Add new item";
+  const formName = "SetupForm";
 
   const [calculateBtn, setcalculateBtn] = React.useState(false);
 
@@ -79,140 +80,144 @@ function SetupScreen({ items, dispatch }) {
 
 
   return (
-    <div className="flex flex-col">
+    <div>
       <h2 className="title">Step 1: Setup</h2>
-      <div className="mb-4 flex flex-row items-baseline space-x-4">
-        {displayErrorMsg("capacity")}
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <label className="mb-3 font-bold text-gray-700 text-left" hmlfor="capacity">Knapsack Capacity: </label>
-          <input type="number"
-            aria-label="knapsack capacity"
-            min={capacityDefaults.min}
-            max={capacityDefaults.max}
-            defaultValue={capacityDefaults.defaultValue}
-            className="w-min"
-            {...register("capacity", {
-              valueAsNumber: true,
-              max: {
-                value: capacityDefaults.max,
-                message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
-              },
-              min: {
-                value: capacityDefaults.min,
-                message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
-              },
-              required: {
-                value: true,
-                message: "Please enter a knapsack capacity value"
-              }
-            })}
-          />
-          {/* start items */}
-          <div>
-            <label className="label2">Available Items</label>
-            <div className="flex flex-col place-items-end overflow-x-auto">
-              <table className="table-auto px-10 py-3 w-full" role="table">
-                <thead>
-                  <tr>
-                    <th className="header">Item Name</th>
-                    <th className="header">Value</th>
-                    <th className="header">Weight</th>
-                    <th className="header"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {controlledFields.map((item, index) => (
-                    <tr key={item.id}>
-                      <td className="cell">
-                        <input type="text"
-                          placeholder="Enter item name"
-                          aria-label={`name for item ${index}`}
-                          className={getCSS(index, "name")}
-                          key={item.id}
-                          {...register(`itemsArray.${index}.name`, {
-                            //Note on why 'required: true' option is not used here.  I wanted to check the case where only white space 
-                            //was entered as a name. That is checked in the isNotEmpty validation below.  When I set required: true
-                            //react-hooks-form would validate that plus the isNotEmpty valication.  So, I would get multiple error messages. 
-                            //The isNotEmpty covers the required scenario so it is used. 
-                            //See: https://github.com/react-hook-form/react-hook-form/issues/1650
-                            validate: {
-                              isUnique: v => isItemNameUnique(v) || "Please enter a unique item name",
-                              isNotEmpty: v => !!v.trim() || "Please enter an item name"
-                            }
-                          })}
-                        />
-                        {displayErrorMsg(`itemsArray.${index}.name`)}
-                      </td>
-                      <td className="cell">
-                        <input type="number"
-                          defaultValue={itemValueDefaults.defaultValue}
-                          min={itemValueDefaults.min}
-                          max={itemValueDefaults.max}
-                          step={itemValueDefaults.step}
-                          aria-label={`value for item ${index}`}
-                          className={getCSS(index, "value")}
-                          key={item.id}
-                          {...register(`itemsArray.${index}.value`, {
-                            valueAsNumber: true,
-                            max: {
-                              value: itemValueDefaults.max,
-                              message: "Please enter a smaller number"
-                            },
-                            min: {
-                              value: itemValueDefaults.min,
-                              message: "Please enter a larger number",
-                            },
-                            required: {
-                              value: true,
-                              message: "Please enter a value"
-                            }
-                          })}
-                        />
-                        {displayErrorMsg(`itemsArray.${index}.value`)}
-                      </td>
-                      <td className="cell">
-                        <input type="number"
-                          defaultValue={capacityDefaults.defaultValue}
-                          min={capacityDefaults.min}
-                          max={capacityDefaults.max}
-                          className={getCSS(index, "weight")}
-                          aria-label={`weight for item ${index}`}
-                          key={item.id}
-                          {...register(`itemsArray.${index}.weight`, {
-                            valueAsNumber: true,
-                            max: {
-                              value: capacityDefaults.max,
-                              message: "Please enter a smaller number"
-                            },
-                            min: {
-                              value: capacityDefaults.min,
-                              message: "Please enter a larger number",
-                            },
-                            required: {
-                              value: true,
-                              message: "Please enter a value"
-                            }
-                          })} />
-                        {displayErrorMsg(`itemsArray.${index}.weight`)}
-                      </td>
-                      <td className="cell">
-                        <button type="button" aria-label={`Delete item ${item.name}`} onClick={() => deleteItem(index)}>
-                          <TrashIcon className="w-5 h- text-red-500" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+      <div>
+        <form id={formName} onSubmit={handleSubmit(onSubmit)} className="w-full my-4 flex flex-col justify-center gap-4">
+          <div className="bg-gray-100 px-2 py-4 sm:px-6 sm:py-6 rounded-lg">
+            <label className="mb-3 font-bold text-gray-700" hmlfor="capacity">Knapsack Capacity</label>
+            <input type="number"
+              aria-label="knapsack capacity"
+              min={capacityDefaults.min}
+              max={capacityDefaults.max}
+              defaultValue={capacityDefaults.defaultValue}
+              className="w-min ml-4 mb-2"
+              {...register("capacity", {
+                valueAsNumber: true,
+                max: {
+                  value: capacityDefaults.max,
+                  message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
+                },
+                min: {
+                  value: capacityDefaults.min,
+                  message: `Please enter a number between ${capacityDefaults.min} and ${capacityDefaults.max}`,
+                },
+                required: {
+                  value: true,
+                  message: "Please enter a knapsack capacity value"
+                }
+              })}
+            />
+            {displayErrorMsg("capacity")}
+            {/* start items */}
+            <div>
+              <label className="label2">Available Items</label>
+              {controlledFields.map((item, index) => (
+                <div key={item.id} className="border-2 m-2 rounded border-gray-200">
+                  <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 bg-gray-100 p-4 relative">
+                    <div className="sm:col-span-4 col-span-2">
+                      <label htmlFor={`itemsArray.${index}.name`} className="label">Item Name</label>
+                      <input type="text"
+                        placeholder="Enter item name"
+                        aria-label={`name for item ${index}`}
+                        className={getCSS(index, "name")}
+                        key={item.id}
+                        {...register(`itemsArray.${index}.name`, {
+                          //Note on why 'required: true' option is not used here.  I wanted to check the case where only white space 
+                          //was entered as a name. That is checked in the isNotEmpty validation below.  When I set required: true
+                          //react-hooks-form would validate that plus the isNotEmpty valication.  So, I would get multiple error messages. 
+                          //The isNotEmpty covers the required scenario so it is used. 
+                          //See: https://github.com/react-hook-form/react-hook-form/issues/1650
+                          validate: {
+                            isUnique: v => isItemNameUnique(v) || "Please enter a unique item name",
+                            isNotEmpty: v => !!v.trim() || "Please enter an item name"
+                          }
+                        })}
+                      />
 
-              <button type="button" className="my-4 max-w-max btnGreen" disabled={shouldDisableButton()} aria-label={ariaLabelAddNewItem} onClick={() => addItem()}>
-                Add Item
-              </button>
-              <input className="btnBlue max-w-max place-self-center" type="submit" value="Calculate" disabled={calculateBtn} />
+                    </div>
+                    <div className="col-span-1">
+                      <label htmlFor={`itemsArray.${index}.value`} className="label">Value</label>
+                      <input type="number"
+                        defaultValue={itemValueDefaults.defaultValue}
+                        min={itemValueDefaults.min}
+                        max={itemValueDefaults.max}
+                        step={itemValueDefaults.step}
+                        aria-label={`value for item ${index}`}
+                        className={getCSS(index, "value")}
+                        key={item.id}
+                        {...register(`itemsArray.${index}.value`, {
+                          valueAsNumber: true,
+                          max: {
+                            value: itemValueDefaults.max,
+                            message: "Please enter a smaller number"
+                          },
+                          min: {
+                            value: itemValueDefaults.min,
+                            message: "Please enter a larger number",
+                          },
+                          required: {
+                            value: true,
+                            message: "Please enter a value"
+                          }
+                        })}
+                      />
+                    </div>
+                    <div className="col-span-1">
+                      <label htmlFor={`itemsArray.${index}.weight`} className="label">Weight</label>
+                      <input type="number"
+                        defaultValue={capacityDefaults.defaultValue}
+                        min={capacityDefaults.min}
+                        max={capacityDefaults.max}
+                        className={getCSS(index, "weight")}
+                        aria-label={`weight for item ${index}`}
+                        key={item.id}
+                        {...register(`itemsArray.${index}.weight`, {
+                          valueAsNumber: true,
+                          max: {
+                            value: capacityDefaults.max,
+                            message: "Please enter a smaller number"
+                          },
+                          min: {
+                            value: capacityDefaults.min,
+                            message: "Please enter a larger number",
+                          },
+                          required: {
+                            value: true,
+                            message: "Please enter a value"
+                          }
+                        })} />
+                    </div>
+                    <button className="absolute -top-2 -right-2 bg-red-200 hover:bg-red-300 rounded-full" type="button" aria-label={`Delete item ${item.name}`} onClick={() => deleteItem(index)}>
+                      <TrashIcon className="w-5 h- text-red-500" />
+                    </button>
+                    <div className="col-span-2 sm:col-span-6">
+                      <div>
+                        {displayErrorMsg(`itemsArray.${index}.name`)}
+                      </div>
+                      <div >
+                        {displayErrorMsg(`itemsArray.${index}.value`)}
+                      </div>
+                      <div>
+                        {displayErrorMsg(`itemsArray.${index}.weight`)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {/* end items */}
+              <div className="ml-2 mt-4 ">
+                <button type="button" className="max-w-max btnGreen whitespace-nowrap" disabled={shouldDisableButton()} aria-label={ariaLabelAddNewItem} onClick={() => addItem()}>
+                  Add Item
+                </button>
+              </div>
             </div>
+
           </div>
-          {/* end items */}
         </form>
+        <div className="flex flex-col">
+          <input className="btnBlue max-w-max place-self-center" type="submit" form={formName} value="Calculate" disabled={calculateBtn} />
+        </div>
       </div>
       <div className="explanation">
         <p>The <a className="link" href="https://en.wikipedia.org/wiki/Knapsack_problem">knapsack problem</a> is usually described with a story. For example, a hiker needs to pack a knapsack for their expedition. There are many items the hiker would like to take: a tent, a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the knapsack can only carry a maximum amount of weight.</p>

@@ -62,9 +62,9 @@ function App() {
 
   return (
     <div className="sm:p-6 bg-white">
-      <h1 className="text-center text-6xl text-gray-600 mb-10">Knapsack Algorithm</h1>
-      <div className="m-2 p-2 sm:m-4 sm:p-8 sm:bg-gradient-to-br sm:from-blue-50 sm:to-blue-200 bg-blue-100">
-        <div className="border bg-white p-6 md:max-w-2xl md:mx-auto ">
+      <h1 className="text-center text-3xl sm:text-6xl text-gray-600 mb-4 sm:mb-10">Knapsack Algorithm Visualization</h1>
+      <div className="m-2 p-2 sm:m-4 sm:p-8 sm:bg-gradient-to-br sm:from-blue-50 sm:to-blue-200 bg-blue-100 rounded">
+        <div className="border bg-white p-6 md:max-w-2xl md:mx-auto rounded ">
           {state.showEntryForm ?
             <SetupScreen 
               items={state.items} 
