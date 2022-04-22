@@ -3,8 +3,13 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 import { TITLE_STEP_2 } from './components/solution/SolutionController'
 
+window.scrollTo = jest.fn()
 
 describe('integration test between screens', () => {
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+  
   it('should display the Knapsack Capacity element', () => {
     render(<App />);
     const capacity = screen.getByLabelText(/Knapsack Capacity/i);
