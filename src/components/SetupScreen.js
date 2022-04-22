@@ -81,10 +81,17 @@ function SetupScreen({ items, dispatch }) {
 
   return (
     <div>
-      <h2 className="title">Step 1: Setup</h2>
+    <h2 className="title">Knapsack Algorithm</h2>
+    <div className="explanation">
+    <p>The <a className="link" href="https://en.wikipedia.org/wiki/Knapsack_problem">knapsack problem</a> is usually described with a story. For example, a hiker needs to pack a knapsack for their expedition. There are many items the hiker would like to take: a tent, a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the knapsack can only carry a maximum amount of weight.</p>
+    <p>The hiker gives a value to the potential items. An item that will be very beneficial, like a sleeping bag, will have a high value. An item that will be less beneficial, like a frisbee, will have a lower value. The hiker must prioritize which items to take based on the items' values and weights. The knapsack algorithm solves the hiker's dilema by finding the most valuable items that will fit in the knapsack.</p>
+    <p>This app will step through the knapsack algorithm. Below, you may define the inputs to the algorithm. You can set the knapsack capacity (maximum weight) between {capacityDefaults.min} and {capacityDefaults.max}. You can enter up to {maxNumOfItems} items, with values between {itemValueDefaults.min} and {itemValueDefaults.max} and weight between {capacityDefaults.min} and {capacityDefaults.max}. Click the 'Calculate' button to step through the algorithm.</p>
+    <p>Below the setup fields on this screen is additional information about the knapsack algorithm.</p>
+    </div>
+      <h2 className="title mt-4">Step 1: Setup</h2>
       <div>
         <form id={formName} onSubmit={handleSubmit(onSubmit)} className="w-full my-4 flex flex-col justify-center gap-4">
-          <div className="bg-gray-100 px-2 py-4 sm:px-6 sm:py-6 rounded-lg">
+          <div className="bg-gray-100 px-2 py-4 sm:px-6 sm:py-6 2xl:px-20 rounded-lg">
             <label className="mb-3 font-bold text-gray-700" hmlfor="capacity">Knapsack Capacity</label>
             <input type="number"
               aria-label="knapsack capacity"
@@ -111,7 +118,7 @@ function SetupScreen({ items, dispatch }) {
             {displayErrorMsg("capacity")}
             {/* start items */}
             <div>
-              <label className="label2">Available Items</label>
+              <label className="label">Available Items</label>
               {controlledFields.map((item, index) => (
                 <div key={item.id} className="border-2 m-2 rounded border-gray-200">
                   <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 bg-gray-100 p-4 relative">
@@ -189,7 +196,7 @@ function SetupScreen({ items, dispatch }) {
                         })} />
                     </div>
                     <button className="absolute -top-2 -right-2 bg-red-200 hover:bg-red-300 rounded-full" type="button" aria-label={`Delete item ${item.name}`} onClick={() => deleteItem(index)}>
-                      <TrashIcon className="w-5 h- text-red-500" />
+                      <TrashIcon className="w-5 text-red-500" />
                     </button>
                     <div className="col-span-2 sm:col-span-6">
                       <div>
@@ -219,9 +226,8 @@ function SetupScreen({ items, dispatch }) {
           <input className="btnBlue max-w-max place-self-center" type="submit" form={formName} value="Calculate" disabled={calculateBtn} />
         </div>
       </div>
+      <h2 className="title mt-6">Algorithm Details</h2>
       <div className="explanation">
-        <p>The <a className="link" href="https://en.wikipedia.org/wiki/Knapsack_problem">knapsack problem</a> is usually described with a story. For example, a hiker needs to pack a knapsack for their expedition. There are many items the hiker would like to take: a tent, a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the knapsack can only carry a maximum amount of weight.</p>
-        <p>The hiker has given a value to the potential items. An item that will be very beneficial, like a sleeping bag, will have a high value. An item that will be less beneficial, like a frisbee, will have a lower value. The hiker must prioritize which items to take based on the items' values and weights.</p>
         <p>In this version of the story there are also two constraints:</p>
         <ol className="list-decimal ml-8">
           <li>The hiker cannot break an item into pieces and take some of the pieces</li>
@@ -252,9 +258,6 @@ function SetupScreen({ items, dispatch }) {
         </ol>
         <p>Instead, <a className="link" href="https://en.wikipedia.org/wiki/Dynamic_programming">dynamic programming</a> is used to solve the problem. Dynamic programming breaks the problem into subproblems. The solution to each subproblem is stored and used to solve other, larger, subproblems. The final solution is built up from these subproblems.</p>
         <p>In this case, an in-memory table stores the max value at different weights and number of items. Those values are used to build up a table that last's cell will contain the max value the knapsack can contain. The algorithm then walks through the table to get the items that make up that max value.</p>
-        <p>This app will step through the algorithm. Above, you may define the inputs to the algorithm. You can set the knapsack capacity (maximum weight) between {capacityDefaults.min} and {capacityDefaults.max}. You can define up to {maxNumOfItems} items, with values between {itemValueDefaults.min} and {itemValueDefaults.max} and weight between {capacityDefaults.min} and {capacityDefaults.max}.</p>
-        <p>The second screen steps through building the dynamic programming table.</p>
-        <p>The third screen steps through choosing the optimal items.</p>
         <p>The knapsack problem comes in many variations. For information about other versions, see <a className="link" href="http://www.or.deis.unibo.it/kp/Chapter1.pdf">"KNAPSACK PROBLEMS - Algorithms and Computer Implementations by Silvano Martello and Paolo Toth"</a>.</p>
       </div>
     </div>

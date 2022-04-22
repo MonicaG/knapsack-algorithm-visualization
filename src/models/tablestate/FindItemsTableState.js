@@ -2,8 +2,8 @@ import RetValue from "./TableStateReturnValue";
 import { solutionTableActionTypes as types } from '../../components/solution/SolutionController';
 
 class FindItemsTableState {
-  static CSS_IN_SOLUTION = "bg-lime-300";
-  static CSS_NOT_IN_SOLUTION = "bg-gray-200";
+  static CSS_IN_SOLUTION = "highlighted";
+  static CSS_NOT_IN_SOLUTION = "highlighted-muted";
 
   constructor(state, knapsackAlgorithm) {
     this.state = state;

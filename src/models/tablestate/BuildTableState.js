@@ -1,6 +1,6 @@
 import RetValue from "./TableStateReturnValue";
 class BuildTableState {
-  static CSS_SELECTED = "bg-lime-300";
+  static CSS_SELECTED = "highlighted";
 
   constructor(state) {
     this.state = state;

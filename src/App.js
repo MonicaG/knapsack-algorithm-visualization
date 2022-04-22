@@ -5,6 +5,7 @@ import { capacityDefaults } from './models/ValueDefaults';
 import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
+import { CameraIcon } from '@heroicons/react/solid';
 
 const actionTypes = {
   calculate: 1,
@@ -39,9 +40,16 @@ function App() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+    });
+  }
+
   function reducer(state, action) {
     switch (action.type) {
       case actionTypes.calculate:
+        scrollToTop();
         return {
           ...state,
           items: action.items,
@@ -50,6 +58,7 @@ function App() {
           showEntryForm: false,
         };
       case actionTypes.reset:
+        scrollToTop();
         return {
           ...state,
           showEntryForm: true,
@@ -61,23 +70,53 @@ function App() {
   }
 
   return (
-    <div className="sm:p-6 bg-white">
-      <h1 className="text-center text-3xl sm:text-6xl text-gray-600 mb-4 sm:mb-10">Knapsack Algorithm Visualization</h1>
-      <div className="m-2 p-2 sm:m-4 sm:p-8 sm:bg-gradient-to-br sm:from-blue-50 sm:to-blue-200 bg-blue-100 rounded">
-        <div className="border bg-white p-6 md:max-w-2xl md:mx-auto rounded ">
-          {state.showEntryForm ?
-            <SetupScreen 
-              items={state.items} 
-              dispatch={dispatch} 
-            />
-            :
-            <div>
-              <SolutionController
-                knapsackAlgorithm={state.knapsack}
-                appDispatch={dispatch}
+    <div>
+      <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100 rounded">
+        <div className="relative mb-2">
+          <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src="/img/hero.jpg" alt="Yellow backpack at the base of a tree." />
+          <h1 className="absolute inset-0 z-10 flex justify-center items-center text-white font-bold text-center text-4xl sm:text-6xl ">Knapsack Algorithm Visualization</h1>
+        </div>
+        <div className="p-2">
+          <div className="border bg-white p-6 md:max-w-2xl 2xl:max-w-4xl md:mx-auto rounded-lg">
+
+            {state.showEntryForm ?
+              <SetupScreen
+                items={state.items}
+                dispatch={dispatch}
               />
+              :
+              <div>
+                <SolutionController
+                  knapsackAlgorithm={state.knapsack}
+                  appDispatch={dispatch}
+                />
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div className="flex place-content-center bg-white my-4">
+        <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center">
+          <div>
+            <div className="flex items-center">
+              <img className="h-4" src="/img/github.png" alt="github logo" />
+              <span className="mx-1"><a href="https://github.com/MonicaG" className="link">Monica Granbois</a></span>
             </div>
-          }
+          </div>
+          <div>
+            <div className="flex items-center">
+              <img className="h-4" src="/img/twitter-blue.svg" alt="twitter logo" />
+              <span className="mx-1"><a href="https://twitter.com/mgranbois" className="link">@mgranbois</a></span>
+            </div>
+          </div>
+          <div className="col-span-2 ">
+            <div className="flex items-center">
+              <CameraIcon className="h-5" /><span className="mx-1"><a href="https://unsplash.com/@ilypnytskyi" className="link"> Igor Lypnytskyi</a> on <a href="https://unsplash.com/photos/hg_ScY1LFQU?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" className="link">Unsplash</a></span>
+            </div>
+          </div>
+          <div className="col-span-2 ">
+            <p>&copy; 2022</p>
+          </div>
         </div>
       </div>
     </div>

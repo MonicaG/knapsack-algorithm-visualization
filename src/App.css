@@ -2,15 +2,20 @@
 @tailwind components;
 
 
-.Muted {
-  color: grey;
-}
-
-.Bold {
-  color: darkblue;
-}
-
 @layer components {
+
+  .muted {
+    @apply text-gray-400;
+  }
+
+  .highlighted {
+    @apply bg-lime-300;
+  }
+
+  .highlighted-muted {
+    @apply bg-gray-200;
+  }
+
 
   .title {
     @apply text-center text-2xl mb-6
@@ -41,11 +46,7 @@
 
 
   .label {
-    @apply block mb-3 font-bold text-gray-600 sm:text-center text-left
-  }
-
-  .label2 {
-    @apply block mb-3 font-bold text-gray-700 text-left;
+    @apply block mb-3 font-bold text-left;
   }
 
   .errorMsg {
@@ -57,6 +58,6 @@
   }
 
   .explanation {
-    @apply mt-6 text-base space-y-4
+    @apply mt-6 text-base space-y-4;
   }
 }

@@ -5,7 +5,7 @@ import { format } from './helpers/Formatting';
 
 function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
 
-  const mutedCSS = "Muted";
+  const mutedCSS = "muted";
 
   function getCSS(index) {
     if (index === currentCell) {
