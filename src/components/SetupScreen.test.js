@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SetupScreen from './SetupScreen';
 import Item from './../models/Item'
@@ -11,33 +11,38 @@ describe('test the setup screen', () => {
     new Item('item 3', 9, 2)
   ];
   it('should invalidate the capacity element when the number is too low', async () => {
+    const user = userEvent.setup();;
     const mockDispatch = jest.fn();
     render(<SetupScreen items={initItems} dispatch={mockDispatch} />);
 
-    userEvent.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '0')
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '0')
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
     
     expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toBeInvalid();
     expect(await screen.findByRole("button", {name: /calculate/i})).toBeEnabled();
-    expect(mockDispatch).not.toBeCalled();
-    
-
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
   });
 
   it('should invalidate the capacity element when the number is too high', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
     render(<SetupScreen items={initItems} dispatch={mockDispatch} />);
 
-    userEvent.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '11')
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '11')
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toBeInvalid();
     expect(await screen.findByRole("button", {name: /calculate/i})).toBeEnabled();
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
 
   });
 
   it('should call the dispatch on the happy path', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
     render(<SetupScreen items={initItems} dispatch={mockDispatch} />);
     expect(screen.getByRole("spinbutton", { name: /knapsack capacity/i })).toBeInTheDocument();
@@ -45,11 +50,10 @@ describe('test the setup screen', () => {
     expect(screen.getByDisplayValue('item 2')).toBeInTheDocument();
     expect(screen.getByDisplayValue('item 3')).toBeInTheDocument();
    
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
-
-    expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toBeValid();
-    expect(await screen.findByRole("button", {name: /calculate/i})).toBeEnabled();
-    expect(mockDispatch).toBeCalled();
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('should disable the add button once the max number of items is reached', () => {
@@ -68,14 +72,15 @@ describe('test the setup screen', () => {
     expect(screen.getByRole("button", {name: /Add new item/i})).toBeDisabled();
   });
 
-  it('should disable the calculate button if all items are deleted', () => {
+  it('should disable the calculate button if all items are deleted', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
 
-    userEvent.click(screen.getByLabelText('Delete item item 1'))
-    userEvent.click(screen.getByLabelText('Delete item item 2'))
-    userEvent.click(screen.getByLabelText('Delete item item 3'))
+    await user.click(screen.getByLabelText('Delete item item 1'))
+    await user.click(screen.getByLabelText('Delete item item 2'))
+    await user.click(screen.getByLabelText('Delete item item 3'))
 
     expect(screen.queryByLabelText('Delete item item 1')).toBeNull();
     expect(screen.queryByLabelText('Delete item item 2')).toBeNull();
@@ -84,28 +89,30 @@ describe('test the setup screen', () => {
     expect(screen.getByRole("button", {name: /Calculate/i})).toBeDisabled();
   });
 
-  it('should add a new default item when the add new item button is clicked', () => {
+  it('should add a new default item when the add new item button is clicked', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
     expect(screen.queryByDisplayValue('item 4')).toBeNull();
-    userEvent.click(screen.getByRole("button", {name: /Add new item/i}));
+    await user.click(screen.getByRole("button", {name: /Add new item/i}));
     expect(screen.getByDisplayValue('item 4')).toBeInTheDocument();
 
   });
 
   it('should not allow values that exceed the item weight and value limits', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
   
-    userEvent.clear(screen.getByRole("spinbutton", { name: /weight for item 2/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /weight for item 2/i }),  '11' )
+    await user.clear(screen.getByRole("spinbutton", { name: /weight for item 2/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /weight for item 2/i }),  '11' )
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /value for item 2/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /value for item 2/i }),  '51' )
+    await user.clear(screen.getByRole("spinbutton", { name: /value for item 2/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /value for item 2/i }),  '51' )
   
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
 
     const alerts = await screen.findAllByRole("alert");
@@ -117,22 +124,24 @@ describe('test the setup screen', () => {
     expect(await screen.findByRole("spinbutton", { name: /weight for item 2/i })).toBeInvalid();
     expect(await screen.findByRole("spinbutton", { name: /value for item 2/i })).toBeInvalid();
    
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
   });
 
   it('should not allow values that are less than the minimum amounts for item weight and value', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
     
-
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /weight for item 2/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /weight for item 2/i }),  '0' )
+    await user.clear(screen.getByRole("spinbutton", { name: /weight for item 2/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /weight for item 2/i }),  '0' )
     
-    userEvent.clear(screen.getByRole("spinbutton", { name: /value for item 2/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /value for item 2/i }),  '-1' )
+    await user.clear(screen.getByRole("spinbutton", { name: /value for item 2/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /value for item 2/i }),  '-1' )
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -144,20 +153,23 @@ describe('test the setup screen', () => {
     expect(await screen.findByRole("spinbutton", { name: /weight for item 2/i })).toBeInvalid();
     expect(await screen.findByRole("spinbutton", { name: /value for item 2/i })).toBeInvalid();
     
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
     
   });
 
   it('should not allow duplicate item names', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
 
     let itemNameField = screen.getByDisplayValue("item 2");
-    userEvent.clear(itemNameField);
-    userEvent.type(itemNameField, "item 1")
+    await user.clear(itemNameField);
+    await user.type(itemNameField, "item 1")
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -165,19 +177,22 @@ describe('test the setup screen', () => {
     for(let i=0; i < alerts.length; i++) {
       expect(within(alerts[i]).getByText(/Please enter a unique item name/i)).toBeInTheDocument();
     }
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
     
   });
 
   it('should treat item names that are the same but with different cases as duplicates', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
     let itemNameField = screen.getByDisplayValue("item 1");
-    userEvent.clear(itemNameField);
-    userEvent.type(itemNameField, "ITEM 2")
+    await user.clear(itemNameField);
+    await user.type(itemNameField, "ITEM 2")
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -185,20 +200,23 @@ describe('test the setup screen', () => {
     for(let i=0; i < alerts.length; i++) {
       expect(within(alerts[i]).getByText(/Please enter a unique item name/i)).toBeInTheDocument();
     }
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
     
   });
 
   it('should treat item names that are the same but with leading/trailing spaces as duplicates', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
     
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
 
     let itemNameField = screen.getByDisplayValue("item 1");
-    userEvent.clear(itemNameField);
-    userEvent.type(itemNameField, " item 2 ")
+    await user.clear(itemNameField);
+    await user.type(itemNameField, " item 2 ")
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -206,44 +224,52 @@ describe('test the setup screen', () => {
     for(let i=0; i < alerts.length; i++) {
       expect(within(alerts[i]).getByText(/Please enter a unique item name/i)).toBeInTheDocument();
     }
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
    
   });
 
   it('should not accept missing item name', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
     
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
 
     let itemNameField = screen.getByDisplayValue("item 1");
-    userEvent.clear(itemNameField);
+    await user.clear(itemNameField);
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
     expect(within(alerts[0]).getByText(/Please enter an item name/i)).toBeInTheDocument();
     
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
 
   });
 
   it('should not accept items names consisting only of white space', async () => {
+    const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
     render(<SetupScreen items={initItems} dispatch={mockDispatch}  />);
 
     let itemNameField = screen.getByDisplayValue("item 1");
-    userEvent.clear(itemNameField);
-    userEvent.type(itemNameField, "  ")
+    await user.clear(itemNameField);
+    await user.type(itemNameField, "  ")
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
     expect(within(alerts[0]).getByText(/Please enter an item name/i)).toBeInTheDocument();
     
-    expect(mockDispatch).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
   });
 
 });

@@ -101,9 +101,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -144,9 +142,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -187,9 +183,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -230,9 +224,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -444,9 +436,7 @@ exports[`the code block displays the code block when an item does NOT fit in the
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -574,7 +564,6 @@ exports[`the code block displays the code block when an item does NOT fit in the
             13
           </span>
           }
-
         </span>
       </code>
     </pre>
@@ -738,9 +727,7 @@ exports[`the code block displays the code block when an item fits in the knapsac
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -781,9 +768,7 @@ exports[`the code block displays the code block when an item fits in the knapsac
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -824,9 +809,7 @@ exports[`the code block displays the code block when an item fits in the knapsac
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -868,9 +851,7 @@ exports[`the code block displays the code block when an item fits in the knapsac
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -997,9 +978,7 @@ exports[`the code block displays the code block when an item fits in the knapsac
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -1238,7 +1217,6 @@ exports[`the code block displays the code block when an item fits in the knapsac
             14
           </span>
           }
-
         </span>
       </code>
     </pre>

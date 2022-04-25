@@ -101,9 +101,7 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -143,9 +141,7 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -185,9 +181,7 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -587,7 +581,6 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
             13
           </span>
           }
-
         </span>
       </code>
     </pre>
@@ -734,9 +727,7 @@ exports[`the code block displays when an item is part of the solution 1`] = `
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -776,9 +767,7 @@ exports[`the code block displays when an item is part of the solution 1`] = `
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -818,9 +807,7 @@ exports[`the code block displays when an item is part of the solution 1`] = `
           </span>
           <span
             style={Object {}}
-          >
-            
-          </span>
+          />
           <span
             style={
               Object {
@@ -1266,7 +1253,6 @@ exports[`the code block displays when an item is part of the solution 1`] = `
             14
           </span>
           }
-
         </span>
       </code>
     </pre>

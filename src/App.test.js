@@ -17,18 +17,18 @@ describe('integration test between screens', () => {
   });
 
   it('passes a modified Knapsack Capacity value to the Solutions Table', async () => {
-
+    const user = userEvent.setup()
     render(<App />);
 
     expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toHaveValue(5);
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /knapsack capacity/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '4');
+    await user.clear(screen.getByRole("spinbutton", { name: /knapsack capacity/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '4');
 
 
     expect(screen.getByRole("spinbutton", { name: /knapsack capacity/i })).toHaveValue(4);
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }))
+    await user.click(screen.getByRole("button", { name: /calculate/i }))
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -46,26 +46,26 @@ describe('integration test between screens', () => {
   });
 
   it('should add an item to the item list and pass the modified list to the next screen', async () => {
-
+    const user = userEvent.setup()
     render(<App />);
     const addButton = screen.getByRole("button", { name: /Add new item/i });
     expect(addButton).not.toBeDisabled();
 
-    userEvent.click(addButton);
+    await user.click(addButton);
 
     //number is index based, so one lower than item name
-    userEvent.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
+    await user.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '6');
+    await user.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '6');
 
     expect(screen.getByDisplayValue(/item 1/)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/item 2/)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/item 3/)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/item 4/)).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -92,17 +92,18 @@ describe('integration test between screens', () => {
   });
 
   it('should delete an item from the item list and pass the modified list to the next screen', async () => {
+    const user = userEvent.setup()
     render(<App />);
     const deleteButton = screen.getByLabelText('Delete item item 2')
 
-    userEvent.click(deleteButton)
+    await user.click(deleteButton)
 
     expect(screen.getByLabelText('Delete item item 1')).toBeInTheDocument();
     expect(screen.queryByLabelText('Delete item item 2')).toBeNull();
     expect(screen.getByLabelText('Delete item item 3')).toBeInTheDocument();
 
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -120,24 +121,25 @@ describe('integration test between screens', () => {
   });
 
   it('should add and delete items from the item list and pass the modified list to the next screen', async () => {
+    const user = userEvent.setup()
     render(<App />);
     const addButton = screen.getByRole("button", { name: /Add new item/i });
     expect(addButton).not.toBeDisabled();
 
 
-    userEvent.click(addButton)
+    await user.click(addButton)
 
     //number is index based, so one lower than item name
-    userEvent.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
+    await user.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
 
-    userEvent.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
-    userEvent.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '6');
+    await user.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '6');
 
 
     const deleteButton = screen.getByLabelText('Delete item item 3')
 
-    userEvent.click(deleteButton)
+    await user.click(deleteButton)
 
     expect(await screen.findByLabelText('Delete item item 1')).toBeInTheDocument();
     expect(screen.getByLabelText('Delete item item 2')).toBeInTheDocument();
@@ -145,7 +147,7 @@ describe('integration test between screens', () => {
     expect(screen.getByLabelText('Delete item item 4')).toBeInTheDocument();
 
 
-    userEvent.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: /calculate/i }));
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
 
