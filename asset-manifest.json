@@ -1,15 +1,20 @@
 {
   "files": {
     "main.css": "/knapsack-algorithm-visualization/static/css/main.631db71d.css",
-    "main.js": "/knapsack-algorithm-visualization/static/js/main.2c8a2bcb.js",
+    "main.js": "/knapsack-algorithm-visualization/static/js/main.2f7cc80f.js",
     "static/js/787.df8b8c93.chunk.js": "/knapsack-algorithm-visualization/static/js/787.df8b8c93.chunk.js",
+    "static/media/hero.jpg": "/knapsack-algorithm-visualization/static/media/hero.1b59f70d25ae244fcb7a.jpg",
+    "static/media/equation_2.svg": "/knapsack-algorithm-visualization/static/media/equation_2.419e8441525423285a03ce44ff0eeed0.svg",
+    "static/media/equation_3.svg": "/knapsack-algorithm-visualization/static/media/equation_3.846ec6e9c4ac5edb108068c8ec94eb12.svg",
+    "static/media/equation_1.svg": "/knapsack-algorithm-visualization/static/media/equation_1.03a0d759d8510911c202cb2b6c99143a.svg",
+    "static/media/twitter-blue.svg": "/knapsack-algorithm-visualization/static/media/twitter-blue.58bf1288266cc62d814a406fe8b5f4ef.svg",
     "index.html": "/knapsack-algorithm-visualization/index.html",
     "main.631db71d.css.map": "/knapsack-algorithm-visualization/static/css/main.631db71d.css.map",
-    "main.2c8a2bcb.js.map": "/knapsack-algorithm-visualization/static/js/main.2c8a2bcb.js.map",
+    "main.2f7cc80f.js.map": "/knapsack-algorithm-visualization/static/js/main.2f7cc80f.js.map",
     "787.df8b8c93.chunk.js.map": "/knapsack-algorithm-visualization/static/js/787.df8b8c93.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.631db71d.css",
-    "static/js/main.2c8a2bcb.js"
+    "static/js/main.2f7cc80f.js"
   ]
 }
