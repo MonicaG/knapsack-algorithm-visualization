@@ -2,7 +2,7 @@
   "name": "knapsack-algorithm-visualization",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://monicagranbois.com",
+  "homepage": "https://monicagranbois.com/knapsack-algorithm-visualization",
   "dependencies": {
     "@heroicons/react": "^1.0.5",
     "@hookform/error-message": "^2.0.0",
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b main -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
