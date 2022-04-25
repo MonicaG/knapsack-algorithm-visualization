@@ -5,6 +5,9 @@ import { actionTypes } from '../App';
 import { ErrorMessage } from '@hookform/error-message';
 import { TrashIcon } from '@heroicons/react/solid';
 import React from 'react';
+import eq1 from '../assets/equation_1.svg';
+import eq2 from '../assets/equation_2.svg';
+import eq3 from '../assets/equation_3.svg';
 
 function SetupScreen({ items, dispatch }) {
 
@@ -235,13 +238,13 @@ function SetupScreen({ items, dispatch }) {
         </ol>
         <p>This is known as the "0-1 knapsack problem"; an item is taken, or it is not. The mathematical representation of the 0-1 knapsack problem is: </p>
         <div>
-          <span className="inline-flex items-center">where<img className="h-5 inline pl-1" src="/img/equation_3.svg" alt="where x is either 0 or 1"></img></span>
+          <span className="inline-flex items-center">where<img className="h-5 inline pl-1" src={eq3} alt="where x is either 0 or 1"></img></span>
         </div>
         <div>
-          <span className="inline-flex items-center">maximize<img className="h-12 inline pl-1" src="/img/equation_1.svg" alt="summation equation"></img></span>
+          <span className="inline-flex items-center">maximize<img className="h-12 inline pl-1" src={eq1} alt="summation equation"></img></span>
         </div>
         <div>
-          <span className="inline-flex items-center whitespace-nowrap">subject to<img className="h-12 inline pl-1" src="/img/equation_2.svg" alt="equation constraints"></img></span>
+          <span className="inline-flex items-center whitespace-nowrap">subject to<img className="h-12 inline pl-1" src={eq2} alt="equation constraints"></img></span>
         </div>
         <p>Where <em>i</em> is an item <em>v<sub>i</sub></em> is the item's value, <em>w<sub>i</sub></em> is the item's weight and <em>c</em> is the capacity of the knapsack. </p>
         <p>How does the hiker choose which items to pack?</p>

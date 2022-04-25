@@ -6,6 +6,9 @@ import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 import { CameraIcon } from '@heroicons/react/solid';
+import hero from './assets/hero.jpg';
+import twitter from './assets/twitter-blue.svg';
+import github from './assets/github.png';
 
 const actionTypes = {
   calculate: 1,
@@ -73,7 +76,7 @@ function App() {
     <div>
       <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100 rounded">
         <div className="relative mb-2">
-          <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src="/img/hero.jpg" alt="Yellow backpack at the base of a tree." />
+          <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src={hero} alt="Yellow backpack at the base of a tree." />
           <h1 className="absolute inset-0 z-10 flex justify-center items-center text-white font-bold text-center text-4xl sm:text-6xl ">Knapsack Algorithm Visualization</h1>
         </div>
         <div className="p-2">
@@ -99,13 +102,13 @@ function App() {
         <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center">
           <div>
             <div className="flex items-center">
-              <img className="h-4" src="/img/github.png" alt="github logo" />
+              <img className="h-4" src={github} alt="github logo" />
               <span className="mx-1"><a href="https://github.com/MonicaG" className="link">Monica Granbois</a></span>
             </div>
           </div>
           <div>
             <div className="flex items-center">
-              <img className="h-4" src="/img/twitter-blue.svg" alt="twitter logo" />
+              <img className="h-4" src={twitter} alt="twitter logo" />
               <span className="mx-1"><a href="https://twitter.com/mgranbois" className="link">@mgranbois</a></span>
             </div>
           </div>
