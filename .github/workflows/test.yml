@@ -33,7 +33,7 @@ jobs:
       run: npm test
 
     - name: Upload build artifact  
-      # if: on.workflow_call
+      if: on.workflow_call
       uses: actions/upload-artifact@v3
       with:
         name: build
