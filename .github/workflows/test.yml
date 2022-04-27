@@ -1,17 +1,16 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Project Tests
+name: Project CI/CD
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_call:
 
 jobs:
-  build-and-test:
+  build-test-deploy:
     name: build and test the app
     runs-on: ubuntu-latest
     steps:
@@ -32,9 +31,8 @@ jobs:
     - name: 🔍 Test project
       run: npm test
 
-    - name: Upload build artifact  
-      if: github.action == 'workflow_call'
-      uses: actions/upload-artifact@v3
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
       with:
-        name: build
-        path: build/
+        branch: gh-pages 
+        folder: build
