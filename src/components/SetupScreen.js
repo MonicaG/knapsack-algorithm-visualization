@@ -218,7 +218,7 @@ function SetupScreen({ items, dispatch }) {
               {/* end items */}
               <div className="ml-2 mt-4 ">
                 <button type="button" className="max-w-max btnGreen whitespace-nowrap" disabled={shouldDisableButton()} aria-label={ariaLabelAddNewItem} onClick={() => addItem()}>
-                  Add Item
+                  New Item
                 </button>
               </div>
             </div>
