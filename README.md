@@ -1,6 +1,6 @@
 # Knapsack Algorithm Visualization
 
-[![Project Tests](https://github.com/MonicaG/knapsack-algorithm-visualization/actions/workflows/test.yml/badge.svg)](https://github.com/MonicaG/knapsack-algorithm-visualization/actions/workflows/test.yml)
+[![Project Tests](https://github.com/MonicaG/knapsack-algorithm-visualization/actions/workflows/test.yml/badge.svg)](https://github.com/MonicaG/knapsack-algorithm-visualization/actions/workflows/ci_cd.yml)
 
 ## Overview 
 This app steps a person through the knapsack algorithm. 
