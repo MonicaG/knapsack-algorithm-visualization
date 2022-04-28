@@ -74,7 +74,19 @@ function App() {
 
   return (
     <div>
-      <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100 rounded">
+    <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100">
+    {/* start header */}
+      <div className="bg-gradient-to-b from-[#6d94bf] via-[#446e9b] to-[#3e648d] flex py-2 px-4 border border-[#345578] items-center">
+        <div className="justify-self-start my-logo my-logo-font"><a href="/">Monica Granbois</a></div>
+        <div className="flex-auto flex justify-end">
+          <div className="my-logo-font my-logo-links px-2"><a href="/">Home</a></div>
+          <div className="my-logo-font my-logo-links px-2"><a href="/about/">About</a></div>
+          <div className="my-logo-font my-logo-links px-2"><a href="/projects/">Projects</a></div>
+          <div className="my-logo-font my-logo-links px-2"><a href="/feed.xml">RSS</a></div>
+          </div>
+      </div>
+      {/* end header */}
+      <div className="rounded">
         <div className="relative mb-2">
           <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src={hero} alt="Yellow backpack at the base of a tree." />
           <h1 className="absolute inset-0 z-10 flex justify-center items-center text-white font-bold text-center text-4xl sm:text-6xl ">Knapsack Algorithm Visualization</h1>
@@ -121,6 +133,7 @@ function App() {
             <p>&copy; 2022</p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

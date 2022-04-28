@@ -1,4 +1,7 @@
 
+/* This is needed to match the font for my navbar logo, It is from my website which uses bootstrap, and this is the font it uses*/
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 @tailwind components;
 
 
@@ -61,3 +64,27 @@
     @apply mt-6 text-base space-y-4;
   }
 }
+
+.my-logo-font {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  text-shadow: -1px -1px 0 rgb(0 0 0 / 10%);
+  display: inline-block;
+  letter-spacing: 0.001em;
+  font-weight: 400;
+}
+
+.my-logo {
+  padding: 5px 0px;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  white-space: nowrap;
+  text-align: left;
+  color: white;
+}
+
+.my-logo-links {
+  color: rgba(255,255,255,0.75);
+}
+
