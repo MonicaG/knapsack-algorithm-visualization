@@ -43,7 +43,7 @@ function App() {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [showMenuItems, setShowMenuItems] = useState(false);
+  const [showHeaderMenuItems, setShowHeaderMenuItems] = useState(false);
 
   function scrollToTop() {
     window.scrollTo({
@@ -75,7 +75,7 @@ function App() {
   }
 
   function menuBtnClick() {
-    setShowMenuItems(!showMenuItems)
+    setShowHeaderMenuItems(!showHeaderMenuItems)
   }
 
   return (
@@ -87,7 +87,7 @@ function App() {
             <button onClick={() => menuBtnClick()} className="navbar-toggler">
               <img className="navbar-toggler-icon" src={menu} alt="navigation menu" />
             </button>
-            <div className={`w-full md:flex md:items-center md:w-auto ${showMenuItems ? "" : "hidden"}`}>
+            <div className={`w-full md:flex md:items-center md:w-auto ${showHeaderMenuItems ? "" : "hidden"}`}>
               <ul className="md:flex md:justify-between">
                 <li><a className="navbar-link" href="/">Home</a></li>
                 <li><a className="navbar-link" href="/about/">About</a></li>
