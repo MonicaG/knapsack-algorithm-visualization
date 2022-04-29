@@ -122,11 +122,11 @@ function App() {
           </div>
         </div>
         <div className="flex place-content-center bg-white my-4">
-          <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center">
+          <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center mt-2">
             <div>
               <div className="flex items-center">
                 <img className="h-4" src={github} alt="github logo" />
-                <span className="mx-1"><a href="https://github.com/MonicaG" className="link">Monica Granbois</a></span>
+                <span className="mx-1"><a href="https://github.com/MonicaG" className="link">MonicaG</a></span>
               </div>
             </div>
             <div>
