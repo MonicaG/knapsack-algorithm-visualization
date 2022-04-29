@@ -1,4 +1,7 @@
 
+/* This is needed to match the font for my navbar logo, It is from my website which uses bootstrap, and this is the font it uses*/
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 @tailwind components;
 
 
@@ -59,5 +62,23 @@
 
   .explanation {
     @apply mt-6 text-base space-y-4;
+  }
+
+  .logo  {
+    @apply mr-4 text-xl whitespace-nowrap text-left text-white py-[5px];
+  }
+  .navbar-font {
+    @apply inline-block tracking-normal font-normal font-header;
+    text-shadow: -1px -1px 0 rgb(0 0 0 / 10%);
+  }  
+  .navbar-link {
+    @apply navbar-font md:py-4 md:px-2 py-2 block text-white opacity-75;
+  }
+  
+  .navbar-toggler-icon {
+    @apply w-[30px] h-[30px] align-middle bg-contain bg-transparent inline-block md:hidden;
+  }
+  .navbar-toggler {
+    @apply md:hidden py-1 px-3 text-lg leading-[1.25rem] bg-transparent border border-solid rounded border-white/10 text-white/75;
   }
 }
