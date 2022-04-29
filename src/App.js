@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import SetupScreen from './components/SetupScreen';
 import { capacityDefaults } from './models/ValueDefaults';
 import SolutionController from './components/solution/SolutionController';
@@ -42,6 +42,7 @@ function App() {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [showMenuItems, setShowMenuItems] = useState(false);
 
   function scrollToTop() {
     window.scrollTo({
@@ -72,19 +73,26 @@ function App() {
     }
   }
 
+  function menuBtnClick() {
+    setShowMenuItems(!showMenuItems)
+  }
+
   return (
     <div>
     <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100">
     {/* start header */}
-      <div className="bg-gradient-to-b from-[#6d94bf] via-[#446e9b] to-[#3e648d] flex py-2 px-4 border border-[#345578] items-center">
+      <nav className="bg-gradient-to-b from-[#6d94bf] via-[#446e9b] to-[#3e648d] flex flex-wrap px-4 py-2 md:py-0 border border-[#345578] items-center justify-between w-full">
         <div className="justify-self-start my-logo my-logo-font"><a href="/">Monica Granbois</a></div>
-        <div className="flex-auto flex justify-end">
-          <div className="my-logo-font my-logo-links px-2"><a href="/">Home</a></div>
-          <div className="my-logo-font my-logo-links px-2"><a href="/about/">About</a></div>
-          <div className="my-logo-font my-logo-links px-2"><a href="/projects/">Projects</a></div>
-          <div className="my-logo-font my-logo-links px-2"><a href="/feed.xml">RSS</a></div>
-          </div>
-      </div>
+        <button onClick={() => menuBtnClick()} className="navbar-toggler md:hidden"><span className="navbar-toggler-icon inline-block md:hidden"/></button> 
+        <div className={`w-full md:flex md:items-center md:w-auto ${showMenuItems ? "" : "hidden"}`}>
+          <ul className="md:flex md:justify-between">
+            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/">Home</a></li>
+            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/about/">About</a></li>
+            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/projects/">Projects</a></li>
+            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/feed.xml">RSS</a></li>
+          </ul>
+        </div>
+      </nav>
       {/* end header */}
       <div className="rounded">
         <div className="relative mb-2">
