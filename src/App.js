@@ -9,6 +9,7 @@ import { CameraIcon } from '@heroicons/react/solid';
 import hero from './assets/hero.jpg';
 import twitter from './assets/twitter-blue.svg';
 import github from './assets/github.png';
+import menu from './assets/menu.svg';
 
 const actionTypes = {
   calculate: 1,
@@ -79,69 +80,71 @@ function App() {
 
   return (
     <div>
-    <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100">
-    {/* start header */}
-      <nav className="bg-gradient-to-b from-[#6d94bf] via-[#446e9b] to-[#3e648d] flex flex-wrap px-4 py-2 md:py-0 border border-[#345578] items-center justify-between w-full">
-        <div className="justify-self-start my-logo my-logo-font"><a href="/">Monica Granbois</a></div>
-        <button onClick={() => menuBtnClick()} className="navbar-toggler md:hidden"><span className="navbar-toggler-icon inline-block md:hidden"/></button> 
-        <div className={`w-full md:flex md:items-center md:w-auto ${showMenuItems ? "" : "hidden"}`}>
-          <ul className="md:flex md:justify-between">
-            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/">Home</a></li>
-            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/about/">About</a></li>
-            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/projects/">Projects</a></li>
-            <li><a className="my-logo-font my-logo-links md:py-4 md:px-2 py-2 block" href="/feed.xml">RSS</a></li>
-          </ul>
-        </div>
-      </nav>
-      {/* end header */}
-      <div className="rounded">
-        <div className="relative mb-2">
-          <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src={hero} alt="Yellow backpack at the base of a tree." />
-          <h1 className="absolute inset-0 z-10 flex justify-center items-center text-white font-bold text-center text-4xl sm:text-6xl ">Knapsack Algorithm Visualization</h1>
-        </div>
-        <div className="p-2">
-          <div className="border bg-white p-6 md:max-w-2xl 2xl:max-w-4xl md:mx-auto rounded-lg">
+      <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100">
+        <header>
+          <nav className="bg-gradient-to-b from-[#6d94bf] via-[#446e9b] to-[#3e648d] flex flex-wrap px-4 py-2 md:py-0 border border-[#345578] items-center justify-between w-full">
+            <div className="justify-self-start logo navbar-font"><a href="/">Monica Granbois</a></div>
+            <button onClick={() => menuBtnClick()} className="navbar-toggler">
+              <img className="navbar-toggler-icon" src={menu} alt="navigation menu" />
+            </button>
+            <div className={`w-full md:flex md:items-center md:w-auto ${showMenuItems ? "" : "hidden"}`}>
+              <ul className="md:flex md:justify-between">
+                <li><a className="navbar-link" href="/">Home</a></li>
+                <li><a className="navbar-link" href="/about/">About</a></li>
+                <li><a className="navbar-link" href="/projects/">Projects</a></li>
+                <li><a className="navbar-link" href="/feed.xml">RSS</a></li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+        <div className="rounded">
+          <div className="relative mb-2">
+            <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src={hero} alt="Yellow backpack at the base of a tree." />
+            <h1 className="absolute inset-0 z-10 flex justify-center items-center text-white font-bold text-center text-4xl sm:text-6xl ">Knapsack Algorithm Visualization</h1>
+          </div>
+          <div className="p-2">
+            <div className="border bg-white p-6 md:max-w-2xl 2xl:max-w-4xl md:mx-auto rounded-lg">
 
-            {state.showEntryForm ?
-              <SetupScreen
-                items={state.items}
-                dispatch={dispatch}
-              />
-              :
-              <div>
-                <SolutionController
-                  knapsackAlgorithm={state.knapsack}
-                  appDispatch={dispatch}
+              {state.showEntryForm ?
+                <SetupScreen
+                  items={state.items}
+                  dispatch={dispatch}
                 />
+                :
+                <div>
+                  <SolutionController
+                    knapsackAlgorithm={state.knapsack}
+                    appDispatch={dispatch}
+                  />
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div className="flex place-content-center bg-white my-4">
+          <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center">
+            <div>
+              <div className="flex items-center">
+                <img className="h-4" src={github} alt="github logo" />
+                <span className="mx-1"><a href="https://github.com/MonicaG" className="link">Monica Granbois</a></span>
               </div>
-            }
+            </div>
+            <div>
+              <div className="flex items-center">
+                <img className="h-4" src={twitter} alt="twitter logo" />
+                <span className="mx-1"><a href="https://twitter.com/mgranbois" className="link">@mgranbois</a></span>
+              </div>
+            </div>
+            <div className="col-span-2 ">
+              <div className="flex items-center">
+                <CameraIcon className="h-5" /><span className="mx-1"><a href="https://unsplash.com/@ilypnytskyi" className="link"> Igor Lypnytskyi</a> on <a href="https://unsplash.com/photos/hg_ScY1LFQU?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" className="link">Unsplash</a></span>
+              </div>
+            </div>
+            <div className="col-span-2 ">
+              <p>&copy; 2022</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex place-content-center bg-white my-4">
-        <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center">
-          <div>
-            <div className="flex items-center">
-              <img className="h-4" src={github} alt="github logo" />
-              <span className="mx-1"><a href="https://github.com/MonicaG" className="link">Monica Granbois</a></span>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center">
-              <img className="h-4" src={twitter} alt="twitter logo" />
-              <span className="mx-1"><a href="https://twitter.com/mgranbois" className="link">@mgranbois</a></span>
-            </div>
-          </div>
-          <div className="col-span-2 ">
-            <div className="flex items-center">
-              <CameraIcon className="h-5" /><span className="mx-1"><a href="https://unsplash.com/@ilypnytskyi" className="link"> Igor Lypnytskyi</a> on <a href="https://unsplash.com/photos/hg_ScY1LFQU?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" className="link">Unsplash</a></span>
-            </div>
-          </div>
-          <div className="col-span-2 ">
-            <p>&copy; 2022</p>
-          </div>
-        </div>
-      </div>
       </div>
     </div>
   );

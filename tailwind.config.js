@@ -4,6 +4,9 @@ module.exports = {
   content: [    "./src/**/*.{js,jsx,ts,tsx}",  ],
   theme: {
     extend: {},
+    fontFamily: {
+      'header': ['"Open Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"'],
+    },
   },
   variants: {
     borderColor:  ({ after }) => after(['invalid']),
