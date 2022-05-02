@@ -30,6 +30,8 @@ describe('InBetweenPhases tests', () => {
       type: types.STEP_FIND_NEXT_SOLUTION_ITEM,
       currentCapacity: capacity,
       solutionIndex: state.solutionIndex,
+      instructions: "Press the \"Step\" button to find the items.",
+      title: "Step 3: Find Solution",
     });
   });
 

@@ -572,7 +572,9 @@ exports[`the code block displays the code block when an item does NOT fit in the
     className="explanation"
   >
     <p>
-      This phase builds the dynamic table. In this visualization the process is done in a step by step process. Pressing the 'step' button will calculate the next cell's value. That value will be the maximum value for the current knapsack capacity. The highlighted code is the logic used to calculate the value.
+      This phase builds the dynamic table. In this visualization the process is done in a step by step process. Pressing the "
+      Step
+      " button will calculate the next cell's value. That value will be the maximum value for the current knapsack capacity. The highlighted code is the logic used to calculate the value.
     </p>
     <p>
       In this implementation, the first column and row contain zeros. This is a coding convenience to avoid checking for index out of bounds errors.
@@ -1225,7 +1227,9 @@ exports[`the code block displays the code block when an item fits in the knapsac
     className="explanation"
   >
     <p>
-      This phase builds the dynamic table. In this visualization the process is done in a step by step process. Pressing the 'step' button will calculate the next cell's value. That value will be the maximum value for the current knapsack capacity. The highlighted code is the logic used to calculate the value.
+      This phase builds the dynamic table. In this visualization the process is done in a step by step process. Pressing the "
+      Step
+      " button will calculate the next cell's value. That value will be the maximum value for the current knapsack capacity. The highlighted code is the logic used to calculate the value.
     </p>
     <p>
       In this implementation, the first column and row contain zeros. This is a coding convenience to avoid checking for index out of bounds errors.

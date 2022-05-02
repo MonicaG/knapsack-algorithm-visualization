@@ -8,10 +8,7 @@ import BuildTableState from '../../models/tablestate/BuildTableState';
 import SolutionItems from './SolutionItems';
 import InBetweenPhases from './InBetweenPhases';
 import ItemsToUseCodeBlock from './ItemsToUseCodeBlock';
-
-
-const TITLE_STEP_2 = "Step 2: Build Table";
-const TITLE_STEP_3 = "Step 3: Find Solution";
+import {TITLE_STEP_2, step2Instructions, STEP_BTN_NAME} from './helpers/constants';
 
 const solutionControllerActionTypes = {
   STEP_TO_NEXT_CELL: 1,
@@ -32,7 +29,8 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
     solutionIndex: knapsackAlgorithm.items.length,
     title: TITLE_STEP_2,
     cellDimensions: new Array(knapsackAlgorithm.capacity + 1).fill({ width: 0, height: 0 }),
-    phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL
+    phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL,
+    instructions: step2Instructions(STEP_BTN_NAME),
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -65,8 +63,9 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
           ...state,
           currentCapacity: state.currentCapacity + 1,
           currentCellIndex: state.currentCellIndex + 1,
-          title: TITLE_STEP_2,
+          title: action.title,
           phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL,
+          instructions: action.instructions,
         }
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW:
         return {
@@ -74,16 +73,18 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
           currentItemIndex: state.currentItemIndex + 1,
           currentCapacity: 1,
           currentCellIndex: 1,
-          title: TITLE_STEP_2,
+          title: action.title,
           phase: solutionControllerActionTypes.STEP_TO_NEXT_ROW,
+          instructions: action.instructions,
         };
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
         return {
           ...state,
           findSolutionItems: true,
           currentCapacity: knapsackAlgorithm.capacity,
-          title: TITLE_STEP_3,
+          title: action.title,
           phase: solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS,
+          instructions: action.instructions,
         }
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
         let tempPhase = solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM;
@@ -94,8 +95,9 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
           ...state,
           solutionIndex: action.solutionIndex,
           currentCapacity: action.currentCapacity,
-          title: TITLE_STEP_3,
+          title: action.title,
           phase: tempPhase,
+          instructions: tempPhase === solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM ? action.instructions : "",
         }
       case solutionControllerActionTypes.CELL_DIMENSIONS:
         return {
@@ -128,10 +130,11 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
         return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
     }
   }
-
   return (
     <div>
       <h2 className="title">{state.title}</h2>
+     <p className="table-instructions">{state.instructions}</p>
+     <p className="table-instructions">Note: The table is scrollable.</p>
       <div className="overflow-x-auto overflow-y-auto h-72 sm:h-80 2xl:h-fit" ref={ref}>
         <table className="table-auto px-10 py-3 w-full">
           <SolutionTableHeaderRow

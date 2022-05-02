@@ -81,4 +81,8 @@
   .navbar-toggler {
     @apply md:hidden py-1 px-3 text-lg leading-[1.25rem] bg-transparent border border-solid rounded border-white/10 text-white/75;
   }
+
+  .table-instructions {
+    @apply text-xs text-center mb-1;
+  }
 }

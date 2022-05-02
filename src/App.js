@@ -98,7 +98,7 @@ function App() {
           </nav>
         </header>
         <div className="rounded">
-          <div class="flex justify-center gap-x-2">
+          <div className="flex justify-center gap-x-2">
             <div className="ml-4 px-2 md:py-4 md:px-4"><img className="object-contain h-48" src={hero} alt="Drawing of an orange backpack with yellow straps." /></div>
             <div className="self-center text-4xl md:text-6xl text-[#BF392C]">Knapsack Algorithm Visualization</div>
           </div>

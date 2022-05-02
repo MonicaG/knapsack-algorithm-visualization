@@ -6,6 +6,7 @@ import { buildSyntaxHighlight } from './helpers/CodeBlocksCommon'
 import PopulateTableCode from '../../models/codeblock/PopulateTableCode';
 import {format} from './helpers/Formatting';
 import ControlButtons from './ControlButtons';
+import { TITLE_STEP_2, step2Instructions, STEP_BTN_NAME, INBETWEEN_BTN_NAME, stepBetweenInstructions } from './helpers/constants';
 
 function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatch }) {
 
@@ -23,16 +24,20 @@ function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatc
   }
 
   function btnClick() {
-    dispatch({ type: getType() });
+    const type = getType();
+    dispatch({ type: type, 
+      title: TITLE_STEP_2,
+      instructions: type === types.STEP_TO_FIND_SOLUTION_ITEMS ? stepBetweenInstructions(INBETWEEN_BTN_NAME) : step2Instructions(STEP_BTN_NAME)
+     });
   }
   return (
     <div>
-      <ControlButtons appDispatch={appDispatch} buttonName="Step" buttonAction={btnClick}/>
+      <ControlButtons appDispatch={appDispatch} buttonName={STEP_BTN_NAME} buttonAction={btnClick}/>
       <div className='py-2'>
         {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
       </div>
       <div className="explanation">
-        <p>This phase builds the dynamic table. In this visualization the process is done in a step by step process. Pressing the 'step' button will calculate the next cell's value. That value will be the maximum value for the current knapsack capacity. The highlighted code is the logic used to calculate the value.</p>
+        <p>This phase builds the dynamic table. In this visualization the process is done in a step by step process. Pressing the "{STEP_BTN_NAME}" button will calculate the next cell's value. That value will be the maximum value for the current knapsack capacity. The highlighted code is the logic used to calculate the value.</p>
         <p>In this implementation, the first column and row contain zeros. This is a coding convenience to avoid checking for index out of bounds errors.</p>
         <p>The algorithm does the following:</p>
         <ul className="list-disc ml-8">
