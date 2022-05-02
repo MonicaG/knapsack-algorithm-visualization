@@ -6,7 +6,7 @@ import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
 import { CameraIcon } from '@heroicons/react/solid';
-import hero from './assets/hero.jpg';
+import hero from './assets/hero.png';
 import twitter from './assets/twitter-blue.svg';
 import github from './assets/github.png';
 import menu from './assets/menu.svg';
@@ -98,9 +98,9 @@ function App() {
           </nav>
         </header>
         <div className="rounded">
-          <div className="relative mb-2">
-            <img className="object-cover h-32 sm:h-72 2xl:h-80 w-full object-center shadow-lg" src={hero} alt="Yellow backpack at the base of a tree." />
-            <h1 className="absolute inset-0 z-10 flex justify-center items-center text-white font-bold text-center text-4xl sm:text-6xl ">Knapsack Algorithm Visualization</h1>
+          <div class="flex justify-center gap-x-2">
+            <div className="ml-4 px-2 md:py-4 md:px-4"><img className="object-contain h-48" src={hero} alt="Drawing of an orange backpack with yellow straps." /></div>
+            <div className="self-center text-4xl md:text-6xl text-[#BF392C]">Knapsack Algorithm Visualization</div>
           </div>
           <div className="p-2">
             <div className="border bg-white p-6 md:max-w-2xl 2xl:max-w-4xl md:mx-auto rounded-lg">
@@ -137,7 +137,7 @@ function App() {
             </div>
             <div className="col-span-2 ">
               <div className="flex items-center">
-                <CameraIcon className="h-5" /><span className="mx-1"><a href="https://unsplash.com/@ilypnytskyi" className="link"> Igor Lypnytskyi</a> on <a href="https://unsplash.com/photos/hg_ScY1LFQU?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" className="link">Unsplash</a></span>
+                <CameraIcon className="h-5" /><span className="mx-1"><a href="https://icon-icons.com/icon/backpack-bag/54417" className="link">Nick Frost and Greg Lapin</a> on <a href="https://icon-icons.com/" className="link">icons-icons</a></span>
               </div>
             </div>
             <div className="col-span-2 ">
