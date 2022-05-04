@@ -1,5 +1,5 @@
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
-import React, { useReducer, useRef, useEffect } from 'react';
+import React, { useReducer, useRef, useEffect, useLayoutEffect, useState } from 'react';
 import PopulateTableCodeBlock from './PopulateTableCodeBlock';
 import SolutionTableRow from './SolutionTableRow';
 import SolutionTableHeaderRow from './SolutionTableHeaderRow';
@@ -34,6 +34,7 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isOverflow, setIsOverflow] = useState(undefined);
   const capacityRow = Array.from({ length: knapsackAlgorithm.capacity + 1 }, (e, i) => i);
   const ref = useRef(null);
   const tableState = state.findSolutionItems ? new FindItemsTableState(state, knapsackAlgorithm) : new BuildTableState(state)
@@ -41,6 +42,10 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
   function summation(prevValue, curValue) {
     return prevValue + curValue.width
   }
+  
+  /** 
+   * Scroll the table (if needed) when the "step" button is pressed. This is so the current cell being calculated is visible to the user.
+   */
   useEffect(() => {
     const rowName = state.cellDimensions[0]
     const index = state.findSolutionItems ? state.currentCapacity : state.currentCellIndex;
@@ -55,6 +60,22 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
     }
 
   }, [state.cellDimensions, state.currentCapacity, state.currentCellIndex, state.currentItemIndex, state.findSolutionItems, state.solutionIndex]);
+
+
+  /**
+   * adapted from: https://www.robinwieruch.de/react-custom-hook-check-if-overflow/
+   * Used to detect if the solution table is scrollable so as to display a message to ensure the user knows their data isn't truncated. They just need to scroll.
+   */
+  useLayoutEffect(() => {
+    const { current } = ref;
+    const trigger = () => {
+      const hasOverflow = current.scrollHeight > current.clientHeight || current.scrollWidth > current.clientWidth;
+      setIsOverflow(hasOverflow);
+    };
+    if (current) {
+      trigger();
+    }
+  }, [ref]);
 
   function reducer(state, action) {
     switch (action.type) {
@@ -134,7 +155,7 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
     <div>
       <h2 className="title">{state.title}</h2>
      <p className="table-instructions">{state.instructions}</p>
-     <p className="table-instructions">Note: The table is scrollable.</p>
+     {isOverflow ? <p className="table-instructions">Note: The table is scrollable.</p> : ""}
       <div className="overflow-x-auto overflow-y-auto h-72 sm:h-80 2xl:h-fit" ref={ref}>
         <table className="table-auto px-10 py-3 w-full">
           <SolutionTableHeaderRow
