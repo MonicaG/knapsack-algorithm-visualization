@@ -10,16 +10,19 @@ describe('test the setup screen', () => {
     new Item('item 2', 7, 5),
     new Item('item 3', 9, 2)
   ];
+  
+  const submitBtnNameQuery =  /Start/i;
+
   it('should invalidate the capacity element when the number is too low', async () => {
     const user = userEvent.setup();;
     const mockDispatch = jest.fn();
     render(<SetupScreen items={initItems} dispatch={mockDispatch} />);
 
     await user.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '0')
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
     
     expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toBeInvalid();
-    expect(await screen.findByRole("button", {name: /calculate/i})).toBeEnabled();
+    expect(await screen.findByRole("button", {name: submitBtnNameQuery})).toBeEnabled();
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledTimes(0);
     });
@@ -31,10 +34,10 @@ describe('test the setup screen', () => {
     render(<SetupScreen items={initItems} dispatch={mockDispatch} />);
 
     await user.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '11')
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toBeInvalid();
-    expect(await screen.findByRole("button", {name: /calculate/i})).toBeEnabled();
+    expect(await screen.findByRole("button", {name: submitBtnNameQuery})).toBeEnabled();
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledTimes(0);
     });
@@ -50,7 +53,7 @@ describe('test the setup screen', () => {
     expect(screen.getByDisplayValue('item 2')).toBeInTheDocument();
     expect(screen.getByDisplayValue('item 3')).toBeInTheDocument();
    
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledTimes(1);
     });
@@ -72,7 +75,7 @@ describe('test the setup screen', () => {
     expect(screen.getByRole("button", {name: /Add new item/i})).toBeDisabled();
   });
 
-  it('should disable the calculate button if all items are deleted', async () => {
+  it('should disable the start button if all items are deleted', async () => {
     const user = userEvent.setup();
     const mockDispatch = jest.fn();
 
@@ -86,7 +89,7 @@ describe('test the setup screen', () => {
     expect(screen.queryByLabelText('Delete item item 2')).toBeNull();
     expect(screen.queryByLabelText('Delete item item 3')).toBeNull();
 
-    expect(screen.getByRole("button", {name: /Calculate/i})).toBeDisabled();
+    expect(screen.getByRole("button", {name: submitBtnNameQuery})).toBeDisabled();
   });
 
   it('should add a new default item when the add new item button is clicked', async () => {
@@ -112,7 +115,7 @@ describe('test the setup screen', () => {
     await user.clear(screen.getByRole("spinbutton", { name: /value for item 2/i }));
     await user.type(screen.getByRole("spinbutton", { name: /value for item 2/i }),  '51' )
   
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
 
     const alerts = await screen.findAllByRole("alert");
@@ -141,7 +144,7 @@ describe('test the setup screen', () => {
     await user.clear(screen.getByRole("spinbutton", { name: /value for item 2/i }));
     await user.type(screen.getByRole("spinbutton", { name: /value for item 2/i }),  '-1' )
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -169,7 +172,7 @@ describe('test the setup screen', () => {
     await user.clear(itemNameField);
     await user.type(itemNameField, "item 1")
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -192,7 +195,7 @@ describe('test the setup screen', () => {
     await user.clear(itemNameField);
     await user.type(itemNameField, "ITEM 2")
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -216,7 +219,7 @@ describe('test the setup screen', () => {
     await user.clear(itemNameField);
     await user.type(itemNameField, " item 2 ")
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(2);
@@ -239,7 +242,7 @@ describe('test the setup screen', () => {
     let itemNameField = screen.getByDisplayValue("item 1");
     await user.clear(itemNameField);
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);
@@ -261,7 +264,7 @@ describe('test the setup screen', () => {
     await user.clear(itemNameField);
     await user.type(itemNameField, "  ")
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     const alerts = await screen.findAllByRole("alert");
     expect(alerts).toHaveLength(1);

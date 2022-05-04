@@ -6,7 +6,7 @@ exports[`the code block displays when an item is not part of the solution 1`] = 
     className="flex justify-between mt-4"
   >
     <input
-      className="btnGray"
+      className="btnReset"
       onClick={[Function]}
       type="button"
       value="Reset"
@@ -632,7 +632,7 @@ exports[`the code block displays when an item is part of the solution 1`] = `
     className="flex justify-between mt-4"
   >
     <input
-      className="btnGray"
+      className="btnReset"
       onClick={[Function]}
       type="button"
       value="Reset"

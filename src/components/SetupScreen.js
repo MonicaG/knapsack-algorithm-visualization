@@ -226,7 +226,7 @@ function SetupScreen({ items, dispatch }) {
           </div>
         </form>
         <div className="flex flex-col">
-          <input className="btnBlue max-w-max place-self-center" type="submit" form={formName} value="Calculate" disabled={calculateBtn} />
+          <input className="btnBlue w-40 tracking-wide place-self-center" type="submit" form={formName} value="Start" aria-label="Start Algorithm Calculation" disabled={calculateBtn} />
         </div>
       </div>
       <h2 className="title mt-6">Algorithm Details</h2>

@@ -4,6 +4,7 @@ import App from './App';
 import { TITLE_STEP_2 } from './components/solution/SolutionController'
 
 window.scrollTo = jest.fn()
+const submitBtnNameQuery =  /Start/i;
 
 describe('integration test between screens', () => {
   afterAll(() => {
@@ -28,7 +29,7 @@ describe('integration test between screens', () => {
 
     expect(screen.getByRole("spinbutton", { name: /knapsack capacity/i })).toHaveValue(4);
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }))
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }))
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -65,7 +66,7 @@ describe('integration test between screens', () => {
     expect(screen.getByDisplayValue(/item 3/)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/item 4/)).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -103,7 +104,7 @@ describe('integration test between screens', () => {
     expect(screen.getByLabelText('Delete item item 3')).toBeInTheDocument();
 
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
 
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
@@ -147,7 +148,7 @@ describe('integration test between screens', () => {
     expect(screen.getByLabelText('Delete item item 4')).toBeInTheDocument();
 
 
-    await user.click(screen.getByRole("button", { name: /calculate/i }));
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
     expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
 
 

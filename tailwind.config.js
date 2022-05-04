@@ -3,7 +3,15 @@ const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [    "./src/**/*.{js,jsx,ts,tsx}",  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'navbar-from': '#6d94bf',
+        'navbar-via': '#446e9b',
+        'navbar-to': '#3e648d',
+        'navbar-border': '#345578',
+        'hover': '#1d4f84',
+      },
+    },
     fontFamily: {
       'header': ['"Open Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"'],
     },

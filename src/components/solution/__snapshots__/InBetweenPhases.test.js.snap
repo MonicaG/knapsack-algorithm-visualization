@@ -6,7 +6,7 @@ exports[`InBetweenPhases tests displays the explanation text 1`] = `
     className="flex justify-between mt-4"
   >
     <input
-      className="btnGray"
+      className="btnReset"
       onClick={[Function]}
       type="button"
       value="Reset"

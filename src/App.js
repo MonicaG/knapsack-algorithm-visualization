@@ -82,7 +82,7 @@ function App() {
     <div>
       <div className="sm:bg-gradient-to-br sm:from-slate-50 sm:to-slate-200 bg-slate-100">
         <header>
-          <nav className="bg-gradient-to-b from-[#6d94bf] via-[#446e9b] to-[#3e648d] flex flex-wrap px-4 py-2 md:py-0 border border-[#345578] items-center justify-between w-full">
+          <nav className="bg-gradient-to-b from-navbar-from via-navbar-via to-navbar-to flex flex-wrap px-4 py-2 md:py-0 border border-navbar-border items-center justify-between w-full">
             <div className="justify-self-start logo navbar-font"><a href="/">Monica Granbois</a></div>
             <button onClick={() => menuBtnClick()} className="navbar-toggler">
               <img className="navbar-toggler-icon" src={menu} alt="navigation menu" />
