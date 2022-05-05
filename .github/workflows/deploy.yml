@@ -1,0 +1,19 @@
+name: test-and-deploy-project
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  call-build-and-deploy:
+    uses: ./.github/workflows/test.yml
+  
+  deploy-project:
+    needs: call-build-and-deploy
+    steps:
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages 
+        folder: build
