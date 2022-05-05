@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/knapsack-algorithm-visualization/static/css/main.33ab3796.css",
-    "main.js": "/knapsack-algorithm-visualization/static/js/main.bd86719e.js",
+    "main.js": "/knapsack-algorithm-visualization/static/js/main.6a327d9d.js",
     "static/js/787.df8b8c93.chunk.js": "/knapsack-algorithm-visualization/static/js/787.df8b8c93.chunk.js",
     "static/media/hero.png": "/knapsack-algorithm-visualization/static/media/hero.df06c8ba2f22f5606303.png",
     "static/media/equation_2.svg": "/knapsack-algorithm-visualization/static/media/equation_2.419e8441525423285a03ce44ff0eeed0.svg",
@@ -11,11 +11,11 @@
     "static/media/twitter-blue.svg": "/knapsack-algorithm-visualization/static/media/twitter-blue.58bf1288266cc62d814a406fe8b5f4ef.svg",
     "static/media/menu.svg": "/knapsack-algorithm-visualization/static/media/menu.fd2b3c8f2942ac343682bcc201e18afa.svg",
     "main.33ab3796.css.map": "/knapsack-algorithm-visualization/static/css/main.33ab3796.css.map",
-    "main.bd86719e.js.map": "/knapsack-algorithm-visualization/static/js/main.bd86719e.js.map",
+    "main.6a327d9d.js.map": "/knapsack-algorithm-visualization/static/js/main.6a327d9d.js.map",
     "787.df8b8c93.chunk.js.map": "/knapsack-algorithm-visualization/static/js/787.df8b8c93.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.33ab3796.css",
-    "static/js/main.bd86719e.js"
+    "static/js/main.6a327d9d.js"
   ]
 }
