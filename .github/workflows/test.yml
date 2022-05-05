@@ -25,3 +25,10 @@ jobs:
 
     - name: 🔍 Test project
       run: npm test
+    
+    - name: ☁️ Upload the build directory
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: build
+        path: build/
+
