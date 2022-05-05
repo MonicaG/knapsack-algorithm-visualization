@@ -10,6 +10,7 @@ jobs:
     uses: ./.github/workflows/test.yml
   
   deploy-project:
+    runs-on: ubuntu-latest
     needs: call-build-and-deploy
     steps:
     - name: Deploy 🚀
