@@ -1,6 +1,7 @@
 import React from 'react';
 import { SolutionItemsPropType } from './helpers/PropTypesHelper'
 import ControlButtons from './ControlButtons';
+import ReactEmbedGist from 'react-embed-gist';
 
 function SolutionItems({ solutionItems, appDispatch }) {
   const solutionItemsToUse = solutionItems.filter(x => x.inSolution)
@@ -18,6 +19,8 @@ function SolutionItems({ solutionItems, appDispatch }) {
           :
           <p>No items fit in the knapsack.</p>
         }
+        <h3 className="title">Complete Algorithm</h3>
+        <ReactEmbedGist gist="MonicaG/080c68d98f78c199552a00bdb5580ca2"/>
         <h3 className="title">Resources</h3>
         <p>The following helped me understand the knapsack problem:</p>
         <ul className="list-disc ml-8">

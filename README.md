@@ -16,3 +16,4 @@ This project was made as a hobby project to learn ReactJS and TailwindCSS.
 * [React Hook Form](https://react-hook-form.com/)
 * [react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter)
 * [TailwindCSS](https://tailwindcss.com/)
+* [react-embed-gist](https://github.com/msaracevic/react-embed-gist)
