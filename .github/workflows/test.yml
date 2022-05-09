@@ -27,8 +27,9 @@ jobs:
       run: npm test
     
     - name: ☁️ Upload the build directory
-      uses: actions/upload-artifact@v3.0.0
+      uses: actions/upload-artifact@v3
       with:
         name: build
         path: build/
+        retention-days: 1
 
