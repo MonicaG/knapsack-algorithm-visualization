@@ -39,11 +39,11 @@ describe('integration test between screens', () => {
 
     expect(capacityRowCells.length).toBe(6);
     expect(within(capacityRowCells[0]).queryByText(/\S/)).not.toBeInTheDocument();
-    expect(within(capacityRowCells[1]).getByText(/0/)).toBeInTheDocument();
-    expect(within(capacityRowCells[2]).getByText(/1/)).toBeInTheDocument();
-    expect(within(capacityRowCells[3]).getByText(/2/)).toBeInTheDocument();
-    expect(within(capacityRowCells[4]).getByText(/3/)).toBeInTheDocument();
-    expect(within(capacityRowCells[5]).getByText(/4/)).toBeInTheDocument();
+    expect(within(within(capacityRowCells[1]).getByLabelText("capacity value")).getByText(/0/)).toBeInTheDocument();
+    expect(within(within(capacityRowCells[2]).getByLabelText("capacity value")).getByText(/1/)).toBeInTheDocument();
+    expect(within(within(capacityRowCells[3]).getByLabelText("capacity value")).getByText(/2/)).toBeInTheDocument();
+    expect(within(within(capacityRowCells[4]).getByLabelText("capacity value")).getByText(/3/)).toBeInTheDocument();
+    expect(within(within(capacityRowCells[5]).getByLabelText("capacity value")).getByText(/4/)).toBeInTheDocument();
   });
 
   it('should add an item to the item list and pass the modified list to the next screen', async () => {

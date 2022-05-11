@@ -162,6 +162,7 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
             cellKey="capacityRowCell"
             row={capacityRow}
             state={state}
+            maxCellLengthItem={knapsackAlgorithm.maxLengthItem}
             dispatch={dispatch}
           />
           <tbody>

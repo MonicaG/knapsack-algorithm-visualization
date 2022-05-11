@@ -1,8 +1,10 @@
 import SolutionItem from "./SolutionItem";
+import { format } from './../components/solution/helpers/Formatting';
 
 class KnapSackAlgorithm {
   _solutionTable;
   _solutionItems;
+  _maxLengthItem;
   constructor(items, capacity) {
     /*
     Note to future self: I'm only providing getter functionality for items and capacity, since I create the object when 
@@ -13,6 +15,11 @@ class KnapSackAlgorithm {
     */
     this._items = items;
     this._capacity = capacity;
+    /* The maxLengthItem contains the value with the most number of digits in it. This is a bit of a hack to get around the issue of the display table resizing itself. By getting the max length, the 
+      table cells in the display can be set to the max width at the start. I'm getting the size based on the value vs just setting a size on the cell so that on smaller screens, the cells will not be too large
+      if not needed. (i.e. don't set a cells width to hold 3 digits when only 1 digit is needed). This way the screen space is better used for small screens.
+    */
+    this._maxLengthItem = 0;
   }
 
   _init() {
@@ -22,7 +29,6 @@ class KnapSackAlgorithm {
     if(!this._solutionItems) {
       this._solutionItems = this._findItemsThatFit();
     }
-    
   }
 
   _knapsack() {
@@ -36,8 +42,9 @@ class KnapSackAlgorithm {
       for (let currentCapacity = 1; currentCapacity <= this.capacity; currentCapacity++) {
         const valueForCapacityInPreviousRow = table[offsetIndex - 1][currentCapacity]
         table[offsetIndex][currentCapacity] = item.weight <= currentCapacity ?
-          Math.max(valueForCapacityInPreviousRow, (item.value + table[offsetIndex - 1][currentCapacity - item.weight])) :
+          Math.max(valueForCapacityInPreviousRow, format((item.value + table[offsetIndex - 1][currentCapacity - item.weight]))) :
           valueForCapacityInPreviousRow
+        this._maxLengthItem = this._maxLengthItem.toString().length < table[offsetIndex][currentCapacity].toString().length ? table[offsetIndex][currentCapacity] : this._maxLengthItem;
       }
     });
     return table;
@@ -75,6 +82,10 @@ class KnapSackAlgorithm {
 
   get capacity() {
     return this._capacity;
+  }
+
+  get maxLengthItem() {
+    return this._maxLengthItem;
   }
 
 }
