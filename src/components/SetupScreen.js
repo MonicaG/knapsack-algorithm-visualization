@@ -94,7 +94,7 @@ function SetupScreen({ items, dispatch }) {
       <h2 className="title mt-4">Step 1: Setup</h2>
       <div>
         <form id={formName} onSubmit={handleSubmit(onSubmit)} className="w-full my-4 flex flex-col justify-center gap-4">
-          <div className="bg-gray-100 px-2 py-4 sm:px-6 sm:py-6 2xl:px-20 rounded-lg">
+          <div className="bg-gray-100 px-2 py-4 sm:px-6 sm:py-6 2xl:mx-auto rounded-lg">
             <label className="mb-3 font-bold text-gray-700" hmlfor="capacity">Knapsack Capacity</label>
             <input type="number"
               aria-label="knapsack capacity"

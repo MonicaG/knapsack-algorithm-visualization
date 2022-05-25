@@ -1,8 +1,8 @@
 import { KnapsackAlgorithmPropType } from './helpers/PropTypesHelper'
-import React, { useReducer, useRef, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useReducer, useRef, useEffect, useLayoutEffect, useState, useCallback } from 'react';
 import PopulateTableCodeBlock from './PopulateTableCodeBlock';
 import SolutionTableRow from './SolutionTableRow';
-import SolutionTableHeaderRow from './SolutionTableHeaderRow';
+import { getCellId } from './helpers/TableHelper';
 import FindItemsTableState from '../../models/tablestate/FindItemsTableState';
 import BuildTableState from '../../models/tablestate/BuildTableState';
 import SolutionItems from './SolutionItems';
@@ -15,8 +15,7 @@ const solutionControllerActionTypes = {
   STEP_TO_NEXT_ROW: 2,
   STEP_TO_FIND_SOLUTION_ITEMS: 3,
   STEP_FIND_NEXT_SOLUTION_ITEM: 4,
-  CELL_DIMENSIONS: 5,
-  STEP_SHOW_ALL_SOLUTION_ITEMS: 6,
+  STEP_SHOW_ALL_SOLUTION_ITEMS: 5,
 }
 
 function SolutionController({ knapsackAlgorithm, appDispatch }) {
@@ -28,38 +27,45 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
     findSolutionItems: false,
     solutionIndex: knapsackAlgorithm.items.length,
     title: TITLE_STEP_2,
-    cellDimensions: new Array(knapsackAlgorithm.capacity + 1).fill({ width: 0, height: 0 }),
     phase: solutionControllerActionTypes.STEP_TO_NEXT_CELL,
     instructions: step2Instructions(STEP_BTN_NAME),
   }
 
+  const yScrollFactor = 1.12;
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isOverflow, setIsOverflow] = useState(undefined);
   const capacityRow = Array.from({ length: knapsackAlgorithm.capacity + 1 }, (e, i) => i);
   const ref = useRef(null);
+  const [cellDimensions, setCellDimensions] = useState({ width: 0, height: 0 });
+
   const tableState = state.findSolutionItems ? new FindItemsTableState(state, knapsackAlgorithm) : new BuildTableState(state)
 
-  function summation(prevValue, curValue) {
-    return prevValue + curValue.width
-  }
+  /**
+   * Get the size of the table cell so we know how much to scroll by in the useEffect logic below. 
+   * See: https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
+   */
+  const measureCellRef = useCallback((node) => {
+    if (node !== null) { 
+      setCellDimensions({width: node.getBoundingClientRect().width, height: node.getBoundingClientRect().height});
+    }
+  }, []);
   
   /** 
    * Scroll the table (if needed) when the "step" button is pressed. This is so the current cell being calculated is visible to the user.
    */
   useEffect(() => {
-    const rowName = state.cellDimensions[0]
     const index = state.findSolutionItems ? state.currentCapacity : state.currentCellIndex;
     const itemIndex = state.findSolutionItems ? state.solutionIndex : state.currentItemIndex
     if (state.currentCellIndex === 1) {
       ref.current.scrollLeft = 0;
     } else {
-      ref.current.scrollLeft = state.cellDimensions.slice(0, index + 1).reduce(summation, 0) + state.cellDimensions[index].width
+      ref.current.scrollLeft = (index + 1) * cellDimensions.width;
     }
     if (state.currentItemIndex > 1 || state.findSolutionItems) {
-      ref.current.scrollTop = rowName.height * itemIndex
+      ref.current.scrollTop = cellDimensions.height * itemIndex * yScrollFactor;
     }
 
-  }, [state.cellDimensions, state.currentCapacity, state.currentCellIndex, state.currentItemIndex, state.findSolutionItems, state.solutionIndex]);
+  }, [cellDimensions, state.currentCapacity, state.currentCellIndex, state.currentItemIndex, state.findSolutionItems, state.solutionIndex]);
 
 
   /**
@@ -120,11 +126,6 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
           phase: tempPhase,
           instructions: tempPhase === solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM ? action.instructions : "",
         }
-      case solutionControllerActionTypes.CELL_DIMENSIONS:
-        return {
-          ...state,
-          cellDimensions: action.cellDimensions,
-        }
       case solutionControllerActionTypes.RESET:
           return {
             ...state,
@@ -158,12 +159,21 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
      {isOverflow ? <p className="table-instructions">Note: The table is scrollable.</p> : ""}
       <div className="overflow-x-auto overflow-y-auto h-72 sm:h-80 2xl:h-fit" ref={ref}>
         <table className="table-auto px-10 py-3 w-full">
-          <SolutionTableHeaderRow
-            cellKey="capacityRowCell"
-            row={capacityRow}
-            state={state}
-            dispatch={dispatch}
-          />
+          <thead>
+            <tr>
+              <th className="header"></th>
+                {capacityRow.map((cell, index) => {
+                  const id = getCellId("capacityRowCell", index);
+                  return <th id={id} key={id} className="header" ref={index === 1 ? measureCellRef : null}>
+                    {/* Make all the cells the size of the length of the longest value in the table. This is because at the start all 0 are shown. But if a cell contains a value with multiple digits the cells width changes
+                    (from 1 digit to 3 digits for example), which causes a jumping motion in the table as it expands the cell. So, make all the cells the max width at the start to avoid this behaviour.
+                  */}
+                    <div className="relative"><div className='z-1 invisible'>{knapsackAlgorithm.maxLengthItem}</div>
+                    <div className="absolute text-center inset-x-0 inset-y-0" aria-label="capacity value">{cell}</div></div>
+                  </th> 
+                })}
+            </tr>
+          </thead>
           <tbody>
             {knapsackAlgorithm.solutionTable.map((row, index) => {
               const indexOffset = index - 1;
