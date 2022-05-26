@@ -3,11 +3,11 @@ import { SolutionItemsPropType } from './helpers/PropTypesHelper'
 import ControlButtons from './ControlButtons';
 import ReactEmbedGist from 'react-embed-gist';
 
-function SolutionItems({ solutionItems, appDispatch }) {
+function SolutionItems({ solutionItems }) {
   const solutionItemsToUse = solutionItems.filter(x => x.inSolution)
   return (
     <div>
-      <ControlButtons appDispatch={appDispatch}/>
+      <ControlButtons />
       <div className="explanation">
         <p>The algorithm has completed. The following items fit in the knapsack and provide the greatest value:</p>
         {solutionItemsToUse.length > 0 ?

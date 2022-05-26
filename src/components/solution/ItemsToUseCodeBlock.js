@@ -7,12 +7,12 @@ import ItemsToUseCode from '../../models/codeblock/ItemsToUseCode';
 import ControlButtons from './ControlButtons';
 import { TITLE_STEP_3, STEP_BTN_NAME, step3Instructions } from './helpers/constants';
 
-function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatch }) {
+function ItemsToUseCodeBlock({ knapsackAlgorithm, state, dispatch }) {
 
   const codeBlock = new ItemsToUseCode(state.solutionIndex, state.currentCapacity, knapsackAlgorithm);
   return (
     <div>
-      <ControlButtons appDispatch={appDispatch} buttonName={STEP_BTN_NAME} buttonAction={handleButtonClick}/>
+      <ControlButtons buttonName={STEP_BTN_NAME} buttonAction={handleButtonClick}/>
       <div className="py-2">
         {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
       </div>
