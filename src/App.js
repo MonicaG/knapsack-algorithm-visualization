@@ -10,6 +10,7 @@ import hero from './assets/hero.png';
 import twitter from './assets/twitter-blue.svg';
 import github from './assets/github.png';
 import menu from './assets/menu.svg';
+import AppContext from './AppContext';
 
 const actionTypes = {
   calculate: 1,
@@ -104,21 +105,20 @@ function App() {
           </div>
           <div className="p-2">
             <div className="border bg-white p-6 md:max-w-2xl 2xl:max-w-5xl md:mx-auto rounded-lg">
-
+              <AppContext.Provider value={{appDispatch: dispatch}}>
               {state.showEntryForm ?
                 <SetupScreen
                   items={state.items}
-                  dispatch={dispatch}
                   capacity={state.capacity}
                 />
                 :
                 <div>
                   <SolutionController
                     knapsackAlgorithm={state.knapsack}
-                    appDispatch={dispatch}
                   />
                 </div>
               }
+              </AppContext.Provider>
             </div>
           </div>
         </div>

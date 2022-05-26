@@ -18,7 +18,7 @@ const solutionControllerActionTypes = {
   STEP_SHOW_ALL_SOLUTION_ITEMS: 5,
 }
 
-function SolutionController({ knapsackAlgorithm, appDispatch }) {
+function SolutionController({ knapsackAlgorithm }) {
 
   const initialState = {
     currentItemIndex: 1,
@@ -141,15 +141,15 @@ function SolutionController({ knapsackAlgorithm, appDispatch }) {
     switch (state.phase) {
       case solutionControllerActionTypes.STEP_TO_NEXT_CELL:
       case solutionControllerActionTypes.STEP_TO_NEXT_ROW:
-        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
+        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
       case solutionControllerActionTypes.STEP_TO_FIND_SOLUTION_ITEMS:
-        return <InBetweenPhases state={state} dispatch={dispatch} knapsackAlgorithm={knapsackAlgorithm} appDispatch={appDispatch}/>
+        return <InBetweenPhases state={state} dispatch={dispatch} knapsackAlgorithm={knapsackAlgorithm} />
       case solutionControllerActionTypes.STEP_FIND_NEXT_SOLUTION_ITEM:
-        return <ItemsToUseCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
+        return <ItemsToUseCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
       case solutionControllerActionTypes.STEP_SHOW_ALL_SOLUTION_ITEMS:
-        return <SolutionItems solutionItems={knapsackAlgorithm.solutionItems} appDispatch={appDispatch}/>
+        return <SolutionItems solutionItems={knapsackAlgorithm.solutionItems} />
       default:
-        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} appDispatch={appDispatch} />
+        return <PopulateTableCodeBlock knapsackAlgorithm={knapsackAlgorithm} state={state} dispatch={dispatch} />
     }
   }
   return (

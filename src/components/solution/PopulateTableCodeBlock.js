@@ -8,7 +8,7 @@ import {format} from './helpers/Formatting';
 import ControlButtons from './ControlButtons';
 import { TITLE_STEP_2, step2Instructions, STEP_BTN_NAME, INBETWEEN_BTN_NAME, stepBetweenInstructions } from './helpers/constants';
 
-function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatch }) {
+function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch }) {
 
   const codeBlock = new PopulateTableCode(knapsackAlgorithm.items[state.currentItemIndex - 1], state.currentCapacity, state.currentItemIndex, knapsackAlgorithm.solutionTable);
   function getType() {
@@ -32,7 +32,7 @@ function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch, appDispatc
   }
   return (
     <div>
-      <ControlButtons appDispatch={appDispatch} buttonName={STEP_BTN_NAME} buttonAction={btnClick}/>
+      <ControlButtons buttonName={STEP_BTN_NAME} buttonAction={btnClick}/>
       <div className='py-2'>
         {buildSyntaxHighlight(codeBlock.getCode(), codeBlock.isInSolutions(), codeBlock.getInLineNums(), codeBlock.getOutLineNums())}
       </div>

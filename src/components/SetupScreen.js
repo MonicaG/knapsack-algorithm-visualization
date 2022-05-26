@@ -4,15 +4,18 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { actionTypes } from '../App';
 import { ErrorMessage } from '@hookform/error-message';
 import { TrashIcon } from '@heroicons/react/solid';
-import React from 'react';
+import React, { useContext } from 'react';
 import eq1 from '../assets/equation_1.svg';
 import eq2 from '../assets/equation_2.svg';
 import eq3 from '../assets/equation_3.svg';
+import AppContext from '../AppContext';
 
-function SetupScreen({ items, dispatch, capacity}) {
+function SetupScreen({ items, capacity}) {
 
   const ariaLabelAddNewItem = "Add new item";
   const formName = "SetupForm";
+
+  const appContext = useContext(AppContext);
 
   const [calculateBtn, setcalculateBtn] = React.useState(false);
 
@@ -69,7 +72,7 @@ function SetupScreen({ items, dispatch, capacity}) {
 
   function onSubmit(event) {
     const value = event.capacity;
-    dispatch({ type: actionTypes.calculate, capacityValue: value, items: event.itemsArray });
+    appContext.appDispatch({ type: actionTypes.calculate, capacityValue: value, items: event.itemsArray });
   }
 
   function getCSS(index, fieldName) {
