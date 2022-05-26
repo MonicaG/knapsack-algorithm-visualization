@@ -168,5 +168,49 @@ describe('integration test between screens', () => {
     expect(within(thirdItemRowCells[0]).getByText(/\s*item 4\s*/i)).toBeInTheDocument();
 
   });
+
+  it('should remember the values the user entered when the reset button is clicked', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toHaveValue(5);
+
+    await user.clear(screen.getByRole("spinbutton", { name: /knapsack capacity/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /knapsack capacity/i }), '6');
+
+
+    expect(screen.getByRole("spinbutton", { name: /knapsack capacity/i })).toHaveValue(6);
+    const addButton = screen.getByRole("button", { name: /Add new item/i });
+    expect(addButton).not.toBeDisabled();
+
+    await user.click(addButton);
+
+    //number is index based, so one lower than item name
+    await user.clear(screen.getByRole("spinbutton", { name: /weight for item 3/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /weight for item 3/i }), '5');
+
+    await user.clear(screen.getByRole("spinbutton", { name: /value for item 3/i }));
+    await user.type(screen.getByRole("spinbutton", { name: /value for item 3/i }), '10');
+
+
+    await user.click(screen.getByRole("button", { name: submitBtnNameQuery }));
+    expect(await screen.findByText(TITLE_STEP_2)).toBeInTheDocument();
+
+    const resetButton = screen.getByRole("button", {name: /Reset/i});
+    await user.click(resetButton);
+    expect(await screen.findByRole("spinbutton", { name: /knapsack capacity/i })).toHaveValue(6);
+    
+    expect(await screen.findByRole("spinbutton", { name: /weight for item 3/i })).toHaveValue(5);
+    expect(await screen.findByRole("spinbutton", { name: /value for item 3/i })).toHaveValue(10);
+
+    expect(await screen.findByRole("spinbutton", { name: /weight for item 2/i })).toHaveValue(3);
+    expect(await screen.findByRole("spinbutton", { name: /value for item 2/i })).toHaveValue(5);
+
+    expect(await screen.findByRole("spinbutton", { name: /weight for item 1/i })).toHaveValue(1);
+    expect(await screen.findByRole("spinbutton", { name: /value for item 1/i })).toHaveValue(3);
+
+    expect(await screen.findByRole("spinbutton", { name: /weight for item 0/i })).toHaveValue(2);
+    expect(await screen.findByRole("spinbutton", { name: /value for item 0/i })).toHaveValue(4);
+  });
 });
 

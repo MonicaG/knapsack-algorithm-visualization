@@ -9,7 +9,7 @@ import eq1 from '../assets/equation_1.svg';
 import eq2 from '../assets/equation_2.svg';
 import eq3 from '../assets/equation_3.svg';
 
-function SetupScreen({ items, dispatch }) {
+function SetupScreen({ items, dispatch, capacity}) {
 
   const ariaLabelAddNewItem = "Add new item";
   const formName = "SetupForm";
@@ -25,7 +25,8 @@ function SetupScreen({ items, dispatch }) {
   } = useForm({
     criteriaMode: "all",
     defaultValues: {
-      itemsArray: items
+      itemsArray: items,
+      capacity: capacity,
     }
   });
 

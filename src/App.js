@@ -109,6 +109,7 @@ function App() {
                 <SetupScreen
                   items={state.items}
                   dispatch={dispatch}
+                  capacity={state.capacity}
                 />
                 :
                 <div>
