@@ -75,6 +75,10 @@
   .navbar-link {
     @apply navbar-font md:py-4 md:px-2 py-2 block text-white opacity-75;
   }
+
+  .navbar-tipjar {
+    @apply opacity-100 md:mt-[1.25em] md:pb-4 md:px-2 block;
+  }
   
   .navbar-toggler-icon {
     @apply w-[30px] h-[30px] align-middle bg-contain bg-transparent inline-block md:hidden;
