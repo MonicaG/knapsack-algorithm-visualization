@@ -10,12 +10,16 @@ import hero from './assets/hero.png';
 import twitter from './assets/twitter-blue.svg';
 import github from './assets/github.png';
 import menu from './assets/menu.svg';
+import kofi from './assets/Ko-fi_logo_RGB_Outline.png'
+import kofiBlue from './assets/kofilogo_bluebg.png'
 import AppContext from './AppContext';
 
 const actionTypes = {
   calculate: 1,
   reset: 2,
 }
+
+const tipJarLink = "https://ko-fi.com/W7W4CXVBZ";
 
 function App() {
 
@@ -94,6 +98,7 @@ function App() {
                 <li><a className="navbar-link" href="/about/">About</a></li>
                 <li><a className="navbar-link" href="/projects/">Projects</a></li>
                 <li><a className="navbar-link" href="/feed.xml">RSS</a></li>
+                <li><a className="navbar-tipjar" href={tipJarLink} target="_blank" rel="noreferrer"><img src={kofi} alt="The kofi logo of a coffee mug" /></a></li>
               </ul>
             </div>
           </nav>
@@ -105,45 +110,45 @@ function App() {
           </div>
           <div className="p-2">
             <div className="border bg-white p-6 md:max-w-2xl 2xl:max-w-5xl md:mx-auto rounded-lg">
-              <AppContext.Provider value={{appDispatch: dispatch}}>
-              {state.showEntryForm ?
-                <SetupScreen
-                  items={state.items}
-                  capacity={state.capacity}
-                />
-                :
-                <div>
-                  <SolutionController
-                    knapsackAlgorithm={state.knapsack}
+              <AppContext.Provider value={{ appDispatch: dispatch }}>
+                {state.showEntryForm ?
+                  <SetupScreen
+                    items={state.items}
+                    capacity={state.capacity}
                   />
-                </div>
-              }
+                  :
+                  <div>
+                    <SolutionController
+                      knapsackAlgorithm={state.knapsack}
+                    />
+                  </div>
+                }
               </AppContext.Provider>
             </div>
           </div>
         </div>
-        <div className="flex place-content-center bg-white my-4">
-          <div className="grid grid-cols-2 gap-y-2 gap-x-0 w-fit text-xs justify-items-center mt-2">
-            <div>
-              <div className="flex items-center">
+        <div className="flex flex-col place-content-center bg-white my-4 place-items-center text-xs">
+          <div className="divide-y divide-dashed text-center">
+            <div className="mt-2">
+              <span className="inline-flex items-center"><a href={tipJarLink} target="_blank" rel="noreferrer"><img className="mr-2" src={kofiBlue} alt="The kofi logo of a coffee mug" /></a> Like this? Please buy me a &nbsp;<a className="link" href={tipJarLink} target="_blank" rel="noreferrer">coffee!</a></span>
+            </div>
+            <div className="pt-2">
+              <span className="inline-flex items-center">
                 <img className="h-4" src={github} alt="github logo" />
                 <span className="mx-1"><a href="https://github.com/MonicaG" className="link">MonicaG</a></span>
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center">
+                <span className="mx-2">|</span>
                 <img className="h-4" src={twitter} alt="twitter logo" />
                 <span className="mx-1"><a href="https://twitter.com/mgranbois" className="link">@mgranbois</a></span>
-              </div>
+              </span>
             </div>
-            <div className="col-span-2 ">
-              <div className="flex items-center">
-                <CameraIcon className="h-5" /><span className="mx-1"><a href="https://icon-icons.com/icon/backpack-bag/54417" className="link">Nick Frost and Greg Lapin</a> on <a href="https://icon-icons.com/" className="link">icons-icons</a></span>
-              </div>
-            </div>
-            <div className="col-span-2 ">
-              <p>&copy; 2022</p>
-            </div>
+          </div>
+          <div>
+            <span className="inline-flex items-center">
+              <CameraIcon className="h-5" /><span className="mx-1"><a href="https://icon-icons.com/icon/backpack-bag/54417" className="link">Nick Frost and Greg Lapin</a> on <a href="https://icon-icons.com/" className="link">icons-icons</a></span>
+            </span>
+          </div>
+          <div>
+            <p>&copy; 2022</p>
           </div>
         </div>
       </div>
