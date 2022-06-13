@@ -14,6 +14,7 @@ function SetupScreen({ items, capacity}) {
 
   const ariaLabelAddNewItem = "Add new item";
   const formName = "SetupForm";
+  const submitBtnLabel = "Start";
 
   const appContext = useContext(AppContext);
 
@@ -92,7 +93,7 @@ function SetupScreen({ items, capacity}) {
     <div className="explanation">
     <p>The <a className="link" href="https://en.wikipedia.org/wiki/Knapsack_problem">knapsack problem</a> is usually described with a story. For example, a hiker needs to pack a knapsack for their expedition. There are many items the hiker would like to take: a tent, a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the knapsack can only carry a maximum amount of weight.</p>
     <p>The hiker gives a value to the potential items. An item that will be very beneficial, like a sleeping bag, will have a high value. An item that will be less beneficial, like a frisbee, will have a lower value. The hiker must prioritize which items to take based on the items' values and weights. The knapsack algorithm solves the hiker's dilema by finding the most valuable items that will fit in the knapsack.</p>
-    <p>This app will step through the knapsack algorithm. Below, you may define the inputs to the algorithm. You can set the knapsack capacity (maximum weight) between {capacityDefaults.min} and {capacityDefaults.max}. You can enter up to {maxNumOfItems} items, with values between {itemValueDefaults.min} and {itemValueDefaults.max} and weight between {capacityDefaults.min} and {capacityDefaults.max}. Click the 'Calculate' button to step through the algorithm.</p>
+    <p>This app will step through the knapsack algorithm. Below, you may define the inputs to the algorithm. You can set the knapsack capacity (maximum weight) between {capacityDefaults.min} and {capacityDefaults.max}. You can enter up to {maxNumOfItems} items, with values between {itemValueDefaults.min} and {itemValueDefaults.max} and weight between {capacityDefaults.min} and {capacityDefaults.max}. Click the '{submitBtnLabel}' button to step through the algorithm.</p>
     <p>Below the setup fields on this screen is additional information about the knapsack algorithm.</p>
     </div>
       <h2 className="title mt-4">Step 1: Setup</h2>
@@ -230,7 +231,7 @@ function SetupScreen({ items, capacity}) {
           </div>
         </form>
         <div className="flex flex-col">
-          <input className="btnBlue w-40 tracking-wide place-self-center" type="submit" form={formName} value="Start" aria-label="Start Algorithm Calculation" disabled={calculateBtn} />
+          <input className="btnBlue w-40 tracking-wide place-self-center" type="submit" form={formName} value={submitBtnLabel} aria-label="Start Algorithm Calculation" disabled={calculateBtn} />
         </div>
       </div>
       <h2 className="title mt-6">Algorithm Details</h2>
