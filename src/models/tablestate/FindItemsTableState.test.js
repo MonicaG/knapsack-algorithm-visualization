@@ -1,5 +1,5 @@
 import FindItemsTableState from './FindItemsTableState';
-import TableStateReturnValue from './TableStateReturnValue';
+import {RetValue, CellType} from './TableStateReturnValue';
 import KnapSackAlgorithm from '../KnapsackAlgorithm';
 import Item from '../Item';
 
@@ -26,7 +26,7 @@ describe('FindItemsTableState', () => {
 
   it('will return cell index and in solution css when the item is part of the solution', () => {  
     const fits = new FindItemsTableState(state, knapsackAlgorithm);
-    const expectedRetValue = new TableStateReturnValue(5, FindItemsTableState.CSS_IN_SOLUTION);
+    const expectedRetValue = new RetValue(5, FindItemsTableState.CSS_IN_SOLUTION, CellType.hightlightedCell);
     expect(fits.getCellToHighLightAndCSS(3)).toStrictEqual(expectedRetValue);
   });
 
@@ -36,21 +36,19 @@ describe('FindItemsTableState', () => {
     state.currentCellIndex = 2;
     state.solutionIndex = 2;
     const fits = new FindItemsTableState(state, knapsackAlgorithm);
-    const expectedRetValue = new TableStateReturnValue(2, FindItemsTableState.CSS_NOT_IN_SOLUTION);
+    const expectedRetValue = new RetValue(2, FindItemsTableState.CSS_NOT_IN_SOLUTION, CellType.mutedCell);
     expect(fits.getCellToHighLightAndCSS(2)).toStrictEqual(expectedRetValue);
   });
 
   it('will return nothing when the phase is STEP_TO_FIND_SOLUTION_ITEMS', () => {  
     state.phase = 3;
     const fits = new FindItemsTableState(state, knapsackAlgorithm);
-    const expectedRetValue = new TableStateReturnValue(null, null);
-    expect(fits.getCellToHighLightAndCSS(2)).toStrictEqual(expectedRetValue);
+    expect(fits.getCellToHighLightAndCSS(2)).toBeNull();
   });
 
   it('will return nothing when the index is invalid', () => {
     const fits = new FindItemsTableState(state, knapsackAlgorithm);
-    const expectedRetValue = new TableStateReturnValue(null, null);
-    expect(fits.getCellToHighLightAndCSS(-2)).toStrictEqual(expectedRetValue);
+    expect(fits.getCellToHighLightAndCSS(-2)).toBeNull();
   });
   
   it('will return return the row with no changes', () => {

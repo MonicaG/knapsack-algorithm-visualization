@@ -22,3 +22,8 @@ export const KnapsackAlgorithmPropType = PropTypes.shape({
   solutionTable: PropTypes.array.isRequired,
   solutionItems: SolutionItemsPropType.isRequired,
 });
+
+export const TableStateReturnValue = PropTypes.shape({
+  column: PropTypes.number,
+  css: PropTypes.string,
+});

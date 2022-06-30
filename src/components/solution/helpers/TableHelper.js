@@ -2,8 +2,13 @@ function getCellId(base, index) {
   return `${base}${index}`;
 }
 
-function getItemCellId(item, index) {
-  return getCellId(item.id, index);
+function getCellIdBase(item) {
+  return item ? item.id : "Cell";
 }
 
-export {getCellId, getItemCellId}
+function getTableHeaderCellId(index) {
+  return getCellId("capacityRowCell", index);
+}
+
+
+export {getCellId, getCellIdBase, getTableHeaderCellId}
