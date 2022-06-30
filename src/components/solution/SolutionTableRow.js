@@ -1,15 +1,36 @@
 import PropTypes from 'prop-types';
-import { ItemPropType } from './helpers/PropTypesHelper'
+import { ItemPropType, TableStateReturnValue } from './helpers/PropTypesHelper'
 import { getCellId } from './helpers/TableHelper';
 import { format } from './helpers/Formatting';
+import { useCallback } from 'react';
+import { CellType } from './../../models/tablestate/TableStateReturnValue'
 
-function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
+function SolutionTableRow({ cellKey, row, item, highlightcells, currentItem, measureCellRef, rowIndex }) {
 
   const mutedCSS = "muted";
 
-  function getCSS(index) {
-    if (index === currentCell) {
-      let css = currentCellCSS;
+  function shouldDisplayValue(index, cell) {
+    return (cell && cell.column === index && cell.type === CellType.contributingCellLeftOverCapacity)
+  }
+  const getCell = useCallback((index) => {
+    if (highlightcells !== null) {
+      if (Array.isArray(highlightcells)) {
+        let cells = highlightcells.filter(x => x.column === index);
+        if (cells.length === 1) {
+          return cells[0];
+        }
+      } else {
+        return highlightcells;
+      }
+    }
+    return null;
+  }, [highlightcells])
+
+
+
+  function getCSS(index, cell) {
+    if (cell && cell.column === index) {
+      let css = cell.css;
       if (index === 0) {
         css = `${mutedCSS} ${css}`
       }
@@ -30,13 +51,25 @@ function SolutionTableRow({ cellKey, row, item, currentCell, currentCellCSS }) {
           </div>
         </td>
         :
-        <td className="cell"> </td>
+        <td className="cell" ref={measureCellRef}></td>
       }
       {row.map((cell, index) => {
-        const currentCSS = getCSS(index)
         const id = getCellId(cellKey, index);
+        const hightlightCell = getCell(index)
+        const currentCSS = getCSS(index, hightlightCell);
+        const displayValue = shouldDisplayValue(index, hightlightCell);
         const value = format(cell);
-        return <td id={id} key={id} className={`cell ${currentCSS}`}>{value}</td>
+        return (
+          <td id={id} key={id} className={`cell ${currentCSS}`}  ref={rowIndex === 1 && index === 1 ? measureCellRef : null}>
+            {displayValue ?
+              <div className="relative">
+                <span>{value}</span>
+                <div className="absolute -top-4 -right-2 text-sm">{currentItem ? `+${currentItem.value}` : ""}</div>
+              </div>
+              :
+              `${value}`
+            }
+          </td>)
       })}
     </tr>
   );
@@ -47,8 +80,9 @@ SolutionTableRow.propTypes = {
   cellKey: PropTypes.string.isRequired,
   row: PropTypes.arrayOf(PropTypes.number).isRequired,
   item: ItemPropType,
-  currentCell: PropTypes.number,
-  currentCellCSS: PropTypes.string,
-
+  highlightcells: PropTypes.oneOfType([TableStateReturnValue, PropTypes.arrayOf(TableStateReturnValue)]),
+  currentItem: ItemPropType,
+  measureCellRef: PropTypes.func,
+  rowIndex: PropTypes.number,
 };
 export default SolutionTableRow;

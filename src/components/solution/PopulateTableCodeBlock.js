@@ -49,9 +49,13 @@ function PopulateTableCodeBlock({ knapsackAlgorithm, state, dispatch }) {
               <ul className="list-disc ml-8">
                 <li>The item may not take up the entire knapsack. So, there will be available capacity in which to fit additional items. The item's weight is subtracted from the current capacity to get the remaining capacity. The value at that capacity in the previous row is added to the item's value to get the total value.</li>
               </ul>
+              <li>The above table will highlight these two cells in light green.</li>
             </ul>
           </li>
           <li>If the item does not fit then use the value from the cell above it.</li>
+          <ul className="list-disc ml-8">
+            <li>The above table will highlight the cell in light green.</li>
+          </ul>
         </ul>
         <p>At the current step the the capacity is {state.currentCapacity} and the item weight is {codeBlock.item.weight}. </p>
         {codeBlock.isInSolutions() ? 
