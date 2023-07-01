@@ -3,7 +3,7 @@ import { capacityDefaults, itemValueDefaults, maxNumOfItems } from "../models/Va
 import { useForm, useFieldArray } from "react-hook-form";
 import { actionTypes } from '../App';
 import { ErrorMessage } from '@hookform/error-message';
-import { TrashIcon } from '@heroicons/react/solid';
+import { TrashIcon } from '@heroicons/react/24/solid';
 import React, { useContext } from 'react';
 import eq1 from '../assets/equation_1.svg';
 import eq2 from '../assets/equation_2.svg';

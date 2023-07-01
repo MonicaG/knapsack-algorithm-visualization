@@ -5,7 +5,7 @@ import { capacityDefaults } from './models/ValueDefaults';
 import SolutionController from './components/solution/SolutionController';
 import Item from './models/Item';
 import KnapsackAlgorithm from './models/KnapsackAlgorithm'
-import { CameraIcon } from '@heroicons/react/solid';
+import { CameraIcon } from '@heroicons/react/24/solid';
 import hero from './assets/hero.png';
 import twitter from './assets/twitter-blue.svg';
 import github from './assets/github.png';
