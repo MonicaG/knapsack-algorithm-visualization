@@ -1,8 +1,7 @@
 {
   "files": {
-    "main.css": "/knapsack-algorithm-visualization/static/css/main.6d9ce197.css",
-    "main.js": "/knapsack-algorithm-visualization/static/js/main.f4eb69ad.js",
-    "static/js/787.df8b8c93.chunk.js": "/knapsack-algorithm-visualization/static/js/787.df8b8c93.chunk.js",
+    "main.css": "/knapsack-algorithm-visualization/static/css/main.b5f60a50.css",
+    "main.js": "/knapsack-algorithm-visualization/static/js/main.9fed142c.js",
     "static/media/Ko-fi_logo_RGB_Outline.png": "/knapsack-algorithm-visualization/static/media/Ko-fi_logo_RGB_Outline.3a405610bcb5be332488.png",
     "static/media/hero.png": "/knapsack-algorithm-visualization/static/media/hero.df06c8ba2f22f5606303.png",
     "static/media/equation_2.svg": "/knapsack-algorithm-visualization/static/media/equation_2.419e8441525423285a03ce44ff0eeed0.svg",
@@ -11,12 +10,11 @@
     "index.html": "/knapsack-algorithm-visualization/index.html",
     "static/media/twitter-blue.svg": "/knapsack-algorithm-visualization/static/media/twitter-blue.58bf1288266cc62d814a406fe8b5f4ef.svg",
     "static/media/menu.svg": "/knapsack-algorithm-visualization/static/media/menu.fd2b3c8f2942ac343682bcc201e18afa.svg",
-    "main.6d9ce197.css.map": "/knapsack-algorithm-visualization/static/css/main.6d9ce197.css.map",
-    "main.f4eb69ad.js.map": "/knapsack-algorithm-visualization/static/js/main.f4eb69ad.js.map",
-    "787.df8b8c93.chunk.js.map": "/knapsack-algorithm-visualization/static/js/787.df8b8c93.chunk.js.map"
+    "main.b5f60a50.css.map": "/knapsack-algorithm-visualization/static/css/main.b5f60a50.css.map",
+    "main.9fed142c.js.map": "/knapsack-algorithm-visualization/static/js/main.9fed142c.js.map"
   },
   "entrypoints": [
-    "static/css/main.6d9ce197.css",
-    "static/js/main.f4eb69ad.js"
+    "static/css/main.b5f60a50.css",
+    "static/js/main.9fed142c.js"
   ]
 }
