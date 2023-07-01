@@ -7,15 +7,19 @@ import AppContext from '../AppContext';
 
 
 describe('test the setup screen', () => {
-  let initItems = [
-    new Item('item 1', 11, 1),
-    new Item('item 2', 7, 5),
-    new Item('item 3', 9, 2)
-  ];
+  let initItems = [];
 
   const mockDispatch = {
     appDispatch: jest.fn(),
   }
+
+  beforeEach( () => {
+    initItems = [
+      new Item('item 1', 11, 1),
+      new Item('item 2', 7, 5),
+      new Item('item 3', 9, 2)
+    ];
+  })
 
   const submitBtnNameQuery = /Start/i;
 
